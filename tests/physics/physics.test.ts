@@ -4,6 +4,10 @@
 import { describe, expect, it } from 'vitest'
 import {
   bandTable,
+  buildChainRay,
+  epsSweep,
+  rdmRelation,
+  solveBin,
   boxR,
   boxZ,
   BOX_A,
@@ -11,11 +15,14 @@ import {
   csqrt,
   dB,
   diagnose,
+  explainProfile,
+  EXTRA_PROFILE_SPECS,
   buildProfile,
   dfrCurve,
   dfrOf,
   dfrSolutions,
   fallSpeed,
+  hbConstrained,
   hbProfile,
   meltDensity,
   meltDiameter,
@@ -156,5 +163,57 @@ describe('Ch6 — classify diagnostics', () => {
 describe('Ch8 — monsoon', () => {
   it('a fixed Z–R relation misreads the wet spell', () => {
     expect(Math.abs(spellReadout(WET_SPELL).errPct)).toBeGreaterThan(0)
+  })
+})
+
+describe('Ch7 — teaching Solver', () => {
+  it('a solution on the R–Dm plane reproduces the bin reflectivity', () => {
+    const s = solveBin(36.5, 1.7)
+    expect(dB(Zray(s.Dm, s.logNw, 3))).toBeCloseTo(36.5, 8)
+    expect(s.R).toBeCloseTo(rdmRelation(s.Dm, 1.7), 10)
+  })
+  it('with a perfect SRT the ε sweep lands within 0.1 dB of the true PIA', () => {
+    const ray = buildChainRay()
+    const t = epsSweep(ray, 0).truthPia
+    expect(Math.abs(epsSweep(ray, t).best.pia - t)).toBeLessThan(0.1)
+  })
+  it('a biased SRT drags ε with it', () => {
+    const ray = buildChainRay()
+    const t = epsSweep(ray, 0).truthPia
+    expect(epsSweep(ray, t + 1).best.eps).toBeGreaterThan(epsSweep(ray, t).best.eps)
+    expect(epsSweep(ray, t - 1).best.eps).toBeLessThan(epsSweep(ray, t).best.eps)
+  })
+})
+
+describe('Ch4 — HB constrained by the SRT', () => {
+  it('leaves only the calibration offset, however heavy the rain', () => {
+    for (const [R, d, Dm] of [
+      [10, 4, 1.5],
+      [80, 6, 2],
+    ]) {
+      const m = rainColumn({ R, depth: d, Dm })
+      for (const cal of [-1, 0, 1]) {
+        const ze = hbConstrained(m.ku, 'ku', d, 60, m.ku.pia, cal).profile.at(-1)!.ze
+        expect(ze - m.ku.Ze).toBeCloseTo(cal, 6)
+      }
+    }
+  })
+  it('while plain HB goes badly wrong in heavy rain', () => {
+    const m = rainColumn({ R: 80, depth: 6, Dm: 2 })
+    expect(Math.abs(hbProfile(m.ku, 'ku', 6, 60).at(-1)!.ze - m.ku.Ze)).toBeGreaterThan(10)
+  })
+})
+
+describe('Ch6 — extra classify profiles', () => {
+  it('each shows the evidence its class needs', () => {
+    for (const s of EXTRA_PROFILE_SPECS) {
+      const P = buildProfile(s)
+      const d = diagnose(P)
+      expect(d.bb !== null).toBe(s.a === 'strat')
+      if (s.a === 'conv') expect(d.top).toBeGreaterThan(10)
+      if (s.a === 'shallow') expect(d.top).toBeLessThan(s.t0)
+      if (s.a === 'snow') expect(d.zmax).toBeLessThan(25)
+      expect(explainProfile(P, d)).not.toMatch(/undefined|NaN/)
+    }
   })
 })

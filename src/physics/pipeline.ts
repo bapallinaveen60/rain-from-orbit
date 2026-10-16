@@ -57,6 +57,8 @@ export const PIPE_ZTOP = 13
 export const PIPE_N = 130
 /** Freezing level, km. */
 export const PIPE_T0 = 4.6
+/** Dm of the liquid layer, mm. */
+export const PIPE_DM = 1.15
 /** Clutter-free bottom, km. */
 export const PIPE_CFB = 0.75
 /** DSD nodes A–E, km. */
@@ -108,7 +110,7 @@ export function buildChainRay(): ChainRay {
       rr.push(0)
       continue
     }
-    const dm = z[j] < T0 - 0.4 ? 1.15 : 0.0
+    const dm = z[j] < T0 - 0.4 ? PIPE_DM : 0.0
     let k = 0.02
     if (dm > 0) {
       const nw = nwForZ(ze[j], dm, 3)

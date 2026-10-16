@@ -13,8 +13,9 @@ See `../web/IMPLEMENTATION_PLAN.md` for the full plan.
 | 2 Content migration — 70 MDX pages, book components  | done    |
 | 3 Simulator parity — all 8 sims rebuilt in React     | done    |
 | 4 Shared storm state + learning tools                | done    |
-| 5 Simulator upgrades                                 | next    |
-| 6–7                                                  | planned |
+| 5 Simulator upgrades                                 | done    |
+| 6 Reader features + ship                             | next    |
+| 7 Real data (granule explorer)                       | planned |
 
 ## Commands
 
@@ -53,6 +54,16 @@ code (to 1 part in 10¹⁰). `tests/physics/physics.test.ts` checks the numbers 
 
 One interpretation is flagged in code: the ATBD's third fall-speed regime is printed only as "interpolate to the
 raindrop speed". `melting.ts` interpolates linearly in ρ_b, which matches the book's table to within 0.01 m s⁻¹.
+
+## Simulator upgrades (Phase 5)
+
+- **Orbit** — map or draggable globe, 407 → 442 km boost (period and swath), click any place for DPR/GMI pass counts and the longest gap.
+- **DSD lab** — drag the curve, storm presets, solve N_w to match a target Z.
+- **Scan curtain** — send an animated pulse down the selected ray.
+- **Attenuation** — HB vs SRT-constrained HB, with calibration and SRT error knobs.
+- **DFR** — inverse mode: drag a measured DFR and see every Dₘ that explains it.
+- **Classify** — 12 profiles, streaks, evidence overlay after you commit, shuffled replays.
+- **Level-2 chain** — inputs → outputs for each module, an R–Dₘ plane and an ε sweep. The R–Dₘ relation is fitted to the book's own DSD model (the ATBD coefficients are not printed in the book), and is labelled as illustrative.
 
 ## Routing
 

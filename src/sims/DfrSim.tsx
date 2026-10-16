@@ -1,20 +1,30 @@
-import { useMemo } from 'react'
+import { useMemo, useRef, useState, type PointerEvent } from 'react'
 import { dB, dfrCurve, dfrOf, dfrSolutions, mieZK } from '../physics'
 import { axes, gridline, label, MONOS, poly, yTitle, type Frame } from './shared/draw'
 import { usePlot } from './shared/usePlot'
 import { StormLink } from './shared/StormLink'
 import { useSimStorm } from './shared/useSimStorm'
 import { DEFAULT_STORM } from '../store/storm'
-import { Readout, Slider, U, Widget } from './shared/ui'
+import { Readout, Slider, Toggle, U, Widget } from './shared/ui'
 import type { SimProps } from './types'
 
-function drawDfr({ ctx, w: W, h: H, c }: Frame, cur: [number, number][], Dm: number, dfr: number, sols: number[]) {
-  const x0 = 48
-  const x1 = W - 16
-  const y0 = 18
-  const y1 = H - 38
-  const ymax = Math.max(10, Math.ceil(Math.max(...cur.map((p) => p[1])) + 1))
-  const ymin = -2.2
+const PLOT = { x0: 48, right: 16, y0: 18, bottom: 38, ymin: -2.2 }
+const yMax = (cur: [number, number][]) => Math.max(10, Math.ceil(Math.max(...cur.map((p) => p[1])) + 1))
+
+/** Draw the DFR curve. Dm is null in inverse mode, where only the measured DFR is known. */
+function drawDfr(
+  { ctx, w: W, h: H, c }: Frame,
+  cur: [number, number][],
+  Dm: number | null,
+  dfr: number,
+  sols: number[],
+) {
+  const x0 = PLOT.x0
+  const x1 = W - PLOT.right
+  const y0 = PLOT.y0
+  const y1 = H - PLOT.bottom
+  const ymax = yMax(cur)
+  const ymin = PLOT.ymin
   const X = (d: number) => x0 + ((d - 0.2) / 3.8) * (x1 - x0)
   const Y = (v: number) => y1 - ((v - ymin) / (ymax - ymin)) * (y1 - y0)
   for (let g = -2; g <= ymax; g += 2) gridline(ctx, x0, x1, Y(g), c)
@@ -43,14 +53,19 @@ function drawDfr({ ctx, w: W, h: H, c }: Frame, cur: [number, number][], Dm: num
     ctx.fill()
     ctx.stroke()
   }
-  ctx.fillStyle = c.ku
-  ctx.beginPath()
-  ctx.arc(X(Dm), Y(dfr), 5.5, 0, 7)
-  ctx.fill()
-  ctx.strokeStyle = c.surface
-  ctx.lineWidth = 1.8
-  ctx.stroke()
-  label(ctx, 'your Dm', X(Dm), Y(dfr) - 14, c.ku, MONOS, 'center')
+  if (Dm !== null) {
+    ctx.fillStyle = c.ku
+    ctx.beginPath()
+    ctx.arc(X(Dm), Y(dfr), 5.5, 0, 7)
+    ctx.fill()
+    ctx.strokeStyle = c.surface
+    ctx.lineWidth = 1.8
+    ctx.stroke()
+    label(ctx, 'your Dm', X(Dm), Y(dfr) - 14, c.ku, MONOS, 'center')
+  } else {
+    label(ctx, 'measured DFR ' + dfr.toFixed(2) + ' dB — drag me', x1 - 4, Y(dfr) - 9, c.ink2, MONOS, 'right')
+    sols.forEach((s, i) => label(ctx, s.toFixed(2) + ' mm', X(s), Y(dfr) + (i % 2 ? 16 : -14), c.ink, MONOS, 'center'))
+  }
 
   ctx.save()
   ctx.fillStyle = c.ink
@@ -74,9 +89,22 @@ export default function DfrSim({ title, hint }: SimProps) {
   const setNw = (v: number) => link.set({ logNw: v })
   const setMu = (v: number) => link.set({ mu: v })
   const cur = useMemo(() => dfrCurve(mu), [mu])
-  const dfr = dfrOf(+Dm.toFixed(2), mu)
+  const [inverse, setInverse] = useState(false)
+  const [target, setTarget] = useState(0.5)
+  const dragging = useRef(false)
+  const dfr = inverse ? target : dfrOf(+Dm.toFixed(2), mu)
   const sols = dfrSolutions(cur, dfr)
-  const ref = usePlot((f) => drawDfr(f, cur, Dm, dfr, sols), 420 / 760)
+  const ref = usePlot((f) => drawDfr(f, cur, inverse ? null : Dm, dfr, sols), 420 / 760)
+
+  /** Inverse mode: pointer height on the plot sets the measured DFR. */
+  const setFromPointer = (e: PointerEvent<HTMLCanvasElement>) => {
+    const r = e.currentTarget.getBoundingClientRect()
+    const y0 = PLOT.y0
+    const y1 = r.height - PLOT.bottom
+    const ymax = yMax(cur)
+    const v = PLOT.ymin + ((y1 - (e.clientY - r.top)) / (y1 - y0)) * (ymax - PLOT.ymin)
+    setTarget(Math.max(PLOT.ymin, Math.min(ymax, v)))
+  }
   const zk = mieZK('ku', Dm, nw, mu)
   const za = mieZK('ka', Dm, nw, mu)
 
@@ -84,10 +112,43 @@ export default function DfrSim({ title, hint }: SimProps) {
     <Widget id="dfr" title={title} hint={hint} tools={<StormLink linked={link.linked} setLinked={link.setLinked} />}>
       <div className="split">
         <div className="plotbox">
-          <canvas ref={ref} role="img" aria-label="Dual-frequency ratio against Dm" />
+          <div className="seg" style={{ marginBottom: 10 }}>
+            <Toggle pressed={!inverse} onClick={() => setInverse(false)}>
+              Forward: pick D<sub>m</sub>
+            </Toggle>
+            <Toggle pressed={inverse} onClick={() => setInverse(true)}>
+              Inverse: measure DFR
+            </Toggle>
+          </div>
+          <canvas
+            ref={ref}
+            role="img"
+            aria-label={inverse ? 'Measured DFR and the Dm values that explain it' : 'Dual-frequency ratio against Dm'}
+            style={inverse ? { touchAction: 'none', cursor: 'ns-resize' } : undefined}
+            onPointerDown={(e) => {
+              if (!inverse) return
+              dragging.current = true
+              e.currentTarget.setPointerCapture(e.pointerId)
+              setFromPointer(e)
+            }}
+            onPointerMove={(e) => inverse && dragging.current && setFromPointer(e)}
+            onPointerUp={() => (dragging.current = false)}
+            onPointerCancel={() => (dragging.current = false)}
+          />
         </div>
         <div>
           <div className="ctrls">
+            {inverse && (
+              <Slider
+                label="Measured DFR"
+                value={target}
+                min={PLOT.ymin}
+                max={yMax(cur)}
+                step={0.05}
+                display={target.toFixed(2) + ' dB'}
+                onChange={setTarget}
+              />
+            )}
             <Slider
               label={
                 <>
@@ -140,9 +201,22 @@ export default function DfrSim({ title, hint }: SimProps) {
             >
               <U v={dB(za.Ze).toFixed(1)} u="dBZ" />
             </Readout>
-            <Readout k="DFR solutions" bad={sols.length > 1}>
+            <Readout k="DFR solutions" bad={sols.length !== 1}>
               {sols.length}
             </Readout>
+            {inverse && (
+              <Readout
+                k={
+                  <>
+                    D<sub>m</sub> that fit
+                  </>
+                }
+              >
+                <small style={{ fontSize: 13 }}>
+                  {sols.length ? sols.map((s) => s.toFixed(2)).join(' or ') + ' mm' : 'none'}
+                </small>
+              </Readout>
+            )}
           </div>
         </div>
       </div>

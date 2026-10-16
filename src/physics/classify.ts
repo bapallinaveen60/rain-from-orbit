@@ -28,6 +28,7 @@ export interface ProfileSpec {
   bb: boolean
   /** Dm in the rain layer, mm (0 = no liquid layer). */
   dm: number
+  /** Hand-written explanation; empty to generate one from the diagnostics. */
   why: string
 }
 
@@ -207,4 +208,36 @@ export function diagnose(P: Profile): Diagnostics {
     slope = (d2 - d1) / (P.z[hi] - P.z[lo])
   }
   return { zmax, top, bb: P.spec.bb ? bbH : null, slope }
+}
+
+/**
+ * Six more profiles for repeat play. Their explanations are generated from each profile's own
+ * diagnostics (see explainProfile), so the numbers quoted always match the plot.
+ */
+export const EXTRA_PROFILE_SPECS: ProfileSpec[] = [
+  { a: 'strat', t0: 5.2, top: 9.0, peak: 38, rain: 26, bb: true, dm: 1.2, why: '' },
+  { a: 'conv', t0: 5.0, top: 13.0, peak: 50, rain: 50, bb: false, dm: 1.9, why: '' },
+  { a: 'snow', t0: 0.2, top: 4.8, peak: 19, rain: 19, bb: false, dm: 0, why: '' },
+  { a: 'shallow', t0: 5.0, top: 2.4, peak: 34, rain: 34, bb: false, dm: 1.1, why: '' },
+  { a: 'strat', t0: 3.6, top: 6.8, peak: 33, rain: 23, bb: true, dm: 1.0, why: '' },
+  { a: 'conv', t0: 4.5, top: 14.8, peak: 55, rain: 55, bb: false, dm: 2.3, why: '' },
+]
+
+export const ALL_PROFILE_SPECS = [...PROFILE_SPECS, ...EXTRA_PROFILE_SPECS]
+
+/** The explanation shown after answering: the hand-written one if present, else built from the diagnostics. */
+export function explainProfile(P: Profile, d: Diagnostics = diagnose(P)): string {
+  if (P.spec.why) return P.spec.why
+  const s = P.spec
+  const slope = d.slope === null ? 'not measurable' : `${d.slope.toFixed(1)} dB per kilometre`
+  switch (s.a) {
+    case 'strat':
+      return `A bright band at ${d.bb?.toFixed(1)} km, just below the ${s.t0.toFixed(1)} km freezing level, with reflectivity falling away above and below it. The DFR slope underneath is ${slope} — nearly flat, so there is little Ka attenuation to accumulate — and the ${d.zmax.toFixed(0)} dBZ peak stays under the 46 dBZ bright-band ceiling. Stratiform.`
+    case 'conv':
+      return `Storm top near ${d.top.toFixed(1)} km, no bright band at the ${s.t0.toFixed(1)} km freezing level, a measured Ku maximum of ${d.zmax.toFixed(0)} dBZ and a DFR slope of ${slope}: heavy attenuation all the way down.${d.zmax < 40 ? ' The measured peak is under 40 dBZ only because of that attenuation; corrected, it is well past the threshold.' : ''} Convective.`
+    case 'snow':
+      return `The freezing level is at ${s.t0.toFixed(1)} km, so there is no melting layer and no bright band. Ku stays near ${d.zmax.toFixed(0)} dBZ while the DFR still grows downward (${slope}) — aggregation, snowflakes growing as they fall, not attenuation. Snow.`
+    case 'shallow':
+      return `The echo tops out at ${d.top.toFixed(1)} km, entirely below the ${s.t0.toFixed(1)} km freezing level: no ice phase, so nothing melts and no bright band can form. Warm rain — and much of it sits inside the grey blind layer near the ground. Shallow.`
+  }
 }

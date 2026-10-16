@@ -48,3 +48,59 @@ export function periodForAltitude(altKm: number): number {
   const a = 6371 + altKm
   return 2 * Math.PI * Math.sqrt((a * a * a) / MU)
 }
+
+/** Altitudes before and after the November 2023 orbit boost, km. */
+export const ALT_BEFORE = 407
+export const ALT_AFTER = 442
+
+/**
+ * Period at an altitude, scaled from the book's 92.7 min at 407 km by Kepler's third law
+ * (so the 407 km case is exactly the original simulator's).
+ */
+export const periodAt = (altKm: number) => PERIOD_S * Math.pow((6371 + altKm) / (6371 + ALT_BEFORE), 1.5)
+
+/** A fixed scan angle sweeps a wider swath from higher up: half-swath scales with altitude. */
+export const halfSwathAt = (halfSwath: number, altKm: number) => (halfSwath * altKm) / ALT_BEFORE
+
+/** Great-circle distance between two points, degrees. */
+export function greatCircleDeg(a: LonLat, b: LonLat): number {
+  const R = Math.PI / 180
+  const s =
+    Math.sin(a[1] * R) * Math.sin(b[1] * R) + Math.cos(a[1] * R) * Math.cos(b[1] * R) * Math.cos((a[0] - b[0]) * R)
+  return Math.acos(Math.min(1, Math.max(-1, s))) / R
+}
+
+/**
+ * Times (s) at which the swath passes over `place` within `tEnd` seconds: one entry per
+ * pass, at its closest approach. Sampled every 5 s (≈ 35 km along track).
+ */
+export function passTimes(place: LonLat, halfSwath: number, tEnd = 86400, period = PERIOD_S): number[] {
+  const out: number[] = []
+  let inPass = false
+  let bestT = 0
+  let bestD = Infinity
+  for (let t = 0; t <= tEnd; t += 5) {
+    const d = greatCircleDeg(track(t, period), place)
+    if (d <= halfSwath) {
+      if (!inPass || d < bestD) {
+        bestD = d
+        bestT = t
+      }
+      inPass = true
+    } else if (inPass) {
+      out.push(bestT)
+      inPass = false
+      bestD = Infinity
+    }
+  }
+  if (inPass) out.push(bestT)
+  return out
+}
+
+/** Longest stretch without a pass in [0, tEnd], hours. */
+export function longestGapHours(times: number[], tEnd = 86400): number {
+  const pts = [0, ...times, tEnd]
+  let gap = 0
+  for (let i = 1; i < pts.length; i++) gap = Math.max(gap, pts[i] - pts[i - 1])
+  return gap / 3600
+}

@@ -1,4 +1,4 @@
-import { useRef, useState, type PointerEvent } from 'react'
+import { useEffect, useRef, useState, type PointerEvent } from 'react'
 import {
   angleOf,
   clutterFreeBottom,
@@ -77,7 +77,11 @@ function drawCurtain({ ctx, w: W, h: H, c }: Frame, kind: SceneKind, ray: number
   label(ctx, '49 beams across a 245 km swath', (x0 + x1) / 2, y1 + 27, c.ink2, MONOS, 'center')
 }
 
-function drawRay({ ctx, w: W, h: H, c }: Frame, kind: SceneKind, ray: number) {
+/**
+ * The selected ray. With `pulse` (0–1) set, only the echo received so far is drawn: the
+ * pulse front is at height ZTOP·(1 − pulse), and everything above it has already come back.
+ */
+function drawRay({ ctx, w: W, h: H, c }: Frame, kind: SceneKind, ray: number, pulse: number | null = null) {
   const x0 = 44
   const x1 = W - 16
   const y0 = 14
@@ -105,8 +109,21 @@ function drawRay({ ctx, w: W, h: H, c }: Frame, kind: SceneKind, ray: number) {
   label(ctx, 'clutter-free bottom', x1 - 4, Y(cb) - 8, c.ink3, MONOS, 'right')
 
   const pts: Pt[] = []
-  for (let k = 0; k < NZ; k++) if (col[k] > ZMIN) pts.push([X(Math.min(col[k], ZMAXD)), Y(heightOf(k))])
+  const front = pulse === null ? -1 : ZTOP * (1 - pulse)
+  for (let k = 0; k < NZ; k++)
+    if (col[k] > ZMIN && heightOf(k) >= front) pts.push([X(Math.min(col[k], ZMAXD)), Y(heightOf(k))])
   if (pts.length > 1) poly(ctx, pts, c.ku, 2.2)
+  if (pulse !== null && front >= 0) {
+    ctx.save()
+    ctx.strokeStyle = c.accent
+    ctx.lineWidth = 2
+    ctx.beginPath()
+    ctx.moveTo(x0, Y(front))
+    ctx.lineTo(x1, Y(front))
+    ctx.stroke()
+    ctx.restore()
+    label(ctx, `pulse at ${front.toFixed(1)} km`, x0 + 6, Y(front) + 11, c.accent, MONOS)
+  }
   const top = stormTop(col)
   ctx.save()
   ctx.setLineDash([3, 3])
@@ -137,7 +154,22 @@ export default function ScanCurtain({ title, hint }: SimProps) {
   const [kind, setKind] = useState<SceneKind>('squall')
   const [ray, setRay] = useState(24)
   const curtain = usePlot((f) => drawCurtain(f, kind, ray), 380 / 760)
-  const rayPlot = usePlot((f) => drawRay(f, kind, ray), 380 / 420)
+  const [pulse, setPulse] = useState<number | null>(null)
+  const rayPlot = usePlot((f) => drawRay(f, kind, ray, pulse), 380 / 420)
+
+  // Send a pulse: the echo builds up from storm top to the ground over ~2 s (really ~0.1 ms).
+  useEffect(() => {
+    if (pulse === null || pulse >= 1) return
+    const start = performance.now() - pulse * 2000
+    let id = 0
+    const tick = (now: number) => {
+      const p = Math.min(1, (now - start) / 2000)
+      setPulse(p >= 1 ? null : p)
+      if (p < 1) id = requestAnimationFrame(tick)
+    }
+    id = requestAnimationFrame(tick)
+    return () => cancelAnimationFrame(id)
+  }, [pulse === null]) // eslint-disable-line react-hooks/exhaustive-deps
   const dragging = useRef(false)
 
   const pick = (e: PointerEvent<HTMLCanvasElement>) => {
@@ -188,6 +220,9 @@ export default function ScanCurtain({ title, hint }: SimProps) {
       </div>
       <div className="ctrls" style={{ marginTop: 14 }}>
         <div className="seg">
+          <Toggle pressed={pulse !== null} onClick={() => setPulse(pulse === null ? 0 : null)}>
+            {pulse === null ? 'Send a pulse' : 'Stop'}
+          </Toggle>
           {SCENES.map(([k, name]) => (
             <Toggle key={k} pressed={kind === k} onClick={() => setKind(k)}>
               {name}

@@ -92,20 +92,52 @@ export interface HBPoint {
   ze: number
 }
 
-/** Hitschfeld–Bordan correction down the column, in `steps` increments. */
-export function hbProfile(col: BandColumn, band: Band, depth: number, steps: number): HBPoint[] {
+/**
+ * Hitschfeld–Bordan correction down the column, in `steps` increments.
+ * @param calib radar calibration error added to every measured value, dB
+ * @param alphaScale multiplier on the power-law α (1 = plain HB)
+ */
+export function hbProfile(
+  col: BandColumn,
+  band: Band,
+  depth: number,
+  steps: number,
+  calib = 0,
+  alphaScale = 1,
+): HBPoint[] {
   const F = hbFit()[band]
   const out: HBPoint[] = []
   const ds = depth / steps
   let integ = 0
   for (let i = 0; i <= steps; i++) {
     const s = i * ds
-    const zm = measuredAt(col, s)
-    if (i > 0) integ += F.a * Math.pow(Math.pow(10, zm / 10), F.b) * ds
+    const zm = measuredAt(col, s) + calib
+    if (i > 0) integ += alphaScale * F.a * Math.pow(Math.pow(10, zm / 10), F.b) * ds
     const den = 1 - 0.2 * Math.LN10 * F.b * integ
     out.push({ h: depth - s, zm, den, ze: den > 0 ? zm - (10 / F.b) * Math.log10(den) : NaN })
   }
   return out
+}
+
+/**
+ * HB constrained by a surface reference (the "α-adjustment"): scale α so the correction's
+ * PIA at the bottom equals `piaRef`. Calibration errors in Zm then largely cancel, because
+ * the SRT measures a difference of surface echoes, not an absolute power.
+ */
+export function hbConstrained(
+  col: BandColumn,
+  band: Band,
+  depth: number,
+  steps: number,
+  piaRef: number,
+  calib = 0,
+): { profile: HBPoint[]; alphaScale: number } {
+  const F = hbFit()[band]
+  const ds = depth / steps
+  let I = 0
+  for (let i = 1; i <= steps; i++) I += F.a * Math.pow(Math.pow(10, (measuredAt(col, i * ds) + calib) / 10), F.b) * ds
+  const alphaScale = (1 - Math.pow(10, -0.1 * F.b * Math.max(0, piaRef))) / (0.2 * Math.LN10 * F.b * I)
+  return { profile: hbProfile(col, band, depth, steps, calib, alphaScale), alphaScale }
 }
 
 /** How far the fitted power law misses the true k for this column (1 = exact). */

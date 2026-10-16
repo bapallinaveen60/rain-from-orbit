@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import {
   DETECTION_FLOOR,
+  hbConstrained,
   hbProfile,
   measuredAt,
   powerLawMismatch,
@@ -23,7 +24,16 @@ interface State {
   Dm: number
 }
 
-function drawColumn({ ctx, w: W, h: H, c }: Frame, st: State, m: Column, showHB: boolean) {
+interface Overlay {
+  showHB: boolean
+  compare: boolean
+  /** Radar calibration error, dB. */
+  calib: number
+  /** PIA the surface reference reports, dB. */
+  piaSrt: number
+}
+
+function drawColumn({ ctx, w: W, h: H, c }: Frame, st: State, m: Column, ov: Overlay) {
   const x0 = 46
   const x1 = W - 14
   const y0 = 16
@@ -68,8 +78,13 @@ function drawColumn({ ctx, w: W, h: H, c }: Frame, st: State, m: Column, showHB:
       pts.push([X(Math.max(ZL, measuredAt(m[b], s))), Y(st.depth - s)])
     }
     poly(ctx, pts, col, 2.6)
-    if (showHB && b === 'ku') {
-      const hb = hbProfile(m.ku, 'ku', st.depth, 60)
+    if (ov.compare && b === 'ku') {
+      const srt = hbConstrained(m.ku, 'ku', st.depth, 60, ov.piaSrt, ov.calib).profile
+      const sp: Pt[] = srt.filter((p) => Number.isFinite(p.ze)).map((p) => [X(Math.min(ZH, p.ze)), Y(p.h)])
+      if (sp.length > 1) poly(ctx, sp, c.good, 2, [7, 3, 1.5, 3])
+    }
+    if (ov.showHB && b === 'ku') {
+      const hb = hbProfile(m.ku, 'ku', st.depth, 60, ov.calib)
       const hp: Pt[] = []
       for (const p of hb) {
         if (!Number.isFinite(p.ze)) break
@@ -103,10 +118,19 @@ export default function AttenuationSim({ title, hint }: SimProps) {
   const { Dm, logNw, mu, depth } = link.storm
   const st: State = { R: Rrate(Dm, logNw, mu), depth, Dm }
   const [showHB, setShowHB] = useState(false)
+  const [compare, setCompare] = useState(false)
+  const [calib, setCalib] = useState(0)
+  const [srtErr, setSrtErr] = useState(0)
   const m = rainColumn({ ...st, mu })
-  const ref = usePlot((f) => drawColumn(f, st, m, showHB), 430 / 760)
+  const piaSrt = Math.max(0, m.ku.pia + srtErr)
+  const ref = usePlot((f) => drawColumn(f, st, m, { showHB, compare, calib, piaSrt }), 430 / 760)
 
-  const den = hbProfile(m.ku, 'ku', st.depth, 60).at(-1)!.den
+  const hbBottom = hbProfile(m.ku, 'ku', st.depth, 60, calib).at(-1)!
+  const den = hbBottom.den
+  const srtBottom = hbConstrained(m.ku, 'ku', st.depth, 60, piaSrt, calib).profile.at(-1)!
+  const errText = (ze: number) =>
+    Number.isFinite(ze) ? (ze - m.ku.Ze >= 0 ? '+' : '') + (ze - m.ku.Ze).toFixed(1) : 'diverged'
+  const errBad = (ze: number) => !Number.isFinite(ze) || Math.abs(ze - m.ku.Ze) > 1
   const kaSurf = m.ka.Ze - m.ka.pia
   const mis = powerLawMismatch(m.ku, 'ku')
 
@@ -152,6 +176,7 @@ export default function AttenuationSim({ title, hint }: SimProps) {
                 ),
               },
               { plain: true, label: 'dotted: Hitschfeld–Bordan estimate (Ku)' },
+              ...(compare ? [{ color: 'var(--good)', label: 'dash-dot: HB constrained by the SRT (Ku)' }] : []),
             ]}
           />
         </div>
@@ -192,7 +217,32 @@ export default function AttenuationSim({ title, hint }: SimProps) {
               <Toggle pressed={showHB} onClick={() => setShowHB((s) => !s)}>
                 Show HB correction (Ku)
               </Toggle>
+              <Toggle pressed={compare} onClick={() => setCompare((s) => !s)}>
+                Compare with SRT
+              </Toggle>
             </div>
+            {(showHB || compare) && (
+              <Slider
+                label="Radar calibration error"
+                value={calib}
+                min={-3}
+                max={3}
+                step={0.1}
+                display={(calib >= 0 ? '+' : '') + calib.toFixed(1) + ' dB'}
+                onChange={setCalib}
+              />
+            )}
+            {compare && (
+              <Slider
+                label="SRT error"
+                value={srtErr}
+                min={-3}
+                max={3}
+                step={0.1}
+                display={(srtErr >= 0 ? '+' : '') + srtErr.toFixed(1) + ' dB'}
+                onChange={setSrtErr}
+              />
+            )}
           </div>
           <div className="reads" style={{ marginTop: 14 }}>
             <Readout k="PIA Ku" tone="ku">
@@ -211,6 +261,16 @@ export default function AttenuationSim({ title, hint }: SimProps) {
                 <small style={{ fontSize: 13 }}>below floor</small>
               )}
             </Readout>
+            {(showHB || compare) && (
+              <Readout k="HB error at surface" bad={errBad(hbBottom.ze)}>
+                <U v={errText(hbBottom.ze)} u={Number.isFinite(hbBottom.ze) ? 'dB' : ''} />
+              </Readout>
+            )}
+            {compare && (
+              <Readout k="SRT-constrained error" bad={errBad(srtBottom.ze)}>
+                <U v={errText(srtBottom.ze)} u="dB" />
+              </Readout>
+            )}
             <Readout k="assumed k ÷ true k" bad={mis > 1.08 || mis < 0.85}>
               <U v={mis.toFixed(2)} u="×" />
             </Readout>

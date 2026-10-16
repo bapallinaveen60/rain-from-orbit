@@ -6,7 +6,9 @@ import {
   diagnose,
   KA_FLOOR,
   KU_FLOOR,
-  PROFILE_SPECS,
+  ALL_PROFILE_SPECS,
+  explainProfile,
+  type Diagnostics,
   type Profile,
   type RainClass,
 } from '../physics'
@@ -15,7 +17,7 @@ import { usePlot } from './shared/usePlot'
 import { Legend, Readout, Toggle, U, Widget } from './shared/ui'
 import type { SimProps } from './types'
 
-function drawProfile({ ctx, w: W, h: H, c }: Frame, P: Profile) {
+function drawProfile({ ctx, w: W, h: H, c }: Frame, P: Profile, reveal: Diagnostics | null) {
   const N = P.z.length
   const x0 = 46
   const x1 = W - 62
@@ -95,6 +97,39 @@ function drawProfile({ ctx, w: W, h: H, c }: Frame, P: Profile) {
   ctx.restore()
   for (const d of [0, 5, 10, 15]) label(ctx, d, XD(d), y0 - 7, c.accent, MONOS, 'center')
   label(ctx, 'DFRm (dB)', x1 + 4, y0 - 7, c.accent, MONOS, 'left')
+
+  if (!reveal) return
+  // After answering: mark the evidence the classifier would use.
+  const band = (z0: number, z1: number, col: string, alpha: number) => {
+    ctx.save()
+    ctx.fillStyle = col
+    ctx.globalAlpha = alpha
+    ctx.fillRect(x0, Y(z1), x1 - x0, Y(z0) - Y(z1))
+    ctx.restore()
+  }
+  if (reveal.bb !== null) {
+    band(reveal.bb - 0.3, reveal.bb + 0.3, c.ku, 0.18)
+    label(ctx, 'bright band', x0 + 6, Y(reveal.bb + 0.45), c.ku, MONOS)
+  }
+  ctx.save()
+  ctx.setLineDash([2, 3])
+  ctx.strokeStyle = c.bad
+  ctx.lineWidth = 1.2
+  ctx.beginPath()
+  ctx.moveTo(X(40), y0)
+  ctx.lineTo(X(40), y1)
+  ctx.stroke()
+  ctx.restore()
+  label(ctx, '40 dBZ', X(40) + 4, y1 - 10, c.bad, MONOS)
+  ctx.save()
+  ctx.setLineDash([4, 3])
+  ctx.strokeStyle = c.ink2
+  ctx.beginPath()
+  ctx.moveTo(x0, Y(reveal.top))
+  ctx.lineTo(x1, Y(reveal.top))
+  ctx.stroke()
+  ctx.restore()
+  label(ctx, 'storm top ' + reveal.top.toFixed(1) + ' km', x1 - 3, Y(reveal.top) - 8, c.ink2, MONOS, 'right')
 }
 
 const ANSWERS: RainClass[] = ['strat', 'conv', 'snow', 'shallow']
@@ -105,28 +140,59 @@ const BUTTON: Record<RainClass, string> = {
   shallow: 'Shallow / warm',
 }
 
+/** First round: the book's six in order, then the six extras. Later rounds are shuffled. */
+function deck(round: number): number[] {
+  const idx = ALL_PROFILE_SPECS.map((_, i) => i)
+  if (round === 0) return idx
+  for (let i = idx.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1))
+    ;[idx[i], idx[j]] = [idx[j], idx[i]]
+  }
+  return idx
+}
+
 export default function ClassifyGame({ title, hint }: SimProps) {
-  const profiles = useMemo(() => PROFILE_SPECS.map(buildProfile), [])
-  const [idx, setIdx] = useState(0)
+  const profiles = useMemo(() => ALL_PROFILE_SPECS.map(buildProfile), [])
+  const [round, setRound] = useState(0)
+  const [order, setOrder] = useState(() => deck(0))
+  const [pos, setPos] = useState(0)
   const [picked, setPicked] = useState<RainClass | null>(null)
   const [score, setScore] = useState(0)
-  const P = profiles[idx]
+  const [streak, setStreak] = useState(0)
+  const [best, setBest] = useState(0)
+
+  const P = profiles[order[pos]]
   const d = diagnose(P)
-  const ref = usePlot((f) => drawProfile(f, P), 420 / 760)
   const truth = P.spec.a
-  const last = idx >= profiles.length - 1
+  const last = pos >= order.length - 1
+  const ref = usePlot((f) => drawProfile(f, P, picked ? d : null), 420 / 760)
 
   const answer = (a: RainClass) => {
     if (picked) return
     setPicked(a)
-    if (a === truth) setScore((s) => s + 1)
+    if (a === truth) {
+      setScore((s) => s + 1)
+      setStreak((s) => {
+        setBest((b) => Math.max(b, s + 1))
+        return s + 1
+      })
+    } else setStreak(0)
+  }
+  const playAgain = () => {
+    const r = round + 1
+    setRound(r)
+    setOrder(deck(r))
+    setPos(0)
+    setPicked(null)
+    setScore(0)
+    setStreak(0)
   }
 
   return (
     <Widget id="class" title={title} hint={hint}>
       <div className="split">
         <div className="plotbox">
-          <canvas ref={ref} role="img" aria-label={`Radar profile ${idx + 1} of ${profiles.length}`} />
+          <canvas ref={ref} role="img" aria-label={`Radar profile ${pos + 1} of ${order.length}`} />
           <Legend
             items={[
               {
@@ -153,7 +219,7 @@ export default function ClassifyGame({ title, hint }: SimProps) {
                   </>
                 ),
               },
-              { plain: true, label: 'dashed: 0 °C level' },
+              { plain: true, label: picked ? 'shaded: the evidence' : 'dashed: 0 °C level' },
             ]}
           />
         </div>
@@ -179,7 +245,7 @@ export default function ClassifyGame({ title, hint }: SimProps) {
             </Readout>
           </div>
           <p style={{ fontSize: 15, margin: '0 0 10px' }}>
-            Profile <b>{idx + 1}</b> of {profiles.length}. What is it?
+            Profile <b>{pos + 1}</b> of {order.length}. What is it?
           </p>
           <div className="seg">
             {ANSWERS.map((a) => (
@@ -200,29 +266,30 @@ export default function ClassifyGame({ title, hint }: SimProps) {
                 {picked === truth ? 'Correct — ' : 'Not this one — '}
                 {CLASS_LABEL[truth]}.
               </b>{' '}
-              {P.spec.why}
+              {explainProfile(P, d)}
             </div>
           )}
           <div style={{ marginTop: 12, display: 'flex', gap: 9, alignItems: 'center', flexWrap: 'wrap' }}>
-            <button
-              className="btn"
-              type="button"
-              disabled={!picked || last}
-              onClick={() => {
-                setIdx((i) => Math.min(profiles.length - 1, i + 1))
-                setPicked(null)
-              }}
-            >
-              Next profile →
-            </button>
+            {picked && last ? (
+              <button className="btn go" type="button" onClick={playAgain}>
+                Play again (shuffled) ↻
+              </button>
+            ) : (
+              <button
+                className="btn"
+                type="button"
+                disabled={!picked}
+                onClick={() => {
+                  setPos((p) => Math.min(order.length - 1, p + 1))
+                  setPicked(null)
+                }}
+              >
+                Next profile →
+              </button>
+            )}
             <span className="tiny">
-              {!picked
-                ? idx === 0
-                  ? '0 correct'
-                  : `${score} of ${idx} correct`
-                : last
-                  ? `${score} of ${profiles.length} correct — done`
-                  : `${score} of ${idx + 1} correct`}
+              {picked ? `${score} of ${pos + 1}` : pos === 0 ? '0' : `${score} of ${pos}`} correct
+              {picked && last ? ' — done' : ''} · streak {streak} · best {best}
             </span>
           </div>
         </div>

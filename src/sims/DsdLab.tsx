@@ -1,10 +1,10 @@
-import { useState } from 'react'
+import { useRef, useState, type PointerEvent } from 'react'
 import { DMIN, dB, LWC, nd, nwForZ, Rrate, Zray } from '../physics'
 import { axes, gridline, label, MONOS, poly, pow10, yTitle, type Frame, type Pt } from './shared/draw'
 import { usePlot } from './shared/usePlot'
 import { StormLink } from './shared/StormLink'
 import { useSimStorm } from './shared/useSimStorm'
-import { DEFAULT_STORM } from '../store/storm'
+import { DEFAULT_STORM, STORM_PRESETS } from '../store/storm'
 import { Legend, Readout, Slider, Toggle, U, Widget } from './shared/ui'
 import type { SimProps } from './types'
 
@@ -85,6 +85,8 @@ export default function DsdLab({ title }: SimProps) {
   const setSt = (d: Dsd) => link.set({ Dm: d.Dm, logNw: d.nw, mu: d.mu })
   const [lock, setLock] = useState<Lock | null>(null)
   const ref = usePlot((f) => drawDsd(f, st, lock), 430 / 760)
+  const [targetZ, setTargetZ] = useState('29')
+  const drag = useRef<{ x: number; y: number; st: Dsd } | null>(null)
 
   /** Move Dm or μ; with Z locked, re-solve Nw to hold it. Moving Nw itself releases the lock. */
   const set = (key: keyof Dsd, v: number) => {
@@ -92,6 +94,18 @@ export default function DsdLab({ title }: SimProps) {
     if (lock && key !== 'nw') next.nw = clampNw(nwForZ(lock.dbz, next.Dm, next.mu))
     if (lock && key === 'nw') setLock(null)
     setSt(next)
+  }
+
+  /** Drag on the plot: sideways moves Dm, up/down moves Nw (held fixed by the lock if Z is locked). */
+  const onDrag = (e: PointerEvent<HTMLCanvasElement>) => {
+    const d = drag.current
+    if (!d) return
+    const r = e.currentTarget.getBoundingClientRect()
+    const Dm = Math.min(3.5, Math.max(0.3, d.st.Dm + ((e.clientX - d.x) / (r.width - 66)) * 6.5))
+    const nw = lock
+      ? clampNw(nwForZ(lock.dbz, Dm, d.st.mu))
+      : clampNw(d.st.nw - ((e.clientY - d.y) / (r.height - 54)) * 7)
+    setSt({ Dm, nw, mu: d.st.mu })
   }
 
   const Z = Zray(st.Dm, st.nw, st.mu)
@@ -111,11 +125,24 @@ export default function DsdLab({ title }: SimProps) {
     >
       <div className="split">
         <div className="plotbox">
-          <canvas ref={ref} role="img" aria-label="Drop size distribution N(D)" />
+          <canvas
+            ref={ref}
+            role="img"
+            aria-label="Drop size distribution N(D). Drag to change it."
+            style={{ touchAction: 'none', cursor: 'move' }}
+            onPointerDown={(e) => {
+              drag.current = { x: e.clientX, y: e.clientY, st }
+              e.currentTarget.setPointerCapture(e.pointerId)
+            }}
+            onPointerMove={onDrag}
+            onPointerUp={() => (drag.current = null)}
+            onPointerCancel={() => (drag.current = null)}
+          />
           <Legend
             items={[
               { color: 'var(--flow)', label: 'N(D), current' },
               { color: 'var(--ink3)', opacity: 0.55, label: 'locked reference' },
+              { plain: true, label: 'drag the curve: sideways for size, up and down for number' },
             ]}
           />
         </div>
@@ -196,6 +223,42 @@ export default function DsdLab({ title }: SimProps) {
                 Reset
               </Toggle>
             </div>
+            <div className="seg">
+              {STORM_PRESETS.filter((p) => !p.name.startsWith('Box')).map((p) => (
+                <Toggle
+                  key={p.name}
+                  onClick={() => {
+                    setLock(null)
+                    setSt({ Dm: p.storm.Dm, nw: p.storm.logNw, mu: p.storm.mu })
+                  }}
+                >
+                  {p.name}
+                </Toggle>
+              ))}
+            </div>
+            <form
+              className="match-z"
+              onSubmit={(e) => {
+                e.preventDefault()
+                const z = Number(targetZ)
+                if (Number.isFinite(z)) setSt({ ...st, nw: clampNw(nwForZ(z, st.Dm, st.mu)) })
+              }}
+            >
+              <label>
+                Match Z ={' '}
+                <input
+                  value={targetZ}
+                  onChange={(e) => setTargetZ(e.target.value)}
+                  inputMode="decimal"
+                  size={4}
+                  aria-label="Target reflectivity in dBZ"
+                />{' '}
+                dBZ
+              </label>
+              <button type="submit" className="btn">
+                Solve N<sub>w</sub>
+              </button>
+            </form>
           </div>
           <div className="reads" style={{ marginTop: 14 }}>
             <Readout k="Z (Rayleigh)">
