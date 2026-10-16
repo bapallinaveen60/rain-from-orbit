@@ -1,0 +1,23 @@
+/* App-only additions on top of the original book CSS (book.css is extracted verbatim). */
+html,
+body,
+#root {
+  min-height: 100%;
+}
+a.chlink,
+a.btn,
+a.tbtn {
+  text-decoration: none;
+}
+a.btn {
+  display: inline-block;
+}
+a.dot-i {
+  display: block;
+}
+.rail-foot {
+  gap: 6px;
+}
+.rail-foot .tiny {
+  margin-right: auto;
+}

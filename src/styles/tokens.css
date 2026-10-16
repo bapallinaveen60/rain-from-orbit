@@ -1,0 +1,57 @@
+/* Layout: an illustrated book. Chapter rail on the left, one PAGE at a time in the
+   middle, paged with the stepper. Every page has one header bar naming one concept
+   and numbered steps you follow in order.
+   Colour contract, kept for the whole guide:
+     amber = Ku-band · teal = Ka-band · blue = the thing we are solving for
+     red   = what the radar actually measured · pink = "do this next"
+   Dark mode is not an inversion: it is the same drawing in chalk on a blackboard. */
+:root{
+  --paper:#faf8f2; --page:#fffdf8;
+  --tint-a:#fdf6dd; --tint-b:#eff1f4; --tint-c:#fdf0f6; --tint-d:#e9f5ec;
+  --ink:#1d1c19; --ink2:#53504a; --ink3:#86817a;
+  --line:#2a2825; --line-soft:#b9b3a8;
+  --hd-main:#10508f; --hd-det:#1b6b3c; --hd-try:#8a3c8f;
+  --solve:#0d6fd4; --obs:#c62020; --flow:#d6197f;
+  --dot-c:#2a7fd4; --dot-fill:#dceeff;
+  --core-c:#1d7a4a; --core-fill:#e2f3e7;
+  --ku:#c4650f; --ka:#0f7f8c;
+  --ku-soft:#fbeada; --ka-soft:#dcf0f2;
+  --good:#1c7a4a; --bad:#b2342c;
+  --shadow:3px 3px 0 rgba(42,40,37,.10);
+  --f-ui:"Nunito Sans",-apple-system,"Segoe UI",system-ui,sans-serif;
+  --f-hand:"Caveat","Bradley Hand",cursive;
+  --f-bam:"Permanent Marker","Comic Sans MS",cursive;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  --rough:url(#rf1);
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#101317; --page:#171b21;
+  --tint-a:#242017; --tint-b:#1d222a; --tint-c:#241a21; --tint-d:#15241b;
+  --ink:#f2eee4; --ink2:#bdb7ab; --ink3:#857f74;
+  --line:#ddd6c7; --line-soft:#4b4e55;
+  --hd-main:#2e7fd0; --hd-det:#2f9458; --hd-try:#b062b6;
+  --solve:#6fb4ff; --obs:#ff7d6e; --flow:#ff6fb5;
+  --dot-c:#6fb6ff; --dot-fill:#15293d;
+  --core-c:#5cd092; --core-fill:#122a1d;
+  --ku:#f0923c; --ka:#48c6d6;
+  --ku-soft:#32210f; --ka-soft:#0e2d33;
+  --good:#58c78d; --bad:#f08077;
+  --shadow:3px 3px 0 rgba(0,0,0,.35);
+  color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --paper:#101317; --page:#171b21;
+  --tint-a:#242017; --tint-b:#1d222a; --tint-c:#241a21; --tint-d:#15241b;
+  --ink:#f2eee4; --ink2:#bdb7ab; --ink3:#857f74;
+  --line:#ddd6c7; --line-soft:#4b4e55;
+  --hd-main:#2e7fd0; --hd-det:#2f9458; --hd-try:#b062b6;
+  --solve:#6fb4ff; --obs:#ff7d6e; --flow:#ff6fb5;
+  --dot-c:#6fb6ff; --dot-fill:#15293d;
+  --core-c:#5cd092; --core-fill:#122a1d;
+  --ku:#f0923c; --ka:#48c6d6;
+  --ku-soft:#32210f; --ka-soft:#0e2d33;
+  --good:#58c78d; --bad:#f08077;
+  --shadow:3px 3px 0 rgba(0,0,0,.35);
+  color-scheme:dark;
+}

@@ -1,0 +1,8 @@
+dist
+node_modules
+public/pdf
+tests/physics/reference.json
+src/content/manifest.json
+src/assets/defs.svg
+src/styles/book.css
+src/styles/tokens.css

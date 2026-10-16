@@ -1,0 +1,330 @@
+[
+  {
+    "n": 1,
+    "title": "A Planet's Worth of Rain",
+    "pages": [
+      {
+        "tab": "Hello",
+        "heading": "How This Guide Works"
+      },
+      {
+        "tab": "Main Ideas",
+        "heading": "Measuring Rain From Space: Main Ideas"
+      },
+      {
+        "tab": "Details Part 1",
+        "heading": "Why a Radar: Details Part 1"
+      },
+      {
+        "tab": "Details Part 2",
+        "heading": "The Core Observatory: Details Part 2"
+      },
+      {
+        "tab": "Now You Try It",
+        "heading": "Now You Try It: One Day of Orbits"
+      },
+      {
+        "tab": "Details Part 3",
+        "heading": "The Constellation: Details Part 3"
+      },
+      {
+        "tab": "Self-Check",
+        "heading": "Chapter 1: Self-Check"
+      }
+    ]
+  },
+  {
+    "n": 2,
+    "title": "The Ambiguity at the Heart of It",
+    "pages": [
+      {
+        "tab": "Main Ideas",
+        "heading": "The Ambiguity: Main Ideas"
+      },
+      {
+        "tab": "Details Part 1",
+        "heading": "Three Drops in a Box: Details Part 1"
+      },
+      {
+        "tab": "Details Part 2",
+        "heading": "Computing Z by Hand: Details Part 2"
+      },
+      {
+        "tab": "Details Part 3",
+        "heading": "Computing R by Hand: Details Part 3"
+      },
+      {
+        "tab": "Details Part 4",
+        "heading": "The Second Box: Details Part 4"
+      },
+      {
+        "tab": "Details Part 5",
+        "heading": "Two Numbers, Not One: Details Part 5"
+      },
+      {
+        "tab": "Details Part 6",
+        "heading": "From Three Drops to Real Rain: Details Part 6"
+      },
+      {
+        "tab": "Now You Try It",
+        "heading": "Now You Try It: The Drop Size Laboratory"
+      },
+      {
+        "tab": "Details Part 7",
+        "heading": "What Core Actually Transmits: Details Part 7"
+      },
+      {
+        "tab": "Self-Check",
+        "heading": "Chapter 2: Self-Check"
+      }
+    ]
+  },
+  {
+    "n": 3,
+    "title": "Slicing the Storm",
+    "pages": [
+      {
+        "tab": "Main Ideas",
+        "heading": "The Scan Curtain: Main Ideas"
+      },
+      {
+        "tab": "Details Part 1",
+        "heading": "The Real Scan Pattern: Details Part 1"
+      },
+      {
+        "tab": "Details Part 2",
+        "heading": "Three Heights That Matter: Details Part 2"
+      },
+      {
+        "tab": "Now You Try It",
+        "heading": "Now You Try It: The Scan Curtain"
+      },
+      {
+        "tab": "Details Part 3",
+        "heading": "What Is Actually in the File: Details Part 3"
+      },
+      {
+        "tab": "Details Part 4",
+        "heading": "The Shape of the File: Details Part 4"
+      },
+      {
+        "tab": "Details Part 5",
+        "heading": "Where Every Variable Lives: Details Part 5"
+      },
+      {
+        "tab": "Self-Check",
+        "heading": "Chapter 3: Self-Check"
+      }
+    ]
+  },
+  {
+    "n": 4,
+    "title": "The Signal Eats Itself",
+    "pages": [
+      {
+        "tab": "Main Ideas",
+        "heading": "Attenuation: Main Ideas"
+      },
+      {
+        "tab": "Details Part 1",
+        "heading": "Attenuation in Our Two Boxes: Details Part 1"
+      },
+      {
+        "tab": "Details Part 2",
+        "heading": "The Tie-Breaker: Details Part 2"
+      },
+      {
+        "tab": "Now You Try It",
+        "heading": "Now You Try It: Attenuation Through a Column"
+      },
+      {
+        "tab": "Details Part 3",
+        "heading": "Hitschfeld–Bordan, and Why It Explodes: Details Part 3"
+      },
+      {
+        "tab": "Details Part 4",
+        "heading": "Borrowing the Ground: Details Part 4"
+      },
+      {
+        "tab": "Self-Check",
+        "heading": "Chapter 4: Self-Check"
+      }
+    ]
+  },
+  {
+    "n": 5,
+    "title": "Two Colours of Light",
+    "pages": [
+      {
+        "tab": "Main Ideas",
+        "heading": "Dual Frequency: Main Ideas"
+      },
+      {
+        "tab": "Details Part 1",
+        "heading": "When a Drop Stops Being Small: Details Part 1"
+      },
+      {
+        "tab": "Details Part 2",
+        "heading": "Why the Concentration Cancels: Details Part 2"
+      },
+      {
+        "tab": "Now You Try It",
+        "heading": "Now You Try It: DFR as a Size Gauge"
+      },
+      {
+        "tab": "Details Part 3",
+        "heading": "The Trough: Details Part 3"
+      },
+      {
+        "tab": "Details Part 4",
+        "heading": "Which Way to Walk: Details Part 4"
+      },
+      {
+        "tab": "Details Part 5",
+        "heading": "What Ka Buys Above the Freezing Level: Details Part 5"
+      },
+      {
+        "tab": "Self-Check",
+        "heading": "Chapter 5: Self-Check"
+      }
+    ]
+  },
+  {
+    "n": 6,
+    "title": "What Kind of Rain Is This?",
+    "pages": [
+      {
+        "tab": "Main Ideas",
+        "heading": "Classification: Main Ideas"
+      },
+      {
+        "tab": "Details Part 1",
+        "heading": "The Bright Band: Details Part 1"
+      },
+      {
+        "tab": "Details Part 2",
+        "heading": "What a Melting Particle Actually Is: Details Part 2"
+      },
+      {
+        "tab": "Details Part 3",
+        "heading": "Mixing the Dielectric: Details Part 3"
+      },
+      {
+        "tab": "Details Part 4",
+        "heading": "Why the Echo Falls Back: Details Part 4"
+      },
+      {
+        "tab": "Details Part 5",
+        "heading": "Conserving the Flux: Details Part 5"
+      },
+      {
+        "tab": "Details Part 6",
+        "heading": "Three Methods, One Verdict: Details Part 6"
+      },
+      {
+        "tab": "Details Part 7",
+        "heading": "Real Profiles, Real Data: Details Part 7"
+      },
+      {
+        "tab": "Details Part 8",
+        "heading": "GPM's First Snow: Details Part 8"
+      },
+      {
+        "tab": "Now You Try It",
+        "heading": "Now You Try It: Classify the Profile"
+      },
+      {
+        "tab": "Details Part 9",
+        "heading": "Nodes A to E, and the Phase Integer: Details Part 9"
+      },
+      {
+        "tab": "Details Part 10",
+        "heading": "The Flags Beyond Three Types: Details Part 10"
+      },
+      {
+        "tab": "Self-Check",
+        "heading": "Chapter 6: Self-Check"
+      }
+    ]
+  },
+  {
+    "n": 7,
+    "title": "Seven Modules",
+    "pages": [
+      {
+        "tab": "Main Ideas",
+        "heading": "The Level-2 Chain: Main Ideas"
+      },
+      {
+        "tab": "The Real Diagram",
+        "heading": "The Real Diagram: Details Part 1"
+      },
+      {
+        "tab": "Now You Try It",
+        "heading": "Now You Try It: One Ray Through the Chain"
+      },
+      {
+        "tab": "Details Part 1",
+        "heading": "The R–Dm Plane: Details Part 1"
+      },
+      {
+        "tab": "Details Part 2",
+        "heading": "The Epsilon Sweep: Details Part 2"
+      },
+      {
+        "tab": "Details Part 3",
+        "heading": "What This Means When You Use the Data: Details Part 3"
+      },
+      {
+        "tab": "Self-Check",
+        "heading": "Chapter 7: Self-Check"
+      }
+    ]
+  },
+  {
+    "n": 8,
+    "title": "The Monsoon Problem",
+    "pages": [
+      {
+        "tab": "Main Ideas",
+        "heading": "Over India: Main Ideas"
+      },
+      {
+        "tab": "Details Part 1",
+        "heading": "Box A and Box B Were Real: Details Part 1"
+      },
+      {
+        "tab": "Now You Try It",
+        "heading": "Now You Try It: Wet Spell vs Dry Spell"
+      },
+      {
+        "tab": "Details Part 2",
+        "heading": "Rain That Falls in the Blind Spot: Details Part 2"
+      },
+      {
+        "tab": "Details Part 3",
+        "heading": "How This Gets Checked: Details Part 3"
+      },
+      {
+        "tab": "Details Part 4",
+        "heading": "Opening a Granule: Details Part 4"
+      },
+      {
+        "tab": "Details Part 5",
+        "heading": "Six Things That Will Catch You: Details Part 5"
+      },
+      {
+        "tab": "Details Part 6",
+        "heading": "A Curtain in Fifteen Lines: Details Part 6"
+      },
+      {
+        "tab": "Where Next",
+        "heading": "Where to Go From Here"
+      },
+      {
+        "tab": "Self-Check",
+        "heading": "Chapter 8: Self-Check"
+      }
+    ]
+  }
+]
