@@ -11,8 +11,9 @@ See `../web/IMPLEMENTATION_PLAN.md` for the full plan.
 | 0 Scaffold — shell, routing, themes, fonts, PDFs, CI | done    |
 | 1 Physics core — typed port, parity tests, worker    | done    |
 | 2 Content migration — 70 MDX pages, book components  | done    |
-| 3 Simulator parity                                   | next    |
-| 4–7                                                  | planned |
+| 3 Simulator parity — all 8 sims rebuilt in React     | done    |
+| 4 Shared storm state + learning tools                | next    |
+| 5–7                                                  | planned |
 
 ## Commands
 
@@ -34,6 +35,7 @@ src/content/    chNN/pPP.mdx (one per page), figures/*.svg, manifest.json + chap
 src/components/book/  page vocabulary used by the MDX: Box, Talk, Calc, Alert, Note, Quiz, Sim, figures
 src/physics/    the book's maths as pure TypeScript — Mie, gamma DSD, attenuation/HB, DFR,
                 melting model, orbit, scan geometry, classify profiles, Level-2 chain ray
+src/sims/       the 8 simulators (canvas + React controls); shared/ has usePlot, draw helpers, controls
 src/store/      Zustand stores (settings, reading progress), persisted to localStorage
 src/styles/     tokens.css + book.css extracted verbatim from the original; app.css for additions
 scripts/        extract-shell.mjs (CSS, SVG defs, manifest) · extract-pages.mjs (pages, figures, quizzes)
