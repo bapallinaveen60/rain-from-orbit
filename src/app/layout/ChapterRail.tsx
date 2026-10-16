@@ -3,7 +3,7 @@ import { chapters, pathOf } from '../../content/chapters'
 import { chaptersStarted, useProgress } from '../../store/progress'
 import { useSettings } from '../../store/settings'
 
-const PDF = `${import.meta.env.BASE_URL}pdf/Rain-from-Orbit.pdf`
+export const PDF = `${import.meta.env.BASE_URL}pdf/Rain-from-Orbit.pdf`
 
 export function ChapterRail({ current }: { current: number }) {
   const seen = useProgress((s) => s.seen)
@@ -32,7 +32,24 @@ export function ChapterRail({ current }: { current: number }) {
         <span className="tiny" title="Chapters started">
           {chaptersStarted(seen)} / {chapters.length}
         </span>
-        <a className="tbtn" href={PDF} download title="Download the PDF edition" aria-label="Download the PDF edition">
+        <Link
+          className="tbtn rail-extra"
+          to="/review"
+          title="Review the questions you missed"
+          aria-label="Review missed questions"
+        >
+          ↺
+        </Link>
+        <Link className="tbtn rail-extra" to="/glossary" title="Glossary" aria-label="Glossary">
+          Aa
+        </Link>
+        <a
+          className="tbtn rail-extra"
+          href={PDF}
+          download
+          title="Download the PDF edition"
+          aria-label="Download the PDF edition"
+        >
           ⤓
         </a>
         <button

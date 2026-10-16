@@ -2,6 +2,9 @@ import { useState } from 'react'
 import { DMIN, dB, LWC, nd, nwForZ, Rrate, Zray } from '../physics'
 import { axes, gridline, label, MONOS, poly, pow10, yTitle, type Frame, type Pt } from './shared/draw'
 import { usePlot } from './shared/usePlot'
+import { StormLink } from './shared/StormLink'
+import { useSimStorm } from './shared/useSimStorm'
+import { DEFAULT_STORM } from '../store/storm'
 import { Legend, Readout, Slider, Toggle, U, Widget } from './shared/ui'
 import type { SimProps } from './types'
 
@@ -77,7 +80,9 @@ function boxPreset(dm: number): { st: Dsd; lock: Lock } {
 }
 
 export default function DsdLab({ title }: SimProps) {
-  const [st, setSt] = useState<Dsd>(START)
+  const link = useSimStorm('dsd', { ...DEFAULT_STORM, Dm: START.Dm, logNw: START.nw, mu: START.mu })
+  const st: Dsd = { Dm: link.storm.Dm, nw: link.storm.logNw, mu: link.storm.mu }
+  const setSt = (d: Dsd) => link.set({ Dm: d.Dm, logNw: d.nw, mu: d.mu })
   const [lock, setLock] = useState<Lock | null>(null)
   const ref = usePlot((f) => drawDsd(f, st, lock), 430 / 760)
 
@@ -102,6 +107,7 @@ export default function DsdLab({ title }: SimProps) {
           lock Z, then move D<sub>m</sub>
         </>
       }
+      tools={<StormLink linked={link.linked} setLinked={link.setLinked} />}
     >
       <div className="split">
         <div className="plotbox">

@@ -1,7 +1,10 @@
-import { useMemo, useState } from 'react'
+import { useMemo } from 'react'
 import { dB, dfrCurve, dfrOf, dfrSolutions, mieZK } from '../physics'
 import { axes, gridline, label, MONOS, poly, yTitle, type Frame } from './shared/draw'
 import { usePlot } from './shared/usePlot'
+import { StormLink } from './shared/StormLink'
+import { useSimStorm } from './shared/useSimStorm'
+import { DEFAULT_STORM } from '../store/storm'
 import { Readout, Slider, U, Widget } from './shared/ui'
 import type { SimProps } from './types'
 
@@ -65,9 +68,11 @@ function drawDfr({ ctx, w: W, h: H, c }: Frame, cur: [number, number][], Dm: num
 }
 
 export default function DfrSim({ title, hint }: SimProps) {
-  const [Dm, setDm] = useState(1.5)
-  const [nw, setNw] = useState(4)
-  const [mu, setMu] = useState(3)
+  const link = useSimStorm('dfr', DEFAULT_STORM)
+  const { Dm, logNw: nw, mu } = link.storm
+  const setDm = (v: number) => link.set({ Dm: v })
+  const setNw = (v: number) => link.set({ logNw: v })
+  const setMu = (v: number) => link.set({ mu: v })
   const cur = useMemo(() => dfrCurve(mu), [mu])
   const dfr = dfrOf(+Dm.toFixed(2), mu)
   const sols = dfrSolutions(cur, dfr)
@@ -76,7 +81,7 @@ export default function DfrSim({ title, hint }: SimProps) {
   const za = mieZK('ka', Dm, nw, mu)
 
   return (
-    <Widget id="dfr" title={title} hint={hint}>
+    <Widget id="dfr" title={title} hint={hint} tools={<StormLink linked={link.linked} setLinked={link.setLinked} />}>
       <div className="split">
         <div className="plotbox">
           <canvas ref={ref} role="img" aria-label="Dual-frequency ratio against Dm" />

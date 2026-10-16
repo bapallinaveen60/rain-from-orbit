@@ -1,3 +1,5 @@
+import { LiveDropBox } from '../learn/LiveDropBox'
+import { Term } from '../learn/Term'
 import { Calc } from './Calc'
 import { AtbdFigure, InlineSvg } from './figures'
 import { Alert, Box, Grid, Header, Note, Opener, Psst, Splat, Step } from './layout'
@@ -14,6 +16,7 @@ export const bookComponents = {
   Grid,
   Header,
   InlineSvg,
+  LiveDropBox,
   Note,
   Opener,
   Psst,
@@ -22,4 +25,5 @@ export const bookComponents = {
   Splat,
   Step,
   Talk,
+  Term,
 }

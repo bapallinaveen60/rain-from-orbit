@@ -17,7 +17,7 @@ function order(q: QuizItem): number[] {
   return idx
 }
 
-function Question({ q, picked, onPick }: { q: QuizItem; picked?: number; onPick: (o: number) => void }) {
+export function Question({ q, picked, onPick }: { q: QuizItem; picked?: number; onPick: (o: number) => void }) {
   const ord = useMemo(() => order(q), [q])
   const done = picked !== undefined
   const shownRight = ord.indexOf(q.c)

@@ -14,6 +14,14 @@ import { fileURLToPath } from 'node:url'
 import vm from 'node:vm'
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..')
+
+// The MDX pages are hand-edited after migration (e.g. the live drop box in Ch2); refuse to
+// overwrite them unless asked explicitly.
+if (!process.argv.includes('--force')) {
+  console.error('extract-pages: src/content has been hand-edited since migration. Re-run with --force to overwrite it.')
+  process.exit(1)
+}
+process.argv = process.argv.filter((a) => a !== '--force')
 const html = readFileSync(resolve(root, process.argv[2] ?? '../web/Rain from Orbit.html'), 'utf8')
 const $ = load(html, { decodeEntities: true })
 

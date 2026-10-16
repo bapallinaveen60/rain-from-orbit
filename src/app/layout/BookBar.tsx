@@ -1,9 +1,12 @@
 import { Link } from 'react-router-dom'
 import { chapters, pageKey, pathOf, type Loc } from '../../content/chapters'
 import { useProgress } from '../../store/progress'
+import { useUi } from '../../store/ui'
+import { StormChip } from '../StormDrawer'
 
 export function BookBar({ loc }: { loc: Loc }) {
   const seen = useProgress((s) => s.seen)
+  const openStorm = useUi((s) => s.setStormOpen)
   const pages = chapters[loc.ch - 1].pages
 
   return (
@@ -26,6 +29,7 @@ export function BookBar({ loc }: { loc: Loc }) {
           )
         })}
       </div>
+      <StormChip onOpen={() => openStorm(true)} />
     </div>
   )
 }

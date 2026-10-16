@@ -99,10 +99,15 @@ export function dfrSolutions(curve: [number, number][], dfr: number): number[] {
   for (let i = 0; i < curve.length - 1; i++) {
     const a = curve[i][1] - dfr
     const b = curve[i + 1][1] - dfr
-    if (a === 0 || a < 0 !== b < 0) {
+    // A crossing exactly on a sample counts once, at that sample (the original book counted
+    // it twice, reporting a spurious second solution whenever Dm sat on the 0.04 mm grid).
+    if (a === 0) sols.push(curve[i][0])
+    else if (b !== 0 && a < 0 !== b < 0) {
       const t = a / (a - b)
       sols.push(curve[i][0] + t * (curve[i + 1][0] - curve[i][0]))
     }
   }
+  const last = curve.at(-1)
+  if (last && last[1] === dfr) sols.push(last[0])
   return sols
 }

@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { chapters, nextLoc, pathOf, prevLoc, type Loc } from '../../content/chapters'
+import { PDF } from './ChapterRail'
 
 export function Pager({ loc }: { loc: Loc }) {
   const prev = prevLoc(loc)
@@ -25,6 +26,13 @@ export function Pager({ loc }: { loc: Loc }) {
           <span />
         )}
       </div>
+      <nav className="book-foot" aria-label="More">
+        <Link to="/glossary">Glossary</Link>
+        <Link to="/review">Review missed questions</Link>
+        <a href={PDF} download>
+          PDF edition
+        </a>
+      </nav>
     </div>
   )
 }

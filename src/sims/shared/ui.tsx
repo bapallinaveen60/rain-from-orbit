@@ -6,11 +6,14 @@ export function Widget({
   id,
   title,
   hint,
+  tools,
   children,
 }: {
   id: string
   title: ReactNode
   hint?: ReactNode
+  /** Extra controls shown on a row under the header (e.g. the storm link). */
+  tools?: ReactNode
   children: ReactNode
 }) {
   return (
@@ -19,6 +22,7 @@ export function Widget({
         {title}
         {hint && <span>{hint}</span>}
       </div>
+      {tools && <div className="wgt-tools">{tools}</div>}
       {children}
     </div>
   )

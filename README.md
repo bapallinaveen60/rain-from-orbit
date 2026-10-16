@@ -12,8 +12,9 @@ See `../web/IMPLEMENTATION_PLAN.md` for the full plan.
 | 1 Physics core — typed port, parity tests, worker    | done    |
 | 2 Content migration — 70 MDX pages, book components  | done    |
 | 3 Simulator parity — all 8 sims rebuilt in React     | done    |
-| 4 Shared storm state + learning tools                | next    |
-| 5–7                                                  | planned |
+| 4 Shared storm state + learning tools                | done    |
+| 5 Simulator upgrades                                 | next    |
+| 6–7                                                  | planned |
 
 ## Commands
 
@@ -56,4 +57,14 @@ raindrop speed". `melting.ts` interpolates linearly in ρ_b, which matches the b
 ## Routing
 
 Hash routes (`#/ch/3/2`) so deep links work on any static host. Links to the old book (`#c3p2`) redirect.
-Keys: ← → pages, `[` `]` chapters, `T` theme.
+Keys: ← → pages, `[` `]` chapters, `T` theme, `S` your storm. Other routes: `#/glossary`, `#/review`.
+
+## Learning tools
+
+- **Your storm** — one DSD (Dₘ, N_w, μ, depth) shared by the DSD, attenuation and DFR simulators; each can be unlinked. Save storms, or share one with a link (`?storm=Dm_logNw_mu_depth`).
+- **Live drop box** — the Ch2 by-hand pages let you scrub each drop diameter and watch the arithmetic recompute.
+- **I'll do it** — any worked-maths block with a highlighted numeric result can hide its results for you to fill in and check.
+- **Glossary** — the MDX build (`scripts/rehype-glossary.ts`) links the first mention of each term in `src/data/glossary.json` on every page.
+- **Review** — missed self-check questions collect on one page to retry.
+
+`src/content` is hand-edited now; `npm run extract:pages` refuses to overwrite it without `--force`.

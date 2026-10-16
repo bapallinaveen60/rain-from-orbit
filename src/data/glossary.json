@@ -1,0 +1,305 @@
+[
+  {
+    "id": "reflectivity",
+    "term": "Reflectivity (Z)",
+    "match": ["reflectivity"],
+    "def": "How strongly a volume of rain echoes the radar pulse: the sum of the sixth powers of the drop diameters, in mm⁶ m⁻³. Dominated by the biggest drops.",
+    "ch": 2,
+    "pg": 2
+  },
+  {
+    "id": "dbz",
+    "term": "dBZ",
+    "match": ["dBZ"],
+    "def": "Reflectivity on a decibel scale, 10·log₁₀(Z). Drizzle is around 15–25 dBZ, heavy convection 45–55.",
+    "ch": 2,
+    "pg": 3
+  },
+  {
+    "id": "rain-rate",
+    "term": "Rain rate (R)",
+    "match": ["rain rate"],
+    "def": "Depth of water reaching the ground per hour, in mm h⁻¹: drop volume times fall speed, summed. Weighted by roughly D³·⁷, not D⁶.",
+    "ch": 2,
+    "pg": 4
+  },
+  {
+    "id": "zr",
+    "term": "Z–R relation",
+    "match": ["Z–R"],
+    "def": "A fixed power law Z = aR^b used to turn reflectivity into rain rate. It only holds for one drop size distribution, which is the ambiguity the book is about.",
+    "ch": 2,
+    "pg": 6
+  },
+  {
+    "id": "dsd",
+    "term": "Drop size distribution (DSD)",
+    "match": ["drop size distribution", "DSD"],
+    "def": "How many drops of each size are in a cubic metre, N(D). DPR models it as a normalised gamma distribution with parameters Dₘ, N_w and μ.",
+    "ch": 2,
+    "pg": 7
+  },
+  {
+    "id": "dm",
+    "term": "Dₘ",
+    "match": [],
+    "def": "Mass-weighted mean drop diameter, in mm: the typical size of the drops carrying the water. One of the two DSD numbers DPR retrieves.",
+    "ch": 2,
+    "pg": 7
+  },
+  {
+    "id": "nw",
+    "term": "N_w",
+    "match": [],
+    "def": "Normalised intercept of the gamma DSD — how many drops there are, independent of their size. Usually quoted as log₁₀ N_w.",
+    "ch": 2,
+    "pg": 7
+  },
+  {
+    "id": "mu",
+    "term": "μ (shape)",
+    "match": ["μ"],
+    "def": "Shape parameter of the gamma DSD. DPR assumes it (μ = 3) rather than retrieving it.",
+    "ch": 2,
+    "pg": 7
+  },
+  {
+    "id": "ku",
+    "term": "Ku band",
+    "match": ["Ku-band", "Ku band"],
+    "def": "DPR's 13.6 GHz channel (wavelength 2.2 cm). Attenuated relatively little by rain; drawn in amber throughout.",
+    "ch": 2,
+    "pg": 9
+  },
+  {
+    "id": "ka",
+    "term": "Ka band",
+    "match": ["Ka-band", "Ka band"],
+    "def": "DPR's 35.5 GHz channel (wavelength 8.4 mm). More sensitive to light rain and snow, but attenuated heavily; drawn in teal throughout.",
+    "ch": 2,
+    "pg": 9
+  },
+  {
+    "id": "radiometer",
+    "term": "Radiometer",
+    "match": ["radiometer"],
+    "def": "A passive instrument that measures microwave brightness from the whole column at once. It cannot tell at what height the rain is.",
+    "ch": 1,
+    "pg": 3
+  },
+  {
+    "id": "gmi",
+    "term": "GMI",
+    "match": ["GMI"],
+    "def": "The GPM Microwave Imager, the radiometer flying with DPR on the Core Observatory, with a 904 km swath.",
+    "ch": 1,
+    "pg": 4
+  },
+  {
+    "id": "sunsync",
+    "term": "Sun-synchronous orbit",
+    "match": ["sun-synchronous"],
+    "def": "An orbit that crosses each latitude at the same local times every day. GPM deliberately avoids it so it samples the whole daily cycle of rain.",
+    "ch": 1,
+    "pg": 4
+  },
+  {
+    "id": "swath",
+    "term": "Swath",
+    "match": ["swath"],
+    "def": "The strip of ground the radar scans as it flies: about 245 km wide for DPR, in 49 beams across track.",
+    "ch": 3,
+    "pg": 2
+  },
+  {
+    "id": "nadir",
+    "term": "Nadir",
+    "match": ["nadir"],
+    "def": "Straight down beneath the satellite. Beams away from nadir look at the ground at an angle, up to 17°.",
+    "ch": 3,
+    "pg": 1
+  },
+  {
+    "id": "range-bin",
+    "term": "Range bin",
+    "match": ["range bin"],
+    "def": "One slice of the echo along the beam, 125 m long in the standard product. A ray is a column of range bins.",
+    "ch": 3,
+    "pg": 1
+  },
+  {
+    "id": "cfb",
+    "term": "Clutter-free bottom",
+    "match": ["clutter-free bottom"],
+    "code": ["binClutterFreeBottom"],
+    "def": "The lowest range bin not contaminated by the ground echo. Below it the radar is blind; it rises off nadir.",
+    "ch": 3,
+    "pg": 3
+  },
+  {
+    "id": "storm-top",
+    "term": "Storm top",
+    "match": ["storm top"],
+    "code": ["binStormTop"],
+    "def": "The highest range bin with a detectable echo.",
+    "ch": 3,
+    "pg": 3
+  },
+  {
+    "id": "attenuation",
+    "term": "Attenuation",
+    "match": ["attenuation"],
+    "def": "Loss of radar signal as the pulse passes through rain, out and back. It makes the measured reflectivity weaker the deeper the beam goes.",
+    "ch": 4,
+    "pg": 1
+  },
+  {
+    "id": "pia",
+    "term": "PIA",
+    "match": ["PIA", "path-integrated attenuation"],
+    "def": "Path-integrated attenuation: the total two-way loss down to a given bin, in dB.",
+    "ch": 4,
+    "pg": 1
+  },
+  {
+    "id": "hb",
+    "term": "Hitschfeld–Bordan",
+    "match": ["Hitschfeld–Bordan"],
+    "def": "The classic analytic attenuation correction. Its denominator shrinks as attenuation builds, so in heavy rain small errors blow up.",
+    "ch": 4,
+    "pg": 5
+  },
+  {
+    "id": "srt",
+    "term": "Surface Reference Technique (SRT)",
+    "match": ["Surface Reference Technique", "SRT"],
+    "def": "Estimates PIA by comparing the ground echo inside rain with its rain-free value nearby.",
+    "ch": 4,
+    "pg": 6
+  },
+  {
+    "id": "dfr",
+    "term": "DFR",
+    "match": ["DFR", "dual-frequency ratio"],
+    "def": "Dual-frequency ratio: Ku reflectivity minus Ka reflectivity, in dB. Independent of N_w, so it measures drop size.",
+    "ch": 5,
+    "pg": 1
+  },
+  {
+    "id": "rayleigh",
+    "term": "Rayleigh scattering",
+    "match": ["Rayleigh"],
+    "def": "Scattering by drops much smaller than the wavelength: backscatter grows as D⁶. True for Ku in light rain.",
+    "ch": 5,
+    "pg": 2
+  },
+  {
+    "id": "mie",
+    "term": "Mie scattering",
+    "match": ["Mie"],
+    "def": "Exact scattering by a sphere of any size. When drops approach the wavelength, backscatter falls below the Rayleigh D⁶ law — first at Ka.",
+    "ch": 5,
+    "pg": 2
+  },
+  {
+    "id": "stratiform",
+    "term": "Stratiform",
+    "match": ["stratiform"],
+    "def": "Widespread, steady rain from a melting snow layer, usually with a bright band.",
+    "ch": 6,
+    "pg": 1
+  },
+  {
+    "id": "convective",
+    "term": "Convective",
+    "match": ["convective"],
+    "def": "Rain from vigorous updraughts: tall, intense and patchy, without a bright band.",
+    "ch": 6,
+    "pg": 1
+  },
+  {
+    "id": "freezing-level",
+    "term": "Freezing level",
+    "match": ["freezing level"],
+    "def": "The height of the 0 °C isotherm, where falling snow starts to melt.",
+    "ch": 6,
+    "pg": 1
+  },
+  {
+    "id": "bright-band",
+    "term": "Bright band",
+    "match": ["bright band"],
+    "def": "A thin layer of enhanced echo just below the freezing level, where melting snowflakes are wet but still large.",
+    "ch": 6,
+    "pg": 2
+  },
+  {
+    "id": "melting-layer",
+    "term": "Melting layer",
+    "match": ["melting layer"],
+    "def": "The layer below the freezing level where particles are part ice, part water.",
+    "ch": 6,
+    "pg": 3
+  },
+  {
+    "id": "epsilon",
+    "term": "ε (epsilon)",
+    "match": ["ε"],
+    "def": "The Solver's adjustment factor on the R–Dₘ relation, swept from 0.2 to 5 to reconcile the observations with the prior.",
+    "ch": 7,
+    "pg": 5
+  },
+  {
+    "id": "granule",
+    "term": "Granule",
+    "match": ["granule"],
+    "def": "One file of Level-2 data: a single orbit's worth of swath.",
+    "ch": 8,
+    "pg": 6
+  },
+  {
+    "id": "zfactorfinal",
+    "term": "zFactorFinal",
+    "match": [],
+    "code": ["zFactorFinal"],
+    "def": "Attenuation-corrected reflectivity in the Level-2 product.",
+    "ch": 3,
+    "pg": 7
+  },
+  {
+    "id": "preciprate",
+    "term": "precipRate",
+    "match": [],
+    "code": ["precipRate", "precipRateNearSurface"],
+    "def": "Retrieved precipitation rate, mm h⁻¹, per range bin (or near the surface).",
+    "ch": 3,
+    "pg": 7
+  },
+  {
+    "id": "paramdsd",
+    "term": "paramDSD",
+    "match": [],
+    "code": ["paramDSD"],
+    "def": "The retrieved DSD parameters, N_w and Dₘ, per range bin.",
+    "ch": 3,
+    "pg": 7
+  },
+  {
+    "id": "typeprecip",
+    "term": "typePrecip",
+    "match": [],
+    "code": ["typePrecip"],
+    "def": "Rain type flag: stratiform, convective or other.",
+    "ch": 3,
+    "pg": 7
+  },
+  {
+    "id": "flagbb",
+    "term": "flagBB",
+    "match": [],
+    "code": ["flagBB"],
+    "def": "Bright-band detection flag.",
+    "ch": 3,
+    "pg": 7
+  }
+]

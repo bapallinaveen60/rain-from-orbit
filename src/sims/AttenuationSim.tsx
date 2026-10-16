@@ -4,12 +4,16 @@ import {
   hbProfile,
   measuredAt,
   powerLawMismatch,
+  nwForR,
   rainColumn,
+  Rrate,
   type Band,
   type Column,
 } from '../physics'
 import { axes, gridline, label, MONOS, poly, yTitle, type Frame, type Pt } from './shared/draw'
 import { usePlot } from './shared/usePlot'
+import { StormLink } from './shared/StormLink'
+import { useSimStorm } from './shared/useSimStorm'
 import { Legend, Readout, Slider, Toggle, U, Widget } from './shared/ui'
 import type { SimProps } from './types'
 
@@ -95,9 +99,11 @@ function drawColumn({ ctx, w: W, h: H, c }: Frame, st: State, m: Column, showHB:
 }
 
 export default function AttenuationSim({ title, hint }: SimProps) {
-  const [st, setSt] = useState<State>({ R: 10, depth: 4, Dm: 1.5 })
+  const link = useSimStorm('atten', { Dm: 1.5, logNw: nwForR(10, 1.5, 3), mu: 3, depth: 4 })
+  const { Dm, logNw, mu, depth } = link.storm
+  const st: State = { R: Rrate(Dm, logNw, mu), depth, Dm }
   const [showHB, setShowHB] = useState(false)
-  const m = rainColumn(st)
+  const m = rainColumn({ ...st, mu })
   const ref = usePlot((f) => drawColumn(f, st, m, showHB), 430 / 760)
 
   const den = hbProfile(m.ku, 'ku', st.depth, 60).at(-1)!.den
@@ -105,7 +111,7 @@ export default function AttenuationSim({ title, hint }: SimProps) {
   const mis = powerLawMismatch(m.ku, 'ku')
 
   return (
-    <Widget id="atten" title={title} hint={hint}>
+    <Widget id="atten" title={title} hint={hint} tools={<StormLink linked={link.linked} setLinked={link.setLinked} />}>
       <div className="split">
         <div className="plotbox">
           <canvas ref={ref} role="img" aria-label="Measured and true reflectivity down a rain column" />
@@ -158,7 +164,7 @@ export default function AttenuationSim({ title, hint }: SimProps) {
               max={120}
               step={0.5}
               display={(st.R < 10 ? st.R.toFixed(1) : st.R.toFixed(0)) + ' mm h⁻¹'}
-              onChange={(R) => setSt({ ...st, R })}
+              onChange={(R) => link.set({ logNw: nwForR(R, Dm, mu) })}
             />
             <Slider
               label="Rain layer depth"
@@ -167,7 +173,7 @@ export default function AttenuationSim({ title, hint }: SimProps) {
               max={8}
               step={0.1}
               display={st.depth.toFixed(1) + ' km'}
-              onChange={(depth) => setSt({ ...st, depth })}
+              onChange={(d) => link.set({ depth: d })}
             />
             <Slider
               label={
@@ -180,7 +186,7 @@ export default function AttenuationSim({ title, hint }: SimProps) {
               max={3.0}
               step={0.01}
               display={st.Dm.toFixed(2) + ' mm'}
-              onChange={(Dm) => setSt({ ...st, Dm })}
+              onChange={(d) => link.set({ Dm: d, logNw: nwForR(st.R, d, mu) })}
             />
             <div className="seg">
               <Toggle pressed={showHB} onClick={() => setShowHB((s) => !s)}>

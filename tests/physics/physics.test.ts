@@ -13,6 +13,7 @@ import {
   diagnose,
   buildProfile,
   dfrCurve,
+  dfrOf,
   dfrSolutions,
   fallSpeed,
   hbProfile,
@@ -97,6 +98,11 @@ describe('Ch5 — DFR', () => {
   it('grows monotonically once drops are large', () => {
     const c = dfrCurve(3).filter((p) => p[0] >= 1.5)
     for (let i = 1; i < c.length; i++) expect(c[i][1]).toBeGreaterThan(c[i - 1][1])
+  })
+  it('counts a crossing that lands exactly on a sample once', () => {
+    const c = dfrCurve(3)
+    for (const Dm of [2.2, 3.0, 1.52]) expect(dfrSolutions(c, dfrOf(Dm, 3))).toHaveLength(1)
+    expect(dfrSolutions(c, dfrOf(2.2, 3))[0]).toBeCloseTo(2.2, 10)
   })
 })
 
