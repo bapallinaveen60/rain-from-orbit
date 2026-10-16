@@ -1,0 +1,42 @@
+{/* Migrated from "Rain from Orbit.html", chapter 2 page 4 (Details Part 3). */}
+
+<Header>Computing R by Hand: Details Part 3</Header>
+
+<Grid>
+
+<Box tone="a" span step={10}>
+
+Same three drops. Now cube each diameter, multiply by that drop's fall speed, and add.
+
+<Calc>{`v([[o:1]]) = 3.78 × 1^{0.67} = 3.78 m/s    →  D^{3}v =   1 × 3.78 =   [[o:3.78]]
+v([[o:2]]) = 3.78 × 2^{0.67} = 6.01 m/s    →  D^{3}v =   8 × 6.01 =  [[o:48.11]]
+v([[o:3]]) = 3.78 × 3^{0.67} = 7.89 m/s    →  D^{3}v = 27 × 7.89 = [[o:213.07]]
+[[cm:                                                        ─────────]]
+                                              Σ = [[hl:265.0]]`}</Calc>
+
+<Calc>{`R = 6π × 10^{−4} × 265.0 = [[hl:0.50 mm h^{−1}]]`}</Calc>
+
+Half a millimetre an hour. Light drizzle.
+
+</Box>
+
+<Box tone="d" step={11}>
+
+Now compare the two sums, drop by drop. Take the **3 mm** drop against the **1 mm** drop:
+
+<Calc>{`echo ratio: 729 / 1     = [[hl:729 ×]]
+rain ratio: 213.07 / 3.78 = [[hl: 56 ×]]`}</Calc>
+
+</Box>
+
+<Box tone="c" step={12}>
+
+Read that again. Make a drop **three times wider** and it returns **729 times** the echo — but carries only **56 times** the rain.
+
+<Splat>SPLAT!!!</Splat>
+
+<Psst>Big drops are loud and small drops are quiet, but small drops still get you wet. Core only hears the loud ones.</Psst>
+
+</Box>
+
+</Grid>

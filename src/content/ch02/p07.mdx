@@ -1,0 +1,38 @@
+{/* Migrated from "Rain from Orbit.html", chapter 2 page 7 (Details Part 6). */}
+
+<Header>From Three Drops to Real Rain: Details Part 6</Header>
+
+<Grid>
+
+<Box tone="a" span step={19}>
+
+Real rain does not come in three neat sizes. It comes as a continuous **drop size distribution**, written `N(D)` — how many drops per cubic metre, per millimetre of diameter, at each size.
+
+Our sums become integrals, and that is the only thing that changes:
+
+<Calc>{`Z = ∫ D^{6} N(D) dD       R = 6π×10^{−4} ∫ D^{3} v(D) N(D) dD
+[[cm:   …same two weightings. Same ambiguity. Just smoother.]]`}</Calc>
+
+</Box>
+
+<Box step={20}>
+
+GPM models `N(D)` as a **normalised gamma distribution**:
+
+<Calc>{`N(D) = [[s:N_{w}]] f(μ) (D/[[s:D_{m}]])^{μ} e^{−(4+μ)D/[[s:D_{m}]]}`}</Calc>
+
+Look at what is <span className="sv">blue</span>. The two unknowns from the last page are the two parameters of the curve. Everything else is assumption.
+
+</Box>
+
+<Box tone="d" step={21}>
+
+And **μ**, the shape factor? The algorithm *assumes* it rather than retrieving it — there is not enough information to do otherwise.
+
+<Talk char="dot2">So you've got one measurement, two unknowns, and a third parameter you're just… guessing?</Talk>
+
+<Talk char="core">Yes. Which is why I carry a second radar. But first — play with the curve yourself.</Talk>
+
+</Box>
+
+</Grid>

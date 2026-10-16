@@ -1,0 +1,59 @@
+{/* Migrated from "Rain from Orbit.html", chapter 6 page 7 (Details Part 6). */}
+
+<Header>Three Methods, One Verdict: Details Part 6</Header>
+
+<Grid>
+
+<Box tone="a" step={14}>
+
+**THE V-METHOD** — vertical. Looks down a single beam.
+
+<Calc>{`bright band found  AND Z < 46 dBZ → [[b:stratiform]]
+no bright band   AND Z > 40 dBZ → [[b:convective]]
+neither                      → [[b:other]]`}</Calc>
+
+<Psst>Two different thresholds, because a bright band is itself strong evidence — it earns a higher bar before the profile is called convective.</Psst>
+
+</Box>
+
+<Box step={15}>
+
+**THE H-METHOD** — horizontal. Ignores the vertical structure entirely and looks at the **pattern across neighbouring pixels**, using a modified Steiner–Houze–Yuter separation.
+
+A pixel much brighter than its surrounding background is convective, whatever its own profile looks like.
+
+This catches the embedded convective cores inside an otherwise stratiform deck, which the V-method would smooth over.
+
+</Box>
+
+<Box tone="d" span step={16}>
+
+**THE DFR<sub>m</sub> METHOD** — dual-frequency, and a genuinely different kind of evidence.
+
+<div className="scrollx">
+
+<table className="t">
+<thead>
+  <tr><th>In the rain layer</th><th>DFR<sub>m</sub> behaviour</th><th>Why</th></tr>
+</thead>
+<tbody>
+  <tr><td>**Stratiform**</td><td className="n">small, flat with height</td><td>Ku stays under ~25 dBZ, so there is almost no Ka attenuation to accumulate</td></tr>
+  <tr><td>**Convective**</td><td className="n">large, steep slope</td><td>differential attenuation piling up fast, plus non-Rayleigh scattering off big drops</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</Box>
+
+<Box tone="c" span step={17}>
+
+<Talk char="dot2">Why does the method use the *slope* of DFR<sub>m</sub> rather than how big it is? Surely the actual value is more informative.</Talk>
+
+<Talk char="core">Because any fixed calibration offset between my two radars adds the *same constant* at every height. Differentiating with height removes it completely. Slope is free of a bias I cannot otherwise measure.</Talk>
+
+<Splat sm>DOUBLE SPLAT!!!</Splat>
+
+</Box>
+
+</Grid>

@@ -1,0 +1,55 @@
+{/* Migrated from "Rain from Orbit.html", chapter 8 page 2 (Details Part 1). */}
+
+<Header>Box A and Box B Were Real: Details Part 1</Header>
+
+<Grid>
+
+<Box tone="a" span step={4}>
+
+Disdrometer observations over the **Western Ghats** show the drop size distribution shifting systematically between the active and break phases of the Indian summer monsoon:
+
+<div className="scrollx">
+
+<table className="t">
+<thead>
+  <tr><th>Phase</th><th className="lc">mean D<sub>m</sub></th><th className="lc">mean log₁₀ N<sub>w</sub></th><th className="lc">modal log₁₀ N<sub>w</sub></th><th>Microphysics</th></tr>
+</thead>
+<tbody>
+  <tr><td>**Wet spell** (active)</td><td className="n"><span className="sv">1.30 mm</span></td><td className="n"><span className="sv">3.62</span></td><td className="n">3.9</td><td>collision–coalescence in a deep moist column: midsize and large drops</td></tr>
+  <tr><td>**Dry spell** (break)</td><td className="n"><span className="sv">0.92 mm</span></td><td className="n"><span className="sv">4.46</span></td><td className="n">3.9 *and* 5.0<br /><span style={{ fontSize: "12px", color: "var(--ink3)" }}>bimodal</span></td><td>evaporation and breakup in drier air: many more small drops</td></tr>
+</tbody>
+</table>
+
+</div>
+
+<Note><b>SOURCE.</b> Joss–Waldvogel disdrometer at Mahabaleshwar (17.92° N, 73.6° E), JJAS 2012–2015; spells from IMD rainfall anomalies. Murali Krishna <i>et al.</i>, <i>Atmos. Chem. Phys.</i> **21**, 4741–4757 (2021). The two N<sub>w</sub> columns are different quantities: the **mean** is what you compute with, the **mode** is where the histogram peaks — and the dry-spell histogram has two peaks. Note also that dry spells do not rain *harder*: mean R is 6.62 mm/h wet against 2.79 dry. What moves is the echo-to-rain relationship.</Note>
+
+</Box>
+
+<Box tone="c" span step={5}>
+
+Now put those side by side with the two boxes you built by hand in Chapter 2:
+
+<div className="scrollx">
+
+<table className="t">
+<thead>
+  <tr><th></th><th>D<sub>m</sub></th><th>N<sub>w</sub></th><th>Character</th></tr>
+</thead>
+<tbody>
+  <tr><td>**Box A** (invented)</td><td className="n">2.72 mm</td><td className="n">low</td><td>few and large</td></tr>
+  <tr><td>**Wet spell** (measured)</td><td className="n">1.30 mm</td><td className="n">lower</td><td>few and large</td></tr>
+  <tr><td>**Box B** (invented)</td><td className="n">1.00 mm</td><td className="n">high</td><td>many and small</td></tr>
+  <tr><td>**Dry spell** (measured)</td><td className="n">0.92 mm</td><td className="n">higher</td><td>many and small</td></tr>
+</tbody>
+</table>
+
+</div>
+
+<Talk char="core2">Your toy boxes were not a thought experiment. They were the Western Ghats in July and the Western Ghats in August.</Talk>
+
+<Splat>SPLAT!!!</Splat>
+
+</Box>
+
+</Grid>

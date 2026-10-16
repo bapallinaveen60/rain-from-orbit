@@ -1,0 +1,52 @@
+{/* Migrated from "Rain from Orbit.html", chapter 7 page 2 (The Real Diagram). */}
+
+<Header>The Real Diagram: Details Part 1</Header>
+
+<Grid>
+
+<Box tone="plain">
+
+<AtbdFigure id="flow" label="The DPR Level-2 algorithm flow: PRE, VER, SRT, CSF, DSD and SLV modules with their data flows, databases and scattering tables" credit="Figure 3.1.1, GPM/DPR Level-2 ATBD (Iguchi et al., rev. July 2024)" />
+
+</Box>
+
+<div>
+
+<Box tone="a" step={4}>
+
+That is the actual flow chart, colour-coded by module. Follow it from the top and every box is something you have already met:
+
+- <b>Level 1 (echo power)</b> enters at the top; **PRE** turns it into <code>σ⁰<sub>m</sub></code> and <code>Z<sub>m</sub></code> and decides rain or no-rain.
+- **VER** (green) takes the environmental grid and strips the non-precipitating attenuation, giving clean <code>Z<sub>m</sub></code>.
+- **SRT** (pink) reads its own database to produce <code>PIA<sub>srt</sub></code>.
+- **CSF** (blue) does type classification and BB detection — and feeds the <b>R–D<sub>m</sub></b> choice.
+
+</Box>
+
+<Box tone="d" step={5} style={{ marginTop: "13px" }}>
+
+Two things in that diagram we have not met yet.
+
+The **cylinders** are databases, not code: the SRT σ⁰ climatology and the DSD database holding the ε prior. They are updated offline, between processing runs, which is why a whole month must be processed as a unit.
+
+And at the bottom right: **NUBF parameters**.
+
+</Box>
+
+</div>
+
+<Box tone="c" span step={6}>
+
+<Alert title="NON-UNIFORM BEAM FILLING!!!">
+
+Core's footprint is about **5 km across**. Rain is not uniform over 5 km — a convective core three kilometres wide sits inside one footprint alongside much lighter rain.
+
+Because reflectivity and attenuation are **non-linear** in rain rate, averaging over a non-uniform beam does not give the average rain rate. It biases the answer, and the bias grows with how lumpy the rain is.
+
+<p style={{ marginBottom: 0 }}>That is what the NUBF correction in the diagram is for, and it is one of the reasons heavy convective rain remains the hardest case even with two frequencies.</p>
+
+</Alert>
+
+</Box>
+
+</Grid>

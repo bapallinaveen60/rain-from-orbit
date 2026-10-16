@@ -10,8 +10,9 @@ See `../web/IMPLEMENTATION_PLAN.md` for the full plan.
 | ---------------------------------------------------- | ------- |
 | 0 Scaffold — shell, routing, themes, fonts, PDFs, CI | done    |
 | 1 Physics core — typed port, parity tests, worker    | done    |
-| 2 Content migration (MDX pages)                      | next    |
-| 3–7                                                  | planned |
+| 2 Content migration — 70 MDX pages, book components  | done    |
+| 3 Simulator parity                                   | next    |
+| 4–7                                                  | planned |
 
 ## Commands
 
@@ -29,12 +30,14 @@ npm run build        # static site in dist/ (set BASE=/repo-name/ for GitHub Pag
 
 ```
 src/app/        shell: routes, chapter rail, page dots, pager, keyboard shortcuts
-src/content/    manifest.json (8 chapters, 70 pages) + chapters.ts helpers; MDX pages arrive in Phase 2
+src/content/    chNN/pPP.mdx (one per page), figures/*.svg, manifest.json + chapters.ts helpers
+src/components/book/  page vocabulary used by the MDX: Box, Talk, Calc, Alert, Note, Quiz, Sim, figures
 src/physics/    the book's maths as pure TypeScript — Mie, gamma DSD, attenuation/HB, DFR,
                 melting model, orbit, scan geometry, classify profiles, Level-2 chain ray
 src/store/      Zustand stores (settings, reading progress), persisted to localStorage
 src/styles/     tokens.css + book.css extracted verbatim from the original; app.css for additions
-scripts/        extract-shell.mjs (CSS, SVG defs, manifest) · capture-reference.mjs (parity snapshot)
+scripts/        extract-shell.mjs (CSS, SVG defs, manifest) · extract-pages.mjs (pages, figures, quizzes)
+                capture-reference.mjs (parity snapshot)
 tests/physics/  reference.json is produced by running the ORIGINAL code; the port must match it
 ```
 

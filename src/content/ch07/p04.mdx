@@ -1,0 +1,53 @@
+import fig1 from '../figures/ch07-p04-1.svg?raw'
+
+{/* Migrated from "Rain from Orbit.html", chapter 7 page 4 (Details Part 1). */}
+
+<Header>The R–D<sub>m</sub> Plane: Details Part 1</Header>
+
+<Grid>
+
+<Box tone="a" step={8}>
+
+The Solver works on a two-dimensional plane: **rain rate** up the vertical axis, **mass-weighted mean diameter** across the bottom. Every possible answer for a range bin is a point on it.
+
+Two things are drawn on that plane, and the answer is where they cross.
+
+</Box>
+
+<Box tone="plain">
+
+<figure>
+
+<InlineSvg svg={fig1} />
+
+<figcaption>One crossing is the happy case. The next step is what happens when there are two — or none.</figcaption>
+
+</figure>
+
+</Box>
+
+<Box tone="d" span step={9}>
+
+The two curves:
+
+- <b>The <span className="sv">R–D<sub>m</sub> relation</span></b> — an assumption, of the form <code>R = ε<sup>r</sup> p D<sub>m</sub><sup>q</sup></code>, chosen by the DSD module from the rain type.
+- <b>The <span className="ov">Z<sub>f</sub> contour</span></b> — every (R, D<sub>m</sub>) pair that would produce the reflectivity actually observed at this bin, drawn from the Mie scattering tables.
+
+<div className="scrollx">
+
+<table className="t">
+<thead>
+  <tr><th>Crossings</th><th>What the Solver does</th></tr>
+</thead>
+<tbody>
+  <tr><td className="n">one</td><td>take it. Done.</td></tr>
+  <tr><td className="n">two</td><td>prefer the solution with the **smaller** R and D<sub>m</sub></td></tr>
+  <tr><td className="n">none</td><td>take the closest point on the R–D<sub>m</sub> curve, and **record the discrepancy** — it becomes a cost term on the next page</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</Box>
+
+</Grid>

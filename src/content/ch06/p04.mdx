@@ -1,0 +1,20 @@
+{/* Migrated from "Rain from Orbit.html", chapter 6 page 4 (Details Part 3). */}
+
+<Header>Mixing the Dielectric: Details Part 3</Header>
+
+<Grid>
+
+<Box tone="c" span step={10}>
+
+The dielectric constant of the mixture comes from a **mixing rule** — not an average, but one weighted the way scattering actually responds:
+
+<Calc>{`(ε_{b} − 1)/(ε_{b} + U) = P_{w}(ε_{w} − 1)/(ε_{w} + U) + P_{i}(ε_{i} − 1)/(ε_{i} + U)
+
+U = 12.0                          if ρ_{b} ≤ 0.09
+U = 2.0 · e^{13(ρ_{b} − 0.09)}            if ρ_{b} > 0.09`}</Calc>
+
+<Note><b>A quirk worth knowing.</b> Evaluate U on both sides of the boundary: at ρ<sub>b</sub> = 0.09 it is **12.0**, and a hair above it is **2.0**. The published formula *steps* there — two different regimes for fluffy aggregates and for denser particles, joined without a smooth transition. It is in the document as printed; if your own forward model disagrees with GPM at very low densities, look here first.</Note>
+
+</Box>
+
+</Grid>

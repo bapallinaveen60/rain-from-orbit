@@ -1,0 +1,59 @@
+{/* Migrated from "Rain from Orbit.html", chapter 2 page 3 (Details Part 2). */}
+
+<Header>Computing Z by Hand: Details Part 2</Header>
+
+<Grid>
+
+<Box tone="a" span step={6}>
+
+Raise each diameter to the sixth power and add them up. That is literally all.
+
+<Calc>{`Z = [[o:1]]^{6}  +  [[o:2]]^{6}  +  [[o:3]]^{6}
+Z =   [[o:1]]   +   [[o:64]]  +  [[o:729]]
+Z = [[hl:794]] mm^{6} m^{−3}`}</Calc>
+
+</Box>
+
+<Box step={7}>
+
+That number spans about fifteen orders of magnitude between drizzle and hail, so nobody ever quotes it raw. Convert to decibels:
+
+<Calc>{`dBZ = 10 log_{10}(794)
+       = [[hl:29.0 dBZ]]`}</Calc>
+
+This is the number Core measured. It is the *only* number Core measured.
+
+</Box>
+
+<Box tone="d" step={8}>
+
+Now look at where that 794 came from:
+
+<div className="scrollx">
+
+<table className="t">
+<thead>
+  <tr><th>Drop</th><th>D⁶</th><th>share of Z</th></tr>
+</thead>
+<tbody>
+  <tr><td className="n">1 mm</td><td className="n">1</td><td className="n">0.1 %</td></tr>
+  <tr><td className="n">2 mm</td><td className="n">64</td><td className="n">8.1 %</td></tr>
+  <tr><td className="n">3 mm</td><td className="n">729</td><td className="n">91.8 %</td></tr>
+</tbody>
+</table>
+
+</div>
+
+<Psst>One drop out of three is making <b>92%</b> of the echo.</Psst>
+
+</Box>
+
+<Box tone="c" span step={9}>
+
+<Talk char="core2">So when I measure 29.0 dBZ, I am almost entirely measuring your biggest sister. The 1 mm drop may as well not be in the box.</Talk>
+
+<Talk char="dot">Right. But she still *rains*. Watch what happens when we compute R.</Talk>
+
+</Box>
+
+</Grid>

@@ -1,0 +1,41 @@
+{/* Migrated from "Rain from Orbit.html", chapter 5 page 6 (Details Part 4). */}
+
+<Header>Which Way to Walk: Details Part 4</Header>
+
+<Grid>
+
+<Box tone="a" step={13}>
+
+At each range bin we now have two equations and two unknowns — plus an attenuation term that has to come from somewhere. There are two places to start.
+
+</Box>
+
+<Box step={14}>
+
+**FORWARD** — start at storm top, work down.
+
+The attenuation above any bin is known, because you already solved the bins above it.
+
+<i>The cost:</i> it inherits the Hitschfeld–Bordan instability from Chapter 4, **and** the double-valued trough from the last page — at every single bin.
+
+</Box>
+
+<Box tone="d" step={15}>
+
+**BACKWARD** — start at the surface, work up.
+
+Now the *known* quantity is the attenuation below each bin, anchored by the SRT's independent PIA estimate.
+
+<i>The cost:</i> you depend on the SRT being right, and on an assumption about the profile inside the clutter blind layer that nobody can check.
+
+</Box>
+
+<Box tone="c" span step={16}>
+
+The ATBD is unambiguous about which one wins: the backward method is preferred because it generally gives **numerically stable and unique** solutions, where the forward method may have two solutions at each range bin.
+
+<Talk char="core">In practice I do not commit to either. Chapter 7 shows what I actually do — I run the retrieval many times over and pick the version that best reconciles everything I know.</Talk>
+
+</Box>
+
+</Grid>

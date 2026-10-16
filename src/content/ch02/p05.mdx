@@ -1,0 +1,61 @@
+import fig1 from '../figures/ch02-p05-1.svg?raw'
+
+{/* Migrated from "Rain from Orbit.html", chapter 2 page 5 (Details Part 4). */}
+
+<Header>The Second Box: Details Part 4</Header>
+
+<Grid>
+
+<Box tone="a" step={13}>
+
+Let us now build **Box B** on purpose, to fool Core.
+
+The rule is simple: get Z to come out to exactly **794** again, using only 1 mm drops. Since each 1 mm drop contributes `1⁶ = 1`, we need…
+
+<Calc>{`Z = N × [[o:1]]^{6} = 794   →   N = [[hl:794 drops]]`}</Calc>
+
+</Box>
+
+<Box tone="plain">
+
+<figure>
+
+<InlineSvg svg={fig1} />
+
+</figure>
+
+</Box>
+
+<Box tone="d" span step={14}>
+
+Core's measurement is **identical**. Same 794, same 29.0 dBZ. Now compute the rain rate the same way we did before:
+
+<Calc>{`Σ D^{3}v = 794 × (1 × 3.78) = [[hl:3001.3]]
+R = 6π × 10^{−4} × 3001.3 = [[hl:5.66 mm h^{−1}]]`}</Calc>
+
+</Box>
+
+<Box tone="c" span step={15}>
+
+<div className="scrollx">
+
+<table className="t">
+<thead>
+  <tr><th></th><th>Box A</th><th>Box B</th></tr>
+</thead>
+<tbody>
+  <tr><td>What Core measures</td><td className="n"><span className="ov">29.0 dBZ</span></td><td className="n"><span className="ov">29.0 dBZ</span></td></tr>
+  <tr><td>What is actually falling</td><td className="n">0.50 mm/h</td><td className="n">5.66 mm/h</td></tr>
+  <tr><td>Liquid water</td><td className="n">0.019 g/m³</td><td className="n">0.416 g/m³</td></tr>
+</tbody>
+</table>
+
+</div>
+
+<Splat>DOUBLE SPLAT!!!</Splat>
+
+<Talk char="core2">Eleven times the rain. Twenty-two times the water. And I cannot tell these two boxes apart *at all*.</Talk>
+
+</Box>
+
+</Grid>

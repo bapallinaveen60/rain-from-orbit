@@ -1,0 +1,68 @@
+{/* Migrated from "Rain from Orbit.html", chapter 6 page 3 (Details Part 2). */}
+
+<Header>What a Melting Particle Actually Is: Details Part 2</Header>
+
+<Grid>
+
+<Box tone="a" step={7}>
+
+Chapter 2 treated every particle as a sphere of water. The algorithm does not. It models each one as a sphere of **three things at once**:
+
+<Calc>{`P_{w} + P_{i} + P_{a} = 1
+[[cm:   liquid water + solid ice + air, by volume]]`}</Calc>
+
+and tracks its bulk density <b>ρ<sub>b</sub></b> in g/cm³ as the mixture changes.
+
+</Box>
+
+<Box step={8}>
+
+<div className="scrollx">
+
+<table className="t">
+<thead>
+  <tr><th>Phase</th><th className="lc">P<sub>w</sub></th><th className="lc">ρ<sub>b</sub></th></tr>
+</thead>
+<tbody>
+  <tr><td>Liquid</td><td className="n">1</td><td className="n">1.00</td></tr>
+  <tr><td>Solid</td><td className="n">0</td><td className="n">≈ 0.10</td></tr>
+  <tr><td>Mixed</td><td className="n">in between</td><td className="n">see below</td></tr>
+</tbody>
+</table>
+
+</div>
+
+<Psst>A snowflake at ρ<sub>b</sub> = 0.10 is **ninety percent air**. Hold on to that — it is why snow is so hard.</Psst>
+
+</Box>
+
+<Box tone="d" span step={9}>
+
+For a **mixed-phase** particle the ATBD sets the water fraction from a melting model, then gets the density from a startlingly simple empirical rule:
+
+<Calc>{`[[b:ρ_{b} = √P_{w}]]`}</Calc>
+
+That square root is doing a lot of work. Run it:
+
+<div className="scrollx">
+
+<table className="t">
+<thead>
+  <tr><th className="lc">P<sub>w</sub> — fraction melted by volume</th><th className="n">0.01</th><th className="n">0.25</th><th className="n">0.64</th><th className="n">1.00</th></tr>
+</thead>
+<tbody>
+  <tr><td>ρ<sub>b</sub> — density (g/cm³)</td><td className="n">0.10</td><td className="n">0.50</td><td className="n">0.80</td><td className="n">1.00</td></tr>
+</tbody>
+</table>
+
+</div>
+
+<Talk char="dot2">A quarter melted and it is already *half* the density of water?</Talk>
+
+<Talk char="core">The meltwater runs into the skeleton and collapses it. The structure goes long before the ice does. That is why a bright band is a few hundred metres thick and not a few kilometres.</Talk>
+
+<Splat sm>SPLAT!!!</Splat>
+
+</Box>
+
+</Grid>

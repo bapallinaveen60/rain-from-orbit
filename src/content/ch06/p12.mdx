@@ -1,0 +1,51 @@
+{/* Migrated from "Rain from Orbit.html", chapter 6 page 12 (Details Part 10). */}
+
+<Header>The Flags Beyond Three Types: Details Part 10</Header>
+
+<Grid>
+
+<Box span step={24}>
+
+Version 7 carries far more structure than stratiform / convective / other, and the extra flags are usually where the interesting science is.
+
+<div className="scrollx">
+
+<table className="t">
+<thead>
+  <tr><th>Flag</th><th>What it marks</th></tr>
+</thead>
+<tbody>
+  <tr><td className="n">`flagShallowRain`</td><td>shallow isolated and non-isolated systems, flagged independently of rain type</td></tr>
+  <tr><td className="n">`flagBB`, `heightBB`, `widthBB`</td><td>bright band presence, height, and width (geometrically corrected for beam width and zenith angle)</td></tr>
+  <tr><td className="n">`flagHeavyIcePrecip`</td><td>strong ice signatures aloft</td></tr>
+  <tr><td className="n">`flagGraupelHail`, `flagHail`</td><td>graupel and hail; the hail flag is new in V7 and dual-frequency only</td></tr>
+  <tr><td className="n">`flagSurfaceSnowfall`</td><td>built from a snow index combining DFR<sub>m</sub> slope, Ku maximum and storm top height</td></tr>
+  <tr><td className="n">`typePrecip`</td><td>an **eight-digit number**, not a small integer</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</Box>
+
+<Box tone="c" span step={25}>
+
+<Alert title="TERMINOLOGY ALERT!!!">
+
+`typePrecip` catches people out constantly. It is not 1, 2, 3. The **leading digits** give the major category; the **trailing digits** record which method decided it and on what evidence.
+
+<p style={{ marginBottom: 0 }}>If you write `typePrecip == 2` you will match nothing at all. Divide down to the leading digit, or consult the user manual's bit definitions.</p>
+
+</Alert>
+
+</Box>
+
+<Box tone="d" span step={26}>
+
+<Talk char="dot">So you've classified me. Now what?</Talk>
+
+<Talk char="core">Now I finally solve for you. But classification was only one of six things that had to happen first — and the next chapter is the whole assembly line.</Talk>
+
+</Box>
+
+</Grid>

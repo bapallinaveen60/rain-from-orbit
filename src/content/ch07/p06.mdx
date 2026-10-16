@@ -1,0 +1,43 @@
+{/* Migrated from "Rain from Orbit.html", chapter 7 page 6 (Details Part 3). */}
+
+<Header>What This Means When You Use the Data: Details Part 3</Header>
+
+<Grid>
+
+<Box tone="a" step={13}>
+
+<b>Consequence one.</b> `precipRate` carries **different effective uncertainty in different regimes** — tight where the SRT is reliable and the DFR is informative; loose over land, in light rain, where neither is.
+
+A single bulk error bar for a whole product is close to meaningless.
+
+</Box>
+
+<Box tone="d" step={14}>
+
+<b>Consequence two.</b> The `epsilon` field is a **diagnostic**, not just an internal variable.
+
+It tells you how far the algorithm had to move from its climatological DSD prior to reconcile the observations. A systematically non-unity ε over your region is telling you something physical about the microphysics there.
+
+</Box>
+
+<Box tone="c" span step={15}>
+
+<Alert title="THE HABIT TO FORM!!!">
+
+When a retrieved value surprises you, do **not** treat `precipRate` as a measurement. Walk back up the chain:
+
+<p style={{ marginBottom: 0 }}>`precipRate` → `zFactorFinal` → `pathAtten` and its reliability flag → `typePrecip` → `flagEcho`. Every stage of a seven-stage inference is visible in the file. Use that.</p>
+
+</Alert>
+
+</Box>
+
+<Box span>
+
+<Talk char="core">One chapter left, **Dot**. And it is the one where everything I have told you starts going wrong at the same time.</Talk>
+
+<Talk char="dot">The monsoon. Of course it is.</Talk>
+
+</Box>
+
+</Grid>

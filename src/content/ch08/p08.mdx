@@ -1,0 +1,40 @@
+{/* Migrated from "Rain from Orbit.html", chapter 8 page 8 (Details Part 6). */}
+
+<Header>A Curtain in Fifteen Lines: Details Part 6</Header>
+
+<Grid>
+
+<Box tone="a" span step={23}>
+
+This is the Chapter 3 scan curtain, from a real granule — along-track this time rather than across:
+
+<Calc code>{`[[cm:import matplotlib.pyplot as plt]]
+
+s0, s1, ray = [[o:2000]], [[o:2120]], [[o:24]]          [[cm:# 120 scans, nadir ray]]
+
+z   = fs[[[o:"SLV/zFactorFinal"]]][s0:s1, ray, :]       [[cm:# (120, 176) dBZ]]
+hkm = fs[[[o:"PRE/height"]]][s0:s1, ray, :] / [[o:1000.0]]   [[cm:# (120, 176) km]]
+cfb = fs[[[o:"PRE/binClutterFreeBottom"]]][s0:s1, ray]
+
+z = np.where(z < [[o:-1000]], np.nan, z)
+
+scan  = np.arange(s0, s1)
+clut  = np.array([hkm[i, cfb[i\\]] for i in range(len(cfb))])
+
+plt.pcolormesh(scan, hkm[[[o:0]]], z.T, vmin=[[o:15]], vmax=[[o:50]], shading=[[o:"nearest"]])
+plt.plot(scan, clut, [[o:"w--"]], lw=[[o:1.5]])     [[cm:# the blind-layer ceiling]]
+plt.ylim([[o:0]], [[o:15]]); plt.ylabel([[o:"height (km)"]]); plt.xlabel([[o:"scan"]])`}</Calc>
+
+</Box>
+
+<Box tone="c" span step={24}>
+
+<Talk char="core">That dashed white line is the one to draw first, every time. Everything beneath it in my product is an assumption, not a measurement — and it is the part nearest the ground.</Talk>
+
+<Talk char="dot">Plot the line. Then decide whether your answer depends on what is under it.</Talk>
+
+<Splat>SPLAT!!!</Splat>
+
+</Box>
+
+</Grid>

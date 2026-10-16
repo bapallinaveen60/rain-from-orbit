@@ -1,0 +1,39 @@
+{/* Migrated from "Rain from Orbit.html", chapter 4 page 5 (Details Part 3). */}
+
+<Header>Hitschfeld–Bordan, and Why It Explodes: Details Part 3</Header>
+
+<Grid>
+
+<Box step={12}>
+
+The classical fix. Assume a power law between attenuation and reflectivity…
+
+<Calc>{`k = [[s:α]] Z_{e}^{[[s:β]]}`}</Calc>
+
+…substitute it into the integral equation, and it solves in closed form:
+
+<Calc>{`Z_{e}(r) = [[ov:Z_{m}]](r) ÷ [ 1 − 0.2 ln(10) [[s:β]] ∫_{0}^{r} [[s:α]] [[ov:Z_{m}]]^{[[s:β]]} ds ]^{1/[[s:β]]}`}</Calc>
+
+</Box>
+
+<Box tone="c" step={13}>
+
+Now look only at the **denominator**. As the integrated attenuation grows, the bracket shrinks toward zero — and the correction goes to infinity.
+
+<Talk char="core2">So the formula works beautifully in light rain, where I did not need it, and detonates in heavy rain, where I did.</Talk>
+
+</Box>
+
+<Box tone="a" span step={14}>
+
+And there is a second, sneakier problem: <span className="sv">α</span> has to be **assumed before the retrieval starts**, because it encodes the very drop size distribution you are trying to find.
+
+<Alert title="GO BACK AND TRY IT!!!">
+
+<p style={{ marginBottom: 0 }}>On the previous page, switch on the HB correction and drag <b>D<sub>m</sub></b> up past 2 mm. The simulator fits <span className="sv">α</span> and <span className="sv">β</span> once, to a Marshall–Palmer-like distribution — exactly what a climatological relation does — and then lets you move the real drops away from that assumption. Watch the mismatch readout climb past 1 and the denominator collapse.</p>
+
+</Alert>
+
+</Box>
+
+</Grid>

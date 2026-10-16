@@ -1,0 +1,46 @@
+{/* Migrated from "Rain from Orbit.html", chapter 3 page 7 (Details Part 5). */}
+
+<Header>Where Every Variable Lives: Details Part 5</Header>
+
+<Grid>
+
+<Box span step={16}>
+
+Inside a swath, the variables are grouped **by the module that produced them** — the same seven modules of Chapter 7. Once you see that, the file stops being arbitrary.
+
+<div className="scrollx">
+
+<table className="t">
+<thead>
+  <tr><th>Group</th><th>Produced by</th><th>What you will reach for</th></tr>
+</thead>
+<tbody>
+  <tr><td className="n">`ScanTime/`</td><td>—</td><td>`Year`, `Month`, `DayOfMonth`, `SecondOfDay`</td></tr>
+  <tr><td className="n">`Latitude`, `Longitude`</td><td>—</td><td>per ray, at the swath level — not in a group</td></tr>
+  <tr><td className="n">`PRE/`</td><td>Preparation</td><td>`zFactorMeasured`, `binStormTop`, `binClutterFreeBottom`, `binRealSurface`, `localZenithAngle`, `landSurfaceType`, `flagPrecip`, `elevation`</td></tr>
+  <tr><td className="n">`VER/`</td><td>Vertical Profile</td><td>`binZeroDeg`, `heightZeroDeg`, `piaNP`, `attenuationNP`</td></tr>
+  <tr><td className="n">`CSF/`</td><td>Classification</td><td>`typePrecip`, `flagBB`, `heightBB`, `widthBB`, `binBBPeak`, `flagShallowRain`</td></tr>
+  <tr><td className="n">`DSD/`</td><td>Drop Size Distribution</td><td>`phase`, `binNode`</td></tr>
+  <tr><td className="n">`SRT/`</td><td>Surface Reference</td><td>`pathAtten`, `reliabFlag`, `PIAalt`, `PIAweight`</td></tr>
+  <tr><td className="n">`SLV/`</td><td>Solver</td><td>`precipRate`, `precipRateNearSurface`, `zFactorFinal`, `paramDSD`, `epsilon`, `piaFinal`</td></tr>
+  <tr><td className="n">`FLG/`, `Experimental/`</td><td>various</td><td>quality flags and fields still being evaluated</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</Box>
+
+<Box tone="c" span step={17}>
+
+<Alert title="TERMINOLOGY ALERT!!!">
+
+The fully attenuation-corrected reflectivity was called `zFactorCorrected` through V06. In <b>V07 it is `zFactorFinal`</b>.
+
+<p style={{ marginBottom: 0 }}>Any script, tutorial or paper written before about 2022 uses the old name. If your read fails with a key error, this is why — and it is the most common first thing to go wrong.</p>
+
+</Alert>
+
+</Box>
+
+</Grid>

@@ -6,3 +6,6 @@ src/content/manifest.json
 src/assets/defs.svg
 src/styles/book.css
 src/styles/tokens.css
+src/content/**/*.mdx
+src/content/figures
+src/content/atbd.json

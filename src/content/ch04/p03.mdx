@@ -1,0 +1,49 @@
+{/* Migrated from "Rain from Orbit.html", chapter 4 page 3 (Details Part 2). */}
+
+<Header>The Tie-Breaker: Details Part 2</Header>
+
+<Grid>
+
+<Box tone="a" span step={7}>
+
+Now stack each box into a **4 km deep column** and work out the two-way attenuation to the ground. PIA = 2 × k × depth:
+
+<div className="scrollx">
+
+<table className="t">
+<thead>
+  <tr><th></th><th>Z (what Core sees)</th><th className="kut">PIA Ku</th><th className="kat">PIA Ka</th><th>difference</th></tr>
+</thead>
+<tbody>
+  <tr><td>**Box A** — few, large</td><td className="n"><span className="ov">29.0 dBZ</span></td><td className="n">0.24 dB</td><td className="n">1.02 dB</td><td className="n">0.8 dB</td></tr>
+  <tr><td>**Box B** — many, small</td><td className="n"><span className="ov">29.0 dBZ</span></td><td className="n">0.85 dB</td><td className="n">9.13 dB</td><td className="n">8.3 dB</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</Box>
+
+<Box tone="c" step={8}>
+
+Look at the last column. The two boxes are **identical** in reflectivity — and the Ka channel is attenuated by **eight decibels more** in one than the other.
+
+<Splat>SPLAT!!!</Splat>
+
+</Box>
+
+<Box tone="d" step={9}>
+
+<Talk char="core">So the attenuation is not only a problem. It is *information*. The thing that is ruining my Ka channel is also the thing that tells the two boxes apart.</Talk>
+
+<Talk char="dot">Now you're getting it. Chapter 5.</Talk>
+
+</Box>
+
+<Box span step={10}>
+
+<Note><b>NOTE — be careful here.</b> What separates these two boxes is mostly **water content**, not drop size: Box B holds twenty-two times as much liquid water, so it absorbs far more. Drop *size* leaves its own, separate fingerprint through non-Rayleigh scattering. The real algorithm uses both, and Chapter 5 keeps them apart.</Note>
+
+</Box>
+
+</Grid>

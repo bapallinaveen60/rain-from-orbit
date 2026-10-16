@@ -1,0 +1,44 @@
+import fig1 from '../figures/ch02-p02-1.svg?raw'
+
+{/* Migrated from "Rain from Orbit.html", chapter 2 page 2 (Details Part 1). */}
+
+<Header>Three Drops in a Box: Details Part 1</Header>
+
+<Grid>
+
+<Box tone="a" step={4}>
+
+Here is **Box A**. It is one cubic metre of air containing exactly three raindrops, of diameter **1 mm**, **2 mm** and **3 mm**.
+
+<Talk char="dot">That's me in the middle. Two millimetres. Pleased to meet you.</Talk>
+
+</Box>
+
+<Box tone="plain">
+
+<figure>
+
+<InlineSvg svg={fig1} />
+
+<figcaption>Drawn to scale. Notice how much bigger the 3 mm drop is — hold on to that.</figcaption>
+
+</figure>
+
+</Box>
+
+<Box tone="c" span step={5}>
+
+Two formulas, and that is all the physics we need for now. **Reflectivity** is the sum of the sixth powers of the diameters:
+
+<Calc>{`[[b:Z = Σ D^{6}]]   [mm^{6} m^{−3}] [[cm:— sum over every drop in the box]]`}</Calc>
+
+And **rain rate** is the volume of water passing through, so drop volume times how fast it falls:
+
+<Calc>{`[[b:R = 6π × 10^{−4} × Σ D^{3} v(D)]]   [mm h^{−1}]
+[[cm:   where v(D) = 3.78 × D^{0.67} metres per second — bigger drops fall faster]]`}</Calc>
+
+<Note><b>NOTE:</b> Why D⁶? Because for drops much smaller than the wavelength, scattering is **Rayleigh**, and the backscatter cross-section of a sphere goes as the sixth power of its diameter. Chapter 5 is about what happens when that stops being true.</Note>
+
+</Box>
+
+</Grid>

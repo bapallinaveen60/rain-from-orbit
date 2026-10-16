@@ -1,0 +1,54 @@
+{/* Migrated from "Rain from Orbit.html", chapter 2 page 6 (Details Part 5). */}
+
+<Header>Two Numbers, Not One: Details Part 5</Header>
+
+<Grid>
+
+<Box step={16}>
+
+So what actually differs between the boxes? Two things, and the whole of GPM's Level-2 algorithm is built to find them.
+
+**How big the drops are**, and **how many there are**. Box A is *few and large*. Box B is *many and small*.
+
+</Box>
+
+<Box tone="a" step={17}>
+
+<Alert title="TERMINOLOGY ALERT!!!">
+
+<b>D<sub>m</sub></b>, the *mass-weighted mean diameter*, is not the average diameter. It is `ΣD⁴ / ΣD³` — the size of the drop carrying the average bit of water. It is weighted toward the big ones, which is what you want, because the big ones carry the water.
+
+<p style={{ marginBottom: 0 }}><b>N<sub>w</sub></b> is a *normalised* concentration. Loosely: how many drops there would be if they were all D<sub>m</sub>-sized. It is defined so that it does not drag the size information along with it.</p>
+
+</Alert>
+
+</Box>
+
+<Box tone="d" span step={18}>
+
+Compute D<sub>m</sub> for Box A — we already have the pieces:
+
+<Calc>{`Σ D^{4} = 1 + 16 + 81 = 98     Σ D^{3} = 1 + 8 + 27 = 36
+D_{m} = 98 / 36 = [[hl:2.72 mm]]   [[cm:— even though two of the three drops are smaller than that]]`}</Calc>
+
+And for Box B every drop is 1 mm, so D<sub>m</sub> = **1.00 mm** exactly.
+
+<div className="scrollx">
+
+<table className="t">
+<thead>
+  <tr><th></th><th>D<sub>m</sub></th><th>log₁₀ N<sub>w</sub></th><th>Z</th><th>R</th></tr>
+</thead>
+<tbody>
+  <tr><td>**Box A**</td><td className="n"><span className="sv">2.72 mm</span></td><td className="n"><span className="sv">1.45</span></td><td className="n"><span className="ov">29.0 dBZ</span></td><td className="n">0.50 mm/h</td></tr>
+  <tr><td>**Box B**</td><td className="n"><span className="sv">1.00 mm</span></td><td className="n"><span className="sv">4.53</span></td><td className="n"><span className="ov">29.0 dBZ</span></td><td className="n">5.66 mm/h</td></tr>
+</tbody>
+</table>
+
+</div>
+
+<Psst>One measurement. <span className="sv">Two unknowns</span>. That is an underdetermined system, and no amount of calibration fixes it.</Psst>
+
+</Box>
+
+</Grid>

@@ -1,0 +1,40 @@
+import fig1 from '../figures/ch01-p03-1.svg?raw'
+
+{/* Migrated from "Rain from Orbit.html", chapter 1 page 3 (Details Part 1). */}
+
+<Header>Why a Radar: Details Part 1</Header>
+
+<Grid>
+
+<Box step={8}>
+
+A **radiometer** measures a brightness temperature — one number, summed through the entire column of atmosphere beneath it.
+
+<Talk char="core2">I can see *that* there is water down there. I cannot see whether it is at 2 km or at 10 km, whether it is frozen or melted, or where it changes from one to the other.</Talk>
+
+</Box>
+
+<Box tone="a" step={9}>
+
+A **radar** transmits a pulse and times the echo. And timing is the whole trick:
+
+<Calc>{`every echo arrives with its own [[hl:range]] attached
+[[cm:…and range, from a satellite looking down, is height.]]`}</Calc>
+
+So a radar does not return a picture of a storm. It returns a **vertical slice through it**, kilometre after kilometre along the orbit track.
+
+</Box>
+
+<Box tone="d" span step={10}>
+
+<figure>
+
+<InlineSvg svg={fig1} />
+
+<figcaption>Same storm, same moment. The radiometer compresses it; the radar resolves it.</figcaption>
+
+</figure>
+
+</Box>
+
+</Grid>

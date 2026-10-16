@@ -1,0 +1,37 @@
+{/* Migrated from "Rain from Orbit.html", chapter 8 page 5 (Details Part 3). */}
+
+<Header>How This Gets Checked: Details Part 3</Header>
+
+<Grid>
+
+<Box tone="a" step={11}>
+
+Validation over India leans on three independent sources:
+
+- **IMD gridded gauge analysis** — dense over land, the usual reference for monsoon-season evaluation.
+- **Ground radar and disdrometers** — these give the *actual* drop size distribution rather than an inference of it.
+- **Inter-comparison** between DPR, IMERG and the earlier TMPA products over the monsoon core region.
+
+</Box>
+
+<Box tone="d" step={12}>
+
+The consistent pattern in that literature: satellite estimates capture the **spatial structure and seasonal cycle** well, and struggle most with **heavy orographic events** and with **light rain**.
+
+<Psst>Two tails, two different reasons — and you now know both of them.</Psst>
+
+</Box>
+
+<Box tone="c" span step={13}>
+
+<Alert title="IF YOU WORK WITH THIS DATA!!!">
+
+<b>Stratify before you compare anything.</b> A bulk bias statistic over a whole season mixes wet-spell convection, break-spell shallow rain and stratiform decks — three regimes the algorithm handled with three different sets of assumptions.
+
+<p style={{ marginBottom: 0 }}>The interesting signal is almost always in the stratification, not in the mean.</p>
+
+</Alert>
+
+</Box>
+
+</Grid>

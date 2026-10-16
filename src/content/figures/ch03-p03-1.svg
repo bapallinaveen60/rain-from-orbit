@@ -1,0 +1,20 @@
+<svg class="fig" viewBox="0 0 740 230" role="img" aria-label="At nadir the whole footprint is at the same range; off nadir the near and far edges differ by over a kilometre" xmlns="http://www.w3.org/2000/svg">
+          <g filter="url(#rf2)" stroke-linecap="round" stroke-linejoin="round" fill="none">
+            <text x="40" y="20" font-family="'Nunito Sans',sans-serif" font-weight="800" font-size="15" fill="var(--ink)">AT NADIR</text>
+            <text x="430" y="20" font-family="'Nunito Sans',sans-serif" font-weight="800" font-size="15" fill="var(--ink)">NEAR THE SWATH EDGE</text>
+            <g stroke="var(--core-c)" stroke-width="3">
+              <path d="M120 34 L78 170 M120 34 L162 170"></path>
+              <path d="M560 34 L470 168 M560 34 L560 172"></path>
+            </g>
+            <path d="M30 172 H330 M400 172 H720" stroke="var(--line)" stroke-width="3.4"></path>
+            <g stroke="var(--ku)" stroke-width="4"><path d="M78 172 H162"></path><path d="M470 172 H560"></path></g>
+            <g stroke="var(--line-soft)" stroke-width="2" stroke-dasharray="4 4">
+              <path d="M78 172 L120 34 M162 172 L120 34"></path>
+            </g>
+            <text x="120" y="196" font-family="'Caveat',cursive" font-size="19" fill="var(--ink2)" text-anchor="middle">near edge and far edge</text>
+            <text x="120" y="216" font-family="'Caveat',cursive" font-size="19" fill="var(--ink2)" text-anchor="middle">are almost the same range</text>
+            <text x="560" y="196" font-family="'Caveat',cursive" font-size="19" fill="var(--ink2)" text-anchor="middle">near and far edge differ by</text>
+            <text x="560" y="216" font-family="'Caveat',cursive" font-size="19" fill="var(--flow)" text-anchor="middle">more than a kilometre</text>
+            <g stroke="var(--flow)" stroke-width="3"><path d="M470 150 L560 128"></path></g>
+          </g>
+        </svg>

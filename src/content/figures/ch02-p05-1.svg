@@ -1,0 +1,8 @@
+<svg class="fig" viewBox="0 0 420 180" role="img" aria-label="Box B: 794 identical one-millimetre drops" xmlns="http://www.w3.org/2000/svg">
+          <g filter="url(#rf2)" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="18" y="24" width="384" height="140" rx="10" fill="var(--tint-b)" stroke="var(--line)" stroke-width="3"></rect>
+            <text x="30" y="16" font-family="var(--f-ui)" font-weight="800" font-size="15" fill="var(--ink)">BOX B — the same cubic metre</text>
+            <g id="bbdrops" fill="var(--dot-fill)" stroke="var(--dot-c)" stroke-width="1.7"></g>
+            <text x="210" y="155" font-family="var(--f-hand)" font-size="19" fill="var(--ink2)" text-anchor="middle">794 drops, all 1 mm (a few shown)</text>
+          </g>
+        </svg>

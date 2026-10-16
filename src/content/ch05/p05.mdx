@@ -1,0 +1,59 @@
+{/* Migrated from "Rain from Orbit.html", chapter 5 page 5 (Details Part 3). */}
+
+<Header>The Trough: Details Part 3</Header>
+
+<Grid>
+
+<Box tone="a" span step={10}>
+
+Here is the curve you were just moving along, written out:
+
+<div className="scrollx">
+
+<table className="t">
+<thead>
+  <tr><th>D<sub>m</sub></th><th className="n">0.2</th><th className="n">0.5</th><th className="n">1.0</th><th className="n">1.5</th><th className="n">2.0</th><th className="n">2.5</th><th className="n">3.0</th></tr>
+</thead>
+<tbody>
+  <tr><td><b>DFR (dB)</b></td><td className="n">−0.01</td><td className="n">−0.23</td><td className="n">−1.21</td><td className="n">+0.19</td><td className="n">+3.21</td><td className="n">+6.32</td><td className="n">+9.09</td></tr>
+</tbody>
+</table>
+
+</div>
+
+Above about 1.5 mm it climbs steeply and behaves exactly as advertised. Below that, it does something awkward: it sags **negative**, bottoming out near −1.2 dB at D<sub>m</sub> ≈ 1.0 mm, before coming back up.
+
+</Box>
+
+<Box tone="c" step={11}>
+
+<Talk char="dot2">Negative? Your Ka echo is *bigger* than your Ku echo? How?</Talk>
+
+<Talk char="core">Mie scattering is not a smooth decline. Around that size there is a brief resonance where Ka backscatter is *enhanced* relative to Rayleigh. It only lasts a decibel or so, but it lands right where most of the world's rain is.</Talk>
+
+</Box>
+
+<Box tone="d" step={12}>
+
+<b>Two consequences, both bad:</b>
+
+- Every DFR value between about <b>−1.2 dB and 0</b> corresponds to **two** different drop sizes — one below 1 mm, one above.
+- The curve is so **flat** there that a few tenths of a decibel of calibration error moves your answer by a large fraction of a millimetre.
+
+<Psst>Light rain — most of the rain on Earth, and most of what falls over India during a break spell — lives in exactly that region.</Psst>
+
+</Box>
+
+<Box span>
+
+<Alert title="TERMINOLOGY ALERT!!!">
+
+**DFR** and <b>DFR<sub>m</sub></b> are not the same thing, and papers are not always careful about which they mean.
+
+<p style={{ marginBottom: 0 }}><b>DFR<sub>m</sub></b> is the *measured* ratio — it contains both the scattering difference *and* all the accumulated differential attenuation from Chapter 4. **DFR** without the subscript usually means the *effective* or intrinsic ratio, after attenuation correction, which is the pure size gauge. The curve on this page is the effective one.</p>
+
+</Alert>
+
+</Box>
+
+</Grid>

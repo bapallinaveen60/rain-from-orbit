@@ -1,0 +1,48 @@
+{/* Migrated from "Rain from Orbit.html", chapter 4 page 2 (Details Part 1). */}
+
+<Header>Attenuation in Our Two Boxes: Details Part 1</Header>
+
+<Grid>
+
+<Box tone="a" span step={4}>
+
+Back to Box A and Box B. Here are the real extinction cross-sections, computed from Mie theory for liquid water at 10 °C:
+
+<div className="scrollx">
+
+<table className="t">
+<thead>
+  <tr><th>Drop</th><th className="kut">σₑ at Ku (mm²)</th><th className="kat">σₑ at Ka (mm²)</th><th>Ka ÷ Ku</th></tr>
+</thead>
+<tbody>
+  <tr><td className="n">1 mm</td><td className="n">0.031</td><td className="n">0.331</td><td className="n">10.7 ×</td></tr>
+  <tr><td className="n">2 mm</td><td className="n">0.872</td><td className="n">7.028</td><td className="n">8.1 ×</td></tr>
+  <tr><td className="n">3 mm</td><td className="n">5.941</td><td className="n">21.856</td><td className="n">3.7 ×</td></tr>
+</tbody>
+</table>
+
+</div>
+
+<Psst><b>Psst!</b> Notice the ratio *shrinks* as drops get bigger. Ka-band saturates — it is already near the limit of what a 3 mm drop can absorb — while Ku keeps climbing. Remember that; it is the seed of Chapter 5.</Psst>
+
+</Box>
+
+<Box step={5}>
+
+Add them up for **Box A** (one drop each):
+
+<Calc>{`[[kut:Σσₑ Ku]] = 6.84 → k = [[hl:0.030]] dB/km
+[[kat:Σσₑ Ka]] = 29.21 → k = [[hl:0.127]] dB/km`}</Calc>
+
+</Box>
+
+<Box step={6}>
+
+And for **Box B** (794 drops of 1 mm):
+
+<Calc>{`[[kut:Σσₑ Ku]] = 24.5 → k = [[hl:0.106]] dB/km
+[[kat:Σσₑ Ka]] = 262.8 → k = [[hl:1.141]] dB/km`}</Calc>
+
+</Box>
+
+</Grid>

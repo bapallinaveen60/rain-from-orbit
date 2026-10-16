@@ -1,0 +1,43 @@
+{/* Migrated from "Rain from Orbit.html", chapter 8 page 4 (Details Part 2). */}
+
+<Header>Rain That Falls in the Blind Spot: Details Part 2</Header>
+
+<Grid>
+
+<Box tone="a" step={7}>
+
+The windward slopes of the Ghats produce enormous accumulations from relatively **shallow warm-rain systems** forced up a steep escarpment. Those systems can be only two or three kilometres deep.
+
+Now recall Chapter 3's clutter-free bottom: a few hundred metres above the surface at nadir, over a kilometre near the swath edge — and higher still over rough terrain, where the surface return is messier.
+
+</Box>
+
+<Box tone="c" step={8}>
+
+<Talk char="core2">So a significant fraction of the profile that *produces the rainfall* sits inside the layer I am not allowed to trust — and the Solver fills it in by holding reflectivity constant.</Talk>
+
+<Talk char="dot2">You're extrapolating through exactly the part I was falling through.</Talk>
+
+</Box>
+
+<Box tone="d" step={9}>
+
+<b>And the surface reference degrades too.</b> The cross-track fit from Chapter 4 is ocean-only. Over the Ghats the along-track reference must be drawn from rain-free footprints at the same incidence angle over a surface that changes character within a few kilometres.
+
+PIA reliability drops exactly where attenuation correction matters most — and cost term <b>(b)</b> from Chapter 7 weakens with it.
+
+</Box>
+
+<Box span step={10}>
+
+<Alert title="AND THE PRIOR FIGHTS YOU!!!">
+
+Cost term <b>(a)</b> anchors ε to a prior from the DSD database. If that prior reflects a global or tropical-mean microphysics, and the Western Ghats in a break spell is running a bimodal, small-drop distribution, then the algorithm is being pulled toward the wrong answer **by its own regularisation**.
+
+<p style={{ marginBottom: 0 }}>The retrieved `epsilon` field over the region, averaged by monsoon phase, is a direct measurement of that pull. It is the first thing worth plotting.</p>
+
+</Alert>
+
+</Box>
+
+</Grid>

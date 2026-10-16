@@ -1,0 +1,46 @@
+{/* Migrated from "Rain from Orbit.html", chapter 8 page 6 (Details Part 4). */}
+
+<Header>Opening a Granule: Details Part 4</Header>
+
+<Grid>
+
+<Box tone="a" span step={14}>
+
+A Level-2 granule is one orbit, in HDF5. Everything in this book is a few lines away:
+
+<Calc code>{`[[cm:import h5py, numpy as np]]
+
+f  = h5py.File(path, [[o:"r"]])
+fs = f[[[o:"FS"]]]                               [[cm:# the full-swath group]]
+
+lat   = fs[[[o:"Latitude"]]][:]                   [[cm:# (nscan, 49)]]
+lon   = fs[[[o:"Longitude"]]][:]
+rate  = fs[[[o:"SLV/precipRate"]]][:]             [[cm:# (nscan, 49, 176)]]
+hgt   = fs[[[o:"PRE/height"]]][:]                 [[cm:# (nscan, 49, 176), metres]]
+ptype = fs[[[o:"CSF/typePrecip"]]][:]             [[cm:# (nscan, 49)]]
+cfb   = fs[[[o:"PRE/binClutterFreeBottom"]]][:]   [[cm:# (nscan, 49), an index]]`}</Calc>
+
+</Box>
+
+<Box step={15}>
+
+Note `PRE/height`. The file **gives you the height of every range bin**, already corrected for the slant path and the local zenith angle.
+
+<Psst>Do not compute it yourself from bin numbers and 125 m. People do, and they get the swath edge wrong.</Psst>
+
+</Box>
+
+<Box tone="d" step={16}>
+
+Before anything else, **print the shapes**. Some fields in the dual-frequency product carry a trailing frequency axis of length 2 — Ku first, then Ka — and some do not:
+
+<Calc code>{`for k in [[[o:"PRE/zFactorMeasured"]],
+          [[o:"SLV/zFactorFinal"]],
+          [[o:"SLV/paramDSD"]]]:
+    print(k, fs[k].shape)`}</Calc>
+
+It costs one second and saves an afternoon.
+
+</Box>
+
+</Grid>

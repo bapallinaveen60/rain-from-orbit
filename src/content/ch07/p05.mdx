@@ -1,0 +1,51 @@
+{/* Migrated from "Rain from Orbit.html", chapter 7 page 5 (Details Part 2). */}
+
+<Header>The Epsilon Sweep: Details Part 2</Header>
+
+<Grid>
+
+<Box tone="a" step={10}>
+
+<Talk char="dot2">That blue curve is an *assumption* though. What if the assumption is wrong for my particular storm?</Talk>
+
+<Talk char="core">It usually is. So I do not assume one curve. I try **a whole family of them** and keep the one that fits everything else I know.</Talk>
+
+</Box>
+
+<Box tone="d" step={11}>
+
+The family is indexed by a single adjustment factor, **ε**. The Solver runs the entire retrieval repeatedly, sweeping
+
+<Calc>{`ε from [[hl:0.2]] to [[hl:5.0]]`}</Calc>
+
+and picks the value that minimises a cost. In V7, ε is even allowed to **vary with range** rather than being fixed for the whole profile.
+
+</Box>
+
+<Box tone="c" span step={12}>
+
+The cost has four terms. Three for the single-frequency algorithms, all four for dual-frequency:
+
+<div className="scrollx">
+
+<table className="t">
+<thead>
+  <tr><th></th><th>Term</th><th>In plain words</th></tr>
+</thead>
+<tbody>
+  <tr><td className="n">a</td><td>prior on ε</td><td>"don't wander too far from the climatology in the DSD database"</td></tr>
+  <tr><td className="n">b</td><td>PIA<sub>SLV</sub> − PIA<sub>SRT</sub></td><td>"the attenuation you produced had better match what the ground says" — one-sided when the SRT is saturated</td></tr>
+  <tr><td className="n">c</td><td>Z<sub>f1</sub> − Z<sub>f2</sub></td><td>"and the answer should actually reproduce the reflectivity you were given"</td></tr>
+  <tr><td className="n">d</td><td>Ka consistency</td><td>"if you solved from Ku, the result must also explain the Ka observation"</td></tr>
+</tbody>
+</table>
+
+</div>
+
+<Splat>SPLAT!!!</Splat>
+
+<Psst>That is the whole retrieval. It is not a formula — it is a **constrained optimisation** run independently for every pixel in every orbit.</Psst>
+
+</Box>
+
+</Grid>

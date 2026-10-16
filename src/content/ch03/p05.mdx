@@ -1,0 +1,43 @@
+{/* Migrated from "Rain from Orbit.html", chapter 3 page 5 (Details Part 3). */}
+
+<Header>What Is Actually in the File: Details Part 3</Header>
+
+<Grid>
+
+<Box span step={12}>
+
+The curtain you just clicked on is, in the product, a set of arrays indexed by scan, angle bin, range bin and frequency. Learn these names early — they are in every GPM paper:
+
+<div className="scrollx">
+
+<table className="t">
+<thead>
+  <tr><th>Variable</th><th>What it is</th></tr>
+</thead>
+<tbody>
+  <tr><td className="n">`zFactorMeasured`</td><td>the raw echo, before any correction</td></tr>
+  <tr><td className="n">`zFactorNPCorrected`</td><td>after removing gas and cloud attenuation</td></tr>
+  <tr><td className="n">`zFactorFinal`</td><td>fully attenuation-corrected — Chapter 4</td></tr>
+  <tr><td className="n">`precipRate`</td><td>the answer</td></tr>
+  <tr><td className="n">`paramDSD`</td><td>the retrieved <span className="sv">N<sub>w</sub></span> and <span className="sv">D<sub>m</sub></span></td></tr>
+  <tr><td className="n">`flagEcho`</td><td>whether that echo counted as precipitation</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</Box>
+
+<Box tone="c" span step={13}>
+
+<Alert title="A TRAP!!!">
+
+Every echo above the noise floor is converted to reflectivity and written out — *including* echoes below the precipitation detection threshold.
+
+<p style={{ marginBottom: 0 }}>`zFactorMeasured` having a value does **not** mean the algorithm considered it rain. `flagEcho` is what tells you that. Read the flags before you read the science fields.</p>
+
+</Alert>
+
+</Box>
+
+</Grid>

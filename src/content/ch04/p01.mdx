@@ -1,0 +1,43 @@
+{/* Migrated from "Rain from Orbit.html", chapter 4 page 1 (Main Ideas). */}
+
+<Opener kicker="Chapter 04" title="The Signal Eats Itself!!!">
+
+The rain Core is trying to measure is also absorbing the pulse Core is measuring it with. At one of the two frequencies, it absorbs almost all of it.
+
+</Opener>
+
+<Header kind="blue">Attenuation: Main Ideas</Header>
+
+<Grid>
+
+<Box tone="a" step={1}>
+
+<Talk char="dot">Small confession, **Core**. Every drop that scatters a bit of your pulse back to you also takes a bite out of the part that keeps going down.</Talk>
+
+<Talk char="core2">How big a bite?</Talk>
+
+<Talk char="dot2">At Ku-band? Barely noticeable. At Ka-band, in a decent rain column, I will eat the whole thing.</Talk>
+
+</Box>
+
+<Box step={2}>
+
+<b>The quantity:</b> **specific attenuation** `k`, in decibels per kilometre. Like reflectivity it is a sum over the drops — but weighted by the *extinction* cross-section rather than the backscatter one:
+
+<Calc>{`k = 4.343 × 10^{−3} × Σ σ_{e}(D)
+[[cm:   σ_{e} in mm², summed over all drops in a cubic metre]]`}</Calc>
+
+</Box>
+
+<Box tone="d" span step={3}>
+
+<b>The consequence:</b> what Core records at range *r* is the true reflectivity minus everything in front of it — twice over, because the pulse makes a round trip.
+
+<Calc>{`10 log_{10} [[ov:Z_{m}]](r) = 10 log_{10} Z_{e}(r) − 2 ∫_{0}^{r} k(s) ds
+[[cm:   measured              true            everything it passed through]]`}</Calc>
+
+That integral all the way to the ground has its own name: the **path-integrated attenuation**, or **PIA**.
+
+</Box>
+
+</Grid>

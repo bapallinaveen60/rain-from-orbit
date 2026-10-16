@@ -1,0 +1,43 @@
+{/* Migrated from "Rain from Orbit.html", chapter 3 page 2 (Details Part 1). */}
+
+<Header>The Real Scan Pattern: Details Part 1</Header>
+
+<Grid>
+
+<Box tone="plain">
+
+<AtbdFigure id="scan" label="The DPR scan pattern: KuPR footprints in pale blue, KaPR matched beams in yellow, KaPR high-sensitivity beams in pink, interlaced" credit="Figure 2.2.1, GPM/DPR Level-2 ATBD (Iguchi et al., rev. July 2024)" />
+
+</Box>
+
+<div>
+
+<Box tone="a" step={4}>
+
+That is the real thing, from the ATBD. Three different sets of footprints, and they are not all the same radar.
+
+- **Pale blue** — <span className="kut">KuPR</span>, 49 beams, the full swath.
+- **Yellow** — <span className="kat">KaPR</span> **matched beams**, pointed at the same spots as the central 25 Ku beams so the two bands see the same volume of air.
+- **Pink** — <span className="kat">KaPR</span> **high-sensitivity beams**, interlaced *between* the matched ones, with a longer pulse.
+
+</Box>
+
+<Box tone="d" step={5} style={{ marginTop: "13px" }}>
+
+<Talk char="dot2">Why two Ka scan patterns? Pick one.</Talk>
+
+<Talk char="core">Because matching Ku exactly is what makes DFR possible — but a longer pulse on its own beams detects lighter snow. I could not have both in one beam, so I alternated.</Talk>
+
+</Box>
+
+</div>
+
+<Box tone="c" span step={6}>
+
+On **21 May 2018** the KaPR scan pattern was changed so that Ka covers the **full swath**, not just the inner 25 beams. Dual-frequency retrieval became available edge to edge.
+
+<Psst>Remember that date. It is the single most important thing to know before you open a file, and page 7 of this chapter explains why.</Psst>
+
+</Box>
+
+</Grid>

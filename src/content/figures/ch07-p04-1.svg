@@ -1,0 +1,15 @@
+<svg class="fig" viewBox="0 0 420 260" role="img" aria-label="On the R-Dm plane, the assumed R-Dm curve crosses the reflectivity contour at the solution" xmlns="http://www.w3.org/2000/svg">
+          <g filter="url(#rf2)" stroke-linecap="round" stroke-linejoin="round" fill="none">
+            <path d="M52 20 V222 H400" stroke="var(--line)" stroke-width="3"></path>
+            <text x="18" y="24" font-family="'IBM Plex Mono',monospace" font-size="14" fill="var(--ink2)" stroke="none">R</text>
+            <text x="392" y="246" font-family="'IBM Plex Mono',monospace" font-size="14" fill="var(--ink2)" stroke="none">Dm</text>
+            <path d="M70 212 C150 196 236 142 330 36" stroke="var(--solve)" stroke-width="3.4"></path>
+            <text x="336" y="34" font-family="'Nunito Sans',sans-serif" font-size="13" font-weight="800" fill="var(--solve)" stroke="none">R–Dm</text>
+            <text x="336" y="50" font-family="'Nunito Sans',sans-serif" font-size="13" font-weight="800" fill="var(--solve)" stroke="none">relation</text>
+            <path d="M330 206 C262 184 200 128 150 42" stroke="var(--obs)" stroke-width="3.4" stroke-dasharray="7 5"></path>
+            <text x="118" y="40" font-family="'Nunito Sans',sans-serif" font-size="13" font-weight="800" fill="var(--obs)" stroke="none">Zf</text>
+            <text x="100" y="56" font-family="'Nunito Sans',sans-serif" font-size="13" font-weight="800" fill="var(--obs)" stroke="none">contour</text>
+            <circle cx="238" cy="146" r="9" fill="var(--flow)" stroke="var(--page)" stroke-width="3"></circle>
+            <text x="252" y="166" font-family="'Caveat',cursive" font-size="21" fill="var(--flow)" stroke="none">the answer</text>
+          </g>
+        </svg>

@@ -1,0 +1,58 @@
+{/* Migrated from "Rain from Orbit.html", chapter 7 page 1 (Main Ideas). */}
+
+<Opener kicker="Chapter 07" title="Seven Modules!!!">
+
+Everything so far assembles into one processing chain. Six modules exist only to set up the equation that the seventh one solves.
+
+</Opener>
+
+<Header kind="blue">The Level-2 Chain: Main Ideas</Header>
+
+<Grid>
+
+<Box tone="a" step={1}>
+
+A main module calls **seven sub-modules** in order. They cannot call each other. Each one hands its result back and stops.
+
+<div className="scrollx">
+
+<table className="t">
+<thead>
+  <tr><th></th><th>Module</th><th>What it adds to the ray</th></tr>
+</thead>
+<tbody>
+  <tr><td className="n">1</td><td>**PRE**</td><td>echo power → Z<sub>m</sub>; rain / no-rain; storm top, surface, clutter-free bottom</td></tr>
+  <tr><td className="n">2</td><td>**VER**</td><td>removes gas and cloud attenuation; flags the 0 °C bin</td></tr>
+  <tr><td className="n">3</td><td>**CSF**</td><td>finds the bright band; classifies the rain type</td></tr>
+  <tr><td className="n">4</td><td>**DSD**</td><td>assigns phase per bin; selects the N(D) and R–D<sub>m</sub> relations</td></tr>
+  <tr><td className="n">5</td><td>**SRT**</td><td>path-integrated attenuation from the surface echo</td></tr>
+  <tr><td className="n">6</td><td>**SLV**</td><td>**the retrieval** — everything above was preparation</td></tr>
+  <tr><td className="n">7</td><td>**TRG**</td><td>trigger variables, new in V7</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</Box>
+
+<Box tone="d" step={2}>
+
+<b>Three algorithms share this framework:</b> Ku-only, Ka-only, and the dual-frequency DPR algorithm that takes both single-frequency products as its input.
+
+The two single-frequency runs go first, in either order. The dual-frequency run goes last.
+
+<Psst>Each processes one orbit at a time — but a whole month has to be processed as a unit for the databases to come out right.</Psst>
+
+</Box>
+
+<Box tone="c" step={3}>
+
+<b>The ordering is not arbitrary:</b>
+
+- **CSF before DSD** — the drop size assumptions depend on rain type and bright-band position.
+- **DSD before SLV** — the Solver needs the scattering tables DSD selected.
+- **SRT anywhere** between VER and SLV — it only needs clean surface cross-sections.
+
+</Box>
+
+</Grid>

@@ -1,0 +1,51 @@
+{/* Migrated from "Rain from Orbit.html", chapter 2 page 9 (Details Part 7). */}
+
+<Header>What Core Actually Transmits: Details Part 7</Header>
+
+<Grid>
+
+<Box tone="a" step={23}>
+
+Two radars share the platform, and from here on they are colour-coded everywhere in this guide.
+
+<span className="kut">KuPR</span> — 13.6 GHz, wavelength 22.0 mm. Essentially the TRMM design carried forward.
+
+<span className="kat">KaPR</span> — 35.5 GHz, wavelength 8.4 mm. The new one, and the reason this whole guide has a happy ending.
+
+</Box>
+
+<Box span step={24} style={{ gridColumn: "1/-1" }}>
+
+<div className="scrollx">
+
+<table className="t">
+<thead>
+  <tr><th>Parameter</th><th className="kut">KuPR</th><th className="kat">KaPR</th></tr>
+</thead>
+<tbody>
+  <tr><td>Frequency</td><td className="n">13.6 GHz</td><td className="n">35.5 GHz</td></tr>
+  <tr><td>Wavelength</td><td className="n">22.0 mm</td><td className="n">8.4 mm</td></tr>
+  <tr><td>Peak transmit power</td><td className="n">1012 W</td><td className="n">146.5 W</td></tr>
+  <tr><td>Beams per scan</td><td className="n">49</td><td className="n">49</td></tr>
+  <tr><td>Range resolution</td><td className="n">250 m</td><td className="n">250 / 500 m</td></tr>
+  <tr><td>Range sampling</td><td className="n">125 m (oversampled)</td><td className="n">125 / 250 m</td></tr>
+  <tr><td>Min. detectable rain</td><td className="n">0.33 mm h⁻¹</td><td className="n">0.19 mm h⁻¹ (HS)</td></tr>
+  <tr><td>Z<sub>min</sub> at L2 threshold</td><td className="n">15.46 dBZ</td><td className="n">13.71 dBZ (HS)</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</Box>
+
+<Box tone="d" span step={25}>
+
+<Talk char="dot2">Wait. The Ka radar runs at a *seventh* of the power and still detects *lighter* rain than the Ku one? That can't be right.</Talk>
+
+<Talk char="core">It is right. At 35.5 GHz the same drops scatter far more efficiently — my wavelength is only four times your diameter. Hold that thought, because it is also about to cause me a great deal of trouble.</Talk>
+
+<Psst>Chapter 4 is the trouble. Chapter 5 is why it was worth it.</Psst>
+
+</Box>
+
+</Grid>

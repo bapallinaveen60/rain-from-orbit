@@ -1,0 +1,51 @@
+{/* Migrated from "Rain from Orbit.html", chapter 6 page 2 (Details Part 1). */}
+
+<Header>The Bright Band: Details Part 1</Header>
+
+<Grid>
+
+<Box tone="a" span step={4}>
+
+Follow a single snowflake down through the 0 °C level. Six things happen in order, and only the last two bring the echo back down.
+
+<div className="scrollx">
+
+<table className="t">
+<thead>
+  <tr><th></th><th>What happens</th><th>Effect on the echo</th></tr>
+</thead>
+<tbody>
+  <tr><td className="n">①</td><td>A large, loose snow aggregate falls slowly through the freezing level.</td><td>weak — ice scatters poorly</td></tr>
+  <tr><td className="n">②</td><td>It starts to melt and acquires a **coat of liquid water**.</td><td className="n">↑↑ big jump</td></tr>
+  <tr><td className="n">③</td><td>Water's dielectric factor |K|² ≈ 0.93; ice's is ≈ 0.18 — a factor of five.</td><td className="n">↑↑</td></tr>
+  <tr><td className="n">④</td><td>But it is still **snowflake-shaped and large** — it has not collapsed yet.</td><td className="n">↑↑ peak</td></tr>
+  <tr><td className="n">⑤</td><td>Melting completes. It collapses into a compact raindrop — much smaller.</td><td className="n">↓</td></tr>
+  <tr><td className="n">⑥</td><td>Now dense and compact, it **speeds up**, so fewer drops occupy each cubic metre.</td><td className="n">↓</td></tr>
+</tbody>
+</table>
+
+</div>
+
+Briefly, at step ④, the particle is the worst of both worlds for a radar: the dielectric of water with the geometry of snow. Hence a **band**, not a step.
+
+<Splat>SPLAT!!!</Splat>
+
+</Box>
+
+<Box tone="c" step={5}>
+
+Where to look for it: the CSF module searches a window from **4 bins above** the 0 °C range bin to **8 bins below** it.
+
+<Psst>Experience from TRMM: the peak sits about **half a kilometre below** the freezing level.</Psst>
+
+</Box>
+
+<Box tone="d" step={6}>
+
+Why a bright band is near-conclusive evidence of stratiform rain:
+
+<Talk char="dot">A convective updraught is far too violent and turbulent to let a neat horizontal melting layer form. If you can see the band, nothing is stirring.</Talk>
+
+</Box>
+
+</Grid>

@@ -1,0 +1,47 @@
+{/* Migrated from "Rain from Orbit.html", chapter 5 page 3 (Details Part 2). */}
+
+<Header>Why the Concentration Cancels: Details Part 2</Header>
+
+<Grid>
+
+<Box tone="a" span step={7}>
+
+Four steps. Follow them in order and the result is unavoidable.
+
+<Calc>{`[[b:Step 1.]] Split the distribution into "how many" × "what shape":
+
+        N(D) = [[s:N_{w}]] × n(D ; [[s:D_{m}]])
+[[cm:                   ↑ a number      ↑ a curve whose shape depends only on Dm]]`}</Calc>
+
+<Calc>{`[[b:Step 2.]] Reflectivity is an integral over N(D), and [[s:N_{w}]] is just a constant
+          multiplier, so it comes straight out of the integral:
+
+        Z([[kut:Ku]]) = [[s:N_{w}]] × I_{Ku}([[s:D_{m}]])
+        Z([[kat:Ka]]) = [[s:N_{w}]] × I_{Ka}([[s:D_{m}]])
+[[cm:                        ↑ these two differ — that is the whole point]]`}</Calc>
+
+<Calc>{`[[b:Step 3.]] A difference of logs is the log of a ratio:
+
+        DFR = 10 log_{10} Z([[kut:Ku]]) − 10 log_{10} Z([[kat:Ka]]) = 10 log_{10} [ Z([[kut:Ku]]) / Z([[kat:Ka]]) ]`}</Calc>
+
+<Calc>{`[[b:Step 4.]] Substitute Step 2 into Step 3:
+
+                        [[s:N_{w}]] × I_{Ku}([[s:D_{m}]])              I_{Ku}([[s:D_{m}]])
+        DFR = 10 log_{10} ───────────────── = 10 log_{10} ──────────
+                        [[s:N_{w}]] × I_{Ka}([[s:D_{m}]])              I_{Ka}([[s:D_{m}]])`}</Calc>
+
+The <span className="sv">N<sub>w</sub></span> on the top and the <span className="sv">N<sub>w</sub></span> on the bottom are the same number. They cancel. Exactly, not approximately.
+
+<Splat>DOUBLE SPLAT!!!</Splat>
+
+</Box>
+
+<Box tone="d" span step={8}>
+
+<Talk char="dot">So if you double the number of us without changing our sizes, both your echoes double, and the ratio doesn't move.</Talk>
+
+<Talk char="core">Exactly. Which means DFR is a pure size gauge. Go to the next page and try to break it — move the N<sub>w</sub> slider as far as it goes and watch the DFR readout refuse to budge.</Talk>
+
+</Box>
+
+</Grid>

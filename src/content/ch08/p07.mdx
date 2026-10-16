@@ -1,0 +1,49 @@
+{/* Migrated from "Rain from Orbit.html", chapter 8 page 7 (Details Part 5). */}
+
+<Header>Six Things That Will Catch You: Details Part 5</Header>
+
+<Grid>
+
+<Box tone="a" step={17}>
+
+<b>1. Range bin 0 is at the top.</b> Bin 0 is near 19 km; bin 175 is at the ground. Height *decreases* as the index increases, which is the opposite of every intuition.
+
+</Box>
+
+<Box step={18}>
+
+<b>2. The fill value is −9999.9.</b> It is a large negative number, not a NaN. Average without masking it and your rain rates come out catastrophically negative.
+
+<Calc code>{`rate = np.where(rate < [[o:-1000]], np.nan, rate)`}</Calc>
+
+</Box>
+
+<Box tone="d" step={19}>
+
+<b>3. `typePrecip` is eight digits.</b> Testing `== 2` matches nothing. The leading digit is the category:
+
+<Calc code>{`major = ptype // [[o:10000000]]   [[cm:# 1 strat, 2 conv, 3 other]]`}</Calc>
+
+</Box>
+
+<Box tone="c" step={20}>
+
+<b>4. `binClutterFreeBottom` is an index, not a height.</b> Use it to index the bin axis, and treat everything below it as extrapolated — Chapter 3.
+
+</Box>
+
+<Box tone="a" step={21}>
+
+<b>5. The May 2018 scan change.</b> Before it, `Ka/FS` has no data in angle bins 1–12 and 38–49. Any statistic you compute across the full swath will silently mix two different instruments unless you split on that date.
+
+</Box>
+
+<Box tone="d" step={22}>
+
+<b>6. `zFactorCorrected` became `zFactorFinal` in V07.</b> Every tutorial written before about 2022 uses the old name.
+
+<Psst>Five of these six are version or geometry traps, not science. That is the usual ratio.</Psst>
+
+</Box>
+
+</Grid>

@@ -1,0 +1,48 @@
+{/* Migrated from "Rain from Orbit.html", chapter 6 page 5 (Details Part 4). */}
+
+<Header>Why the Echo Falls Back: Details Part 4</Header>
+
+<Grid>
+
+<Box tone="a" span step={11}>
+
+Now follow **one particle** whose melted mass would make a 1 mm raindrop, all the way down. Two things change together.
+
+First its **size**. A low-density particle holding a fixed mass must be bigger:
+
+<Calc>{`D_{b} = D_{melt} · ρ_{b}^{−1/3}`}</Calc>
+
+Then its **fall speed**, which the ATBD gives in three density regimes:
+
+<Calc>{`V_{b} = 3.3 √(ρ_{b} − ρ_{a})                    ρ_{b} ≤ 0.05
+V_{b} = 8.8 √(0.1 D_{b}(ρ_{b} − ρ_{a}))          0.05 < ρ_{b} ≤ 0.30
+V_{b} = interpolate to the raindrop speed      0.30 < ρ_{b} ≤ 1.00`}</Calc>
+
+</Box>
+
+<Box tone="d" span step={12}>
+
+Put the two together for our one particle:
+
+<div className="scrollx">
+
+<table className="t">
+<thead>
+  <tr><th className="lc">ρ<sub>b</sub></th><th className="lc">D<sub>b</sub> (mm)</th><th className="lc">V<sub>b</sub> (m/s)</th><th>what it is</th></tr>
+</thead>
+<tbody>
+  <tr><td className="n">0.05</td><td className="n">2.71</td><td className="n">0.73</td><td>a loose aggregate, drifting</td></tr>
+  <tr><td className="n">0.10</td><td className="n">2.15</td><td className="n">1.28</td><td>a snowflake</td></tr>
+  <tr><td className="n">0.30</td><td className="n">1.49</td><td className="n">1.86</td><td>wet, collapsing</td></tr>
+  <tr><td className="n">0.50</td><td className="n">1.26</td><td className="n">2.58</td><td>half melted</td></tr>
+  <tr><td className="n">1.00</td><td className="n">1.00</td><td className="n">3.78</td><td>a raindrop</td></tr>
+</tbody>
+</table>
+
+</div>
+
+It **shrinks to a third of its diameter** and **speeds up five-fold**, carrying exactly the same water.
+
+</Box>
+
+</Grid>

@@ -1,0 +1,38 @@
+{/* Migrated from "Rain from Orbit.html", chapter 5 page 2 (Details Part 1). */}
+
+<Header>When a Drop Stops Being Small: Details Part 1</Header>
+
+<Grid>
+
+<Box tone="a" step={4}>
+
+Rayleigh scattering — the `D⁶` law from Chapter 2 — holds when a particle is **much smaller than the wavelength**. The usual yardstick is the size parameter:
+
+<Calc>{`x = π D / λ   [[cm:— small x means Rayleigh]]`}</Calc>
+
+So for a 2 mm raindrop like Dot:
+
+<Calc>{`[[kut:Ku]]:  x = π × 2 / 22.0 = [[hl:0.29]]  [[cm:comfortably small]]
+[[kat:Ka]]:  x = π × 2 /  8.4 = [[hl:0.74]]  [[cm:not small at all]]`}</Calc>
+
+</Box>
+
+<Box step={5}>
+
+Once `x` approaches 1, the scattering goes into the **Mie** regime. The cross-section stops following `D⁶`, oscillates, and grows far more slowly.
+
+<Talk char="dot2">In other words, at Ka-band I'm not a tiny dot any more — I'm a *lens*. And lenses are complicated.</Talk>
+
+<Note style={{ marginTop: "10px" }}><b>NOTE:</b> Every DFR number in this chapter is computed live from Mie theory for liquid water spheres at 10 °C — not from a fitted curve. The simulator validates against the Rayleigh limit to within 0.01 dB at small drop sizes.</Note>
+
+</Box>
+
+<Box tone="c" span step={6}>
+
+That departure is not noise. It is **information** — and it is the only thing in this whole problem that responds to drop size and nothing else.
+
+<Talk char="core">My Ku radar sees you the way physics-textbook Rayleigh says it should. My Ka radar sees you as you really are. The *disagreement* between them is my measurement.</Talk>
+
+</Box>
+
+</Grid>

@@ -1,0 +1,46 @@
+{/* Migrated from "Rain from Orbit.html", chapter 5 page 1 (Main Ideas). */}
+
+<Opener kicker="Chapter 05" title="Two Colours of Light!!!">
+
+One measurement, two unknowns. You cannot assume your way out of that. You need a second measurement — at a wavelength where the drops stop behaving.
+
+</Opener>
+
+<Header kind="blue">Dual Frequency: Main Ideas</Header>
+
+<Grid>
+
+<Box tone="a" step={1}>
+
+<Talk char="core">If my second radar behaved *exactly* like my first, the second measurement would be redundant and we would have gained nothing.</Talk>
+
+<Talk char="dot">It doesn't behave the same, though. At 8.4 millimetres I'm not a small object any more.</Talk>
+
+</Box>
+
+<Box step={2}>
+
+<b>The idea in one line:</b> because the two bands disagree, and because *how much* they disagree depends on drop size, the **difference between them** measures size directly.
+
+<Calc>{`[[b:DFR]] = 10 log_{10} Z([[kut:Ku]]) − 10 log_{10} Z([[kat:Ka]])`}</Calc>
+
+Dual-Frequency Ratio. A difference of logs, so really a ratio.
+
+</Box>
+
+<Box tone="d" span step={3}>
+
+**And here is the elegant part**, which we will prove properly in two pages: in the ratio, the *concentration cancels out*.
+
+<Calc>{`DFR tells you [[s:D_{m}]]   (and nothing about [[s:N_{w}]])
+then either reflectivity tells you [[s:N_{w}]]`}</Calc>
+
+Two measurements, two unknowns, system closed.
+
+<Splat>SPLAT!!!</Splat>
+
+<Psst>…and then, on page 5, we will look at what the curve *actually* does, and the happy ending gets considerably more complicated.</Psst>
+
+</Box>
+
+</Grid>

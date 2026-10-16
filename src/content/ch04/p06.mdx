@@ -1,0 +1,57 @@
+{/* Migrated from "Rain from Orbit.html", chapter 4 page 6 (Details Part 4). */}
+
+<Header>Borrowing the Ground: Details Part 4</Header>
+
+<Grid>
+
+<Box tone="a" step={15}>
+
+The way out is to measure the total attenuation **independently**, and Core has an elegant trick for it: use the ground.
+
+The ground's radar cross-section, `σ⁰`, is a reasonably stable property of a given surface at a given incidence angle. So:
+
+<Calc>{`PIA = σ⁰([[hl:no rain]]) − σ⁰([[hl:rain]])
+[[cm:   whatever dimmed the ground, the rain took out — twice.]]`}</Calc>
+
+This is the **Surface Reference Technique**.
+
+</Box>
+
+<Box tone="d" step={16}>
+
+<Talk char="dot2">Hang on. Where do you get the "no rain" measurement? It's raining. That's the whole situation.</Talk>
+
+<Talk char="core">From somewhere else. That is the entire art of the thing — and the reason it works far better over ocean than over your mountains.</Talk>
+
+</Box>
+
+<Box span step={17}>
+
+The SRT module builds up to five estimates for each channel and weights them by the inverse of their variance:
+
+<div className="scrollx">
+
+<table className="t">
+<thead>
+  <tr><th>Reference</th><th>Where it comes from</th><th>Works over</th></tr>
+</thead>
+<tbody>
+  <tr><td>**Along-track**</td><td>mean of the last 8 rain-free footprints at the same angle bin and surface type, run both forwards and backwards</td><td>everywhere</td></tr>
+  <tr><td>**Cross-track**</td><td>a quadratic fit of those averages across the 49 angle bins</td><td className="n">ocean only</td></tr>
+  <tr><td>**Temporal**</td><td>climatological look-up tables of rain-free σ⁰ on a 0.5° grid, by angle and season, split across 5 surface types</td><td>everywhere</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</Box>
+
+<Box tone="c" span step={18}>
+
+<Note><b>Why the cross-track fit is ocean-only:</b> the sea surface is smooth and statistically uniform across a 245 km swath, so a quadratic through the angle bins is a good model of σ⁰. Land is forest, then terrace, then bare rock, then reservoir, within a few kilometres. The fit does not behave, so it is simply not used.</Note>
+
+<Psst>Every PIA estimate in the product comes with a **reliability flag**. Read it. The Solver certainly does.</Psst>
+
+</Box>
+
+</Grid>

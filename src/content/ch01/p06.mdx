@@ -1,0 +1,59 @@
+{/* Migrated from "Rain from Orbit.html", chapter 1 page 6 (Details Part 3). */}
+
+<Header>The Constellation: Details Part 3</Header>
+
+<Grid>
+
+<Box step={15}>
+
+So one radar is not the global product. It is the **ruler that calibrates one**.
+
+Because GMI and DPR fly on the same platform, every overpass gives a matched pair: what a radiometer sees, and what the radar underneath it knows is actually there.
+
+</Box>
+
+<Box tone="a" step={16}>
+
+Those pairs train the retrieval used on every other radiometer in the **GPM constellation** — DMSP's SSMIS, GCOM-W1's AMSR-2, MetOp's MHS, and the ATMS instruments on NOAA-20, NOAA-21 and Suomi-NPP.
+
+<Psst>None of those carries a radar. Every one of them borrows Core's.</Psst>
+
+</Box>
+
+<Box tone="d" span step={17}>
+
+The merged product is **IMERG** — Integrated Multi-satellitE Retrievals for GPM.
+
+<div className="scrollx">
+
+<table className="t">
+<thead>
+  <tr><th>Property</th><th>Value</th></tr>
+</thead>
+<tbody>
+  <tr><td>Grid</td><td className="n">0.1° — about 11 km at the equator</td></tr>
+  <tr><td>Cadence</td><td className="n">half-hourly</td></tr>
+  <tr><td>Coverage</td><td className="n">60°N–60°S full; 90°N–90°S microwave-only</td></tr>
+  <tr><td>Early run</td><td className="n">≈ 4 h latency — operational use</td></tr>
+  <tr><td>Late run</td><td className="n">≈ 12–14 h</td></tr>
+  <tr><td>Final run</td><td className="n">≈ 3.5 months, after gauge analysis</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</Box>
+
+<Box tone="c" span step={18}>
+
+<Alert title="WHY THIS MATTERS!!!">
+
+Everything downstream rests on the radar being right. If Core's rain rates are biased, that bias propagates into the radiometer training, then into IMERG, then into every flood model, crop forecast and reanalysis that ingests it.
+
+<p style={{ marginBottom: 0 }}>The rest of this guide is about why getting the radar right is so much harder than pointing it down.</p>
+
+</Alert>
+
+</Box>
+
+</Grid>

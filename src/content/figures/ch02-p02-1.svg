@@ -1,0 +1,14 @@
+<svg class="fig" viewBox="0 0 420 220" role="img" aria-label="Box A: a cubic metre containing drops of 1, 2 and 3 millimetres" xmlns="http://www.w3.org/2000/svg">
+          <g filter="url(#rf2)" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="18" y="26" width="384" height="162" rx="10" fill="var(--tint-b)" stroke="var(--line)" stroke-width="3"></rect>
+            <text x="30" y="18" font-family="var(--f-ui)" font-weight="800" font-size="15" fill="var(--ink)">BOX A — one cubic metre</text>
+            <g fill="var(--dot-fill)" stroke="var(--dot-c)" stroke-width="3">
+              <path d="M110 70 C113 80 123 93 123 101 A13 13 0 1 1 97 101 C97 93 107 80 110 70 Z"></path>
+              <path d="M210 52 C215 68 235 90 235 105 A25 25 0 1 1 185 105 C185 90 205 68 210 52 Z"></path>
+              <path d="M320 36 C327 58 356 90 356 110 A36 36 0 1 1 284 110 C284 90 313 58 320 36 Z"></path>
+            </g>
+            <g font-family="var(--f-mono)" font-size="15" font-weight="600" fill="var(--ink)" text-anchor="middle">
+              <text x="110" y="168">1 mm</text><text x="210" y="168">2 mm</text><text x="320" y="178">3 mm</text>
+            </g>
+          </g>
+        </svg>

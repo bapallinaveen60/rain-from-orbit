@@ -1,0 +1,51 @@
+import fig1 from '../figures/ch03-p03-1.svg?raw'
+
+{/* Migrated from "Rain from Orbit.html", chapter 3 page 3 (Details Part 2). */}
+
+<Header>Three Heights That Matter: Details Part 2</Header>
+
+<Grid>
+
+<Box tone="a" step={7}>
+
+<b>`binStormTop`</b> — the highest bin with a detected precipitation echo. Above it, nothing.
+
+It matters more than it looks: the forward retrieval *starts* here, so an error in storm top propagates down the whole profile as an attenuation error.
+
+</Box>
+
+<Box step={8}>
+
+<b>`binRealSurface`</b> — the ground, found from the echo power profile together with the digital elevation model carried in the Level-1B file.
+
+</Box>
+
+<Box tone="c" span step={9}>
+
+<b>`binClutterFreeBottom`</b> — the lowest bin Core is willing to trust. And it sits well *above* the surface.
+
+The surface return leaks into nearby bins through the antenna's main lobe and, worse, through its side lobes. The effect gets dramatically worse away from nadir, and here is why:
+
+<figure>
+
+<InlineSvg svg={fig1} />
+
+<figcaption>A 5 km footprint seen at 17° off nadir has its near and far edges well over a kilometre apart in slant range, so the bright surface echo smears across many bins.</figcaption>
+
+</figure>
+
+</Box>
+
+<Box tone="d" span step={10}>
+
+<Alert title="THE CONSEQUENCE!!!">
+
+Everything below the clutter-free bottom is **extrapolated, not measured**. The Solver simply holds reflectivity constant from the lowest trusted bin down to the ground.
+
+<p style={{ marginBottom: 0 }}>For deep convection that is defensible. For shallow rain over mountains it is a guess about the exact part of the profile you cared about.</p>
+
+</Alert>
+
+</Box>
+
+</Grid>

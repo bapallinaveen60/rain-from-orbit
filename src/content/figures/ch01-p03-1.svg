@@ -1,0 +1,24 @@
+<svg class="fig" viewBox="0 0 760 210" role="img" aria-label="A radiometer sums the whole column into one number; a radar resolves the column into range bins" xmlns="http://www.w3.org/2000/svg">
+          <g filter="url(#rf2)" stroke="var(--line)" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <text x="20" y="22" font-family="'Nunito Sans',sans-serif" font-weight="800" font-size="15" fill="var(--ink)" stroke="none">RADIOMETER — one number per column</text>
+            <text x="420" y="22" font-family="'Nunito Sans',sans-serif" font-weight="800" font-size="15" fill="var(--ink)" stroke="none">RADAR — one number per range bin</text>
+            <rect x="60" y="42" width="110" height="128" rx="6" fill="var(--tint-b)"></rect>
+            <path d="M115 42 L115 170" stroke-dasharray="5 5" opacity=".5"></path>
+            <circle cx="88" cy="70" r="7" fill="var(--dot-fill)"></circle><circle cx="140" cy="96" r="9" fill="var(--dot-fill)"></circle>
+            <circle cx="96" cy="128" r="6" fill="var(--dot-fill)"></circle><circle cx="138" cy="150" r="8" fill="var(--dot-fill)"></circle>
+            <path d="M200 106 L250 106" stroke="var(--flow)" stroke-width="3.4"></path>
+            <path d="M240 99 L250 106 L240 113" stroke="var(--flow)" stroke-width="3.4"></path>
+            <rect x="262" y="88" width="96" height="36" rx="7" fill="var(--page)"></rect>
+            <text x="310" y="112" font-family="'IBM Plex Mono',monospace" font-size="16" font-weight="600" fill="var(--obs)" stroke="none" text-anchor="middle">1 number</text>
+            <rect x="460" y="42" width="110" height="128" rx="6" fill="var(--tint-b)"></rect>
+            <path d="M460 58 H570 M460 74 H570 M460 90 H570 M460 106 H570 M460 122 H570 M460 138 H570 M460 154 H570" stroke="var(--line-soft)" stroke-width="1.6"></path>
+            <circle cx="488" cy="70" r="7" fill="var(--dot-fill)"></circle><circle cx="540" cy="96" r="9" fill="var(--dot-fill)"></circle>
+            <circle cx="496" cy="128" r="6" fill="var(--dot-fill)"></circle><circle cx="538" cy="150" r="8" fill="var(--dot-fill)"></circle>
+            <path d="M598 106 L648 106" stroke="var(--flow)" stroke-width="3.4"></path>
+            <path d="M638 99 L648 106 L638 113" stroke="var(--flow)" stroke-width="3.4"></path>
+            <rect x="660" y="60" width="86" height="92" rx="7" fill="var(--page)"></rect>
+            <text x="703" y="88" font-family="'IBM Plex Mono',monospace" font-size="15" font-weight="600" fill="var(--obs)" stroke="none" text-anchor="middle">a whole</text>
+            <text x="703" y="108" font-family="'IBM Plex Mono',monospace" font-size="15" font-weight="600" fill="var(--obs)" stroke="none" text-anchor="middle">profile</text>
+            <text x="703" y="131" font-family="'Caveat',cursive" font-size="17" fill="var(--ink2)" stroke="none" text-anchor="middle">176 bins</text>
+          </g>
+        </svg>

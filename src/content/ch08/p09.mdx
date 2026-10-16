@@ -1,0 +1,38 @@
+{/* Migrated from "Rain from Orbit.html", chapter 8 page 9 (Where Next). */}
+
+<Header>Where to Go From Here</Header>
+
+<Grid>
+
+<Box tone="a" step={25}>
+
+The Level-2 products live at NASA's PPS (`arthurhou.pps.eosdis.nasa.gov`) and JAXA's G-Portal, in HDF5. `2A.GPM.DPR` is the dual-frequency Level-2 file.
+
+Everything this guide referenced is in there: `zFactorMeasured`, `zFactorFinal`, `precipRate`, `paramDSD`, `typePrecip`, `flagBB`, `binClutterFreeBottom`, `pathAtten`, `epsilon`.
+
+</Box>
+
+<Box tone="d" step={26}>
+
+<b>Two habits worth forming:</b>
+
+- Read `flagEcho` and the quality flags **before** the science fields.
+- When a number surprises you, walk back up the chain rather than arguing with the end of it.
+
+<Note style={{ marginTop: "10px" }}><b>NOTE:</b> the GPM/DPR Level-2 ATBD is the authority for what each field means. The user manual is the authority for flag bit definitions — which this guide has deliberately not reproduced, because they change between versions.</Note>
+
+</Box>
+
+<Box tone="c" span step={27}>
+
+<Talk char="dot">So after all that — eight chapters, two radars, seven modules, a constrained optimisation — you still don't actually know how big I am.</Talk>
+
+<Talk char="core">No. But I know it to within a factor that is useful, over the whole planet, every three hours, including the seventy percent of it with no rain gauges. And I know **how** uncertain I am, which is the part most people forget to ask for.</Talk>
+
+<Talk char="dot2">…fine. That's quite good actually.</Talk>
+
+<Splat>TRIPLE SPLAT!!!</Splat>
+
+</Box>
+
+</Grid>

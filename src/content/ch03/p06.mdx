@@ -1,0 +1,36 @@
+{/* Migrated from "Rain from Orbit.html", chapter 3 page 6 (Details Part 4). */}
+
+<Header>The Shape of the File: Details Part 4</Header>
+
+<Grid>
+
+<Box tone="plain">
+
+<AtbdFigure id="fstruct" label="File structure change from V06 to V07: V06A had NS, MS and HS swaths; V07A has FS and HS, with different missing angle bins before and after the May 2018 scan change" credit="Figure 0.3.1, GPM/DPR Level-2 ATBD (Iguchi et al., rev. July 2024)" />
+
+</Box>
+
+<Box tone="a" step={14}>
+
+An HDF5 file is a tree. The top branches of a DPR Level-2 file are **swaths**, and they were reorganised in Version 7.
+
+- **V06** had three: `NS` (normal, Ku full swath), `MS` (matched, inner 25), `HS` (high sensitivity).
+- **V07** has two: `FS` (full swath, dual frequency) and `HS`.
+
+<Calc>{`FS: [[hl:49]] angle bins × [[hl:176]] range bins, 125 m apart`}</Calc>
+
+</Box>
+
+<Box tone="c" span step={15}>
+
+<Alert title="THE TRAP IN THIS FIGURE!!!">
+
+V07 applies the `FS` format to data from *both sides* of the 2018 scan change — but the data behind it is not the same.
+
+<p style={{ marginBottom: 0 }}><b>Before 21 May 2018:</b> `Ka/FS` is missing angle bins **1–12 and 38–49**. <b>After:</b> `Ka/HS` is missing angle bins **1–24**. Same variable names, same shapes, silently different coverage.</p>
+
+</Alert>
+
+</Box>
+
+</Grid>

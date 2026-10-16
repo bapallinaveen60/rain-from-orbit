@@ -1,0 +1,69 @@
+{/* Migrated from "Rain from Orbit.html", chapter 6 page 11 (Details Part 9). */}
+
+<Header>Nodes A to E, and the Phase Integer: Details Part 9</Header>
+
+<Grid>
+
+<Box tone="a" step={21}>
+
+All of this has to be written down per range bin, and the DSD module does it by placing **five nodes** through the profile:
+
+<div className="scrollx">
+
+<table className="t">
+<thead>
+  <tr><th>Node</th><th>Where</th></tr>
+</thead>
+<tbody>
+  <tr><td className="n">A</td><td>the bin nearest <b>−20 °C</b> — at and above it, Solid</td></tr>
+  <tr><td className="n">B</td><td>bright band **top**</td></tr>
+  <tr><td className="n">C</td><td>bright band **peak**</td></tr>
+  <tr><td className="n">D</td><td>bright band **bottom** — at and below it, Liquid</td></tr>
+  <tr><td className="n">E</td><td>the bin nearest <b>+20 °C</b></td></tr>
+</tbody>
+</table>
+
+</div>
+
+Between B and D the particle temperature is pinned to **0 °C** whatever the air is doing. Between A and D the phase is Mixed.
+
+</Box>
+
+<Box tone="d" step={22}>
+
+When there is **no bright band** — convective, or stratiform without one — B, C and D all collapse onto the single 0 °C bin.
+
+<Psst>That is the whole difference in code: a melting layer with thickness, or a melting layer with none.</Psst>
+
+<Talk char="core">And it is why Chapter 7 insists the classifier runs *before* the microphysics. Those five bins are the output of CSF and the input to everything that follows.</Talk>
+
+</Box>
+
+<Box tone="c" span step={23}>
+
+The per-bin result is stored in `DSD/phase`, and its encoding is one of the neatest tricks in the product — a **single integer carrying both phase and temperature**:
+
+<div className="scrollx">
+
+<table className="t">
+<thead>
+  <tr><th>Value</th><th>Means</th><th>Example</th></tr>
+</thead>
+<tbody>
+  <tr><td className="n">≥ 200</td><td>**Liquid**, temperature = value − 200 °C</td><td className="n">210 → liquid at +10 °C</td></tr>
+  <tr><td className="n">100–200</td><td>**In the bright band**: 100 = top, 150 = peak, 200 = bottom</td><td className="n">125 and 175 are the only intermediates used</td></tr>
+  <tr><td className="n">\< 100</td><td>**Frozen or part-frozen**, temperature = value − 100 °C</td><td className="n">80 → ice at −20 °C</td></tr>
+</tbody>
+</table>
+
+</div>
+
+<Alert title="READ THIS BEFORE YOU PLOT IT!!!">
+
+<p style={{ marginBottom: 0 }}>`phase` is **not** a continuous field. Plotting it on a colour scale produces something that looks meaningful and is not — a jump from 99 to 200 is a change of 1 °C across the melting boundary, not a change of 101. Decode it into phase and temperature first, then plot those separately.</p>
+
+</Alert>
+
+</Box>
+
+</Grid>
