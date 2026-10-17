@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Rain from Orbit</string>
+    <string name="saved">Saved</string>
+    <string name="save_failed">Couldn\'t save the file</string>
+    <string name="copied">Link copied</string>
+    <string name="no_app">No app on this phone can open it</string>
+</resources>

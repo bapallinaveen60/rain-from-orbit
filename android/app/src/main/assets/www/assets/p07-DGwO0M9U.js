@@ -1,0 +1,3 @@
+import{t as e}from"./jsx-runtime-BX5dh3L7.js";var t=e();function n(e){let{Header:n,Quiz:r}=e.components||{};return n||i(`Header`,!0),r||i(`Quiz`,!0),(0,t.jsxs)(t.Fragment,{children:[`
+`,(0,t.jsx)(n,{kind:`blue`,children:`Chapter 7: Self-Check`}),`
+`,(0,t.jsx)(r,{id:`ch7`})]})}function r(e={}){let{wrapper:r}=e.components||{};return r?(0,t.jsx)(r,{...e,children:(0,t.jsx)(n,{...e})}):n(e)}function i(e,t){throw Error(`Expected `+(t?`component`:`object`)+" `"+e+"` to be defined: you likely forgot to import, pass, or provide it.")}export{r as default};

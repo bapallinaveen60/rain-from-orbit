@@ -1,0 +1,18 @@
+import{t as e}from"./jsx-runtime-BX5dh3L7.js";var t=e(),n=`<svg class="fig" viewBox="0 0 420 220" role="img" aria-label="Box A: a cubic metre containing drops of 1, 2 and 3 millimetres" xmlns="http://www.w3.org/2000/svg">
+          <g filter="url(#rf2)" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="18" y="26" width="384" height="162" rx="10" fill="var(--tint-b)" stroke="var(--line)" stroke-width="3"></rect>
+            <text x="30" y="18" font-family="var(--f-ui)" font-weight="800" font-size="15" fill="var(--ink)">BOX A — one cubic metre</text>
+            <g fill="var(--dot-fill)" stroke="var(--dot-c)" stroke-width="3">
+              <path d="M110 70 C113 80 123 93 123 101 A13 13 0 1 1 97 101 C97 93 107 80 110 70 Z"></path>
+              <path d="M210 52 C215 68 235 90 235 105 A25 25 0 1 1 185 105 C185 90 205 68 210 52 Z"></path>
+              <path d="M320 36 C327 58 356 90 356 110 A36 36 0 1 1 284 110 C284 90 313 58 320 36 Z"></path>
+            </g>
+            <g font-family="var(--f-mono)" font-size="15" font-weight="600" fill="var(--ink)" text-anchor="middle">
+              <text x="110" y="168">1 mm</text><text x="210" y="168">2 mm</text><text x="320" y="178">3 mm</text>
+            </g>
+          </g>
+        </svg>
+`;function r(e){let r={p:`p`,strong:`strong`,...e.components},{Box:i,Calc:o,Grid:s,Header:c,InlineSvg:l,Note:u,Talk:d,Term:f}=r;return i||a(`Box`,!0),o||a(`Calc`,!0),s||a(`Grid`,!0),c||a(`Header`,!0),l||a(`InlineSvg`,!0),u||a(`Note`,!0),d||a(`Talk`,!0),f||a(`Term`,!0),(0,t.jsxs)(t.Fragment,{children:[`
+`,(0,t.jsx)(c,{children:`Three Drops in a Box: Details Part 1`}),`
+`,(0,t.jsxs)(s,{children:[(0,t.jsxs)(i,{tone:`a`,step:4,children:[(0,t.jsxs)(r.p,{children:[`Here is `,(0,t.jsx)(r.strong,{children:`Box A`}),`. It is one cubic metre of air containing exactly three raindrops, of diameter `,(0,t.jsx)(r.strong,{children:`1 mm`}),`, `,(0,t.jsx)(r.strong,{children:`2 mm`}),` and `,(0,t.jsx)(r.strong,{children:`3 mm`}),`.`]}),(0,t.jsx)(d,{char:`dot`,children:`That's me in the middle. Two millimetres. Pleased to meet you.`})]}),(0,t.jsx)(i,{tone:`plain`,children:(0,t.jsxs)(`figure`,{children:[(0,t.jsx)(l,{svg:n}),(0,t.jsx)(`figcaption`,{children:`Drawn to scale. Notice how much bigger the 3 mm drop is — hold on to that.`})]})}),(0,t.jsxs)(i,{tone:`c`,span:!0,step:5,children:[(0,t.jsxs)(r.p,{children:[`Two formulas, and that is all the physics we need for now. `,(0,t.jsx)(r.strong,{children:(0,t.jsx)(f,{id:`reflectivity`,children:`Reflectivity`})}),` is the sum of the sixth powers of the diameters:`]}),(0,t.jsx)(o,{children:`[[b:Z = Σ D^{6}]]   [mm^{6} m^{−3}] [[cm:— sum over every drop in the box]]`}),(0,t.jsxs)(r.p,{children:[`And `,(0,t.jsx)(r.strong,{children:(0,t.jsx)(f,{id:`rain-rate`,children:`rain rate`})}),` is the volume of water passing through, so drop volume times how fast it falls:`]}),(0,t.jsx)(o,{children:`[[b:R = 6π × 10^{−4} × Σ D^{3} v(D)]]   [mm h^{−1}]
+[[cm:   where v(D) = 3.78 × D^{0.67} metres per second — bigger drops fall faster]]`}),(0,t.jsxs)(u,{children:[(0,t.jsx)(`b`,{children:`NOTE:`}),` Why D⁶? Because for drops much smaller than the wavelength, scattering is `,(0,t.jsx)(r.strong,{children:(0,t.jsx)(f,{id:`rayleigh`,children:`Rayleigh`})}),`, and the backscatter cross-section of a sphere goes as the sixth power of its diameter. Chapter 5 is about what happens when that stops being true.`]})]})]})]})}function i(e={}){let{wrapper:n}=e.components||{};return n?(0,t.jsx)(n,{...e,children:(0,t.jsx)(r,{...e})}):r(e)}function a(e,t){throw Error(`Expected `+(t?`component`:`object`)+" `"+e+"` to be defined: you likely forgot to import, pass, or provide it.")}export{i as default};

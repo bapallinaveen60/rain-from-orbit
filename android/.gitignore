@@ -1,0 +1,18 @@
+.gradle/
+.idea/
+.kotlin/
+build/
+app/build/
+app/release/
+local.properties
+captures/
+*.iml
+.cxx/
+.externalNativeBuild/
+# signing keys never go in git
+*.jks
+*.keystore
+keystore.properties
+
+# the shareable APK copied here after a build
+*.apk

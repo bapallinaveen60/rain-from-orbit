@@ -10,6 +10,8 @@ import rehypeGlossary from './scripts/rehype-glossary.ts'
 // WebView already serves every file from the APK.
 export default defineConfig(({ mode }) => ({
   base: process.env.BASE ?? '/',
+  // Only the app's own page: the Android copy in android/ has an index.html too.
+  optimizeDeps: { entries: ['index.html'] },
   plugins: [
     { enforce: 'pre', ...mdx({ rehypePlugins: [rehypeGlossary] }) },
     react({ include: /\.(mdx|tsx?)$/ }),

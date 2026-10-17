@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Match the web app's tokens.css: the paper colour and the theme colour. -->
+    <color name="paper">#FAF8F2</color>
+    <color name="paper_dark">#101317</color>
+    <color name="brand">#10508F</color>
+</resources>

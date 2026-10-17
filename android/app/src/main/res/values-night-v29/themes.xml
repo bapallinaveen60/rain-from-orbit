@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- isLightTheme=false lets the WebView report prefers-color-scheme: dark, so the book's
+         "system" theme follows the phone. the dark paper colour in tokens.css is #101317. -->
+    <style name="Theme.RainFromOrbit" parent="android:Theme.DeviceDefault.Light.NoActionBar">
+        <item name="android:isLightTheme">false</item>
+        <item name="android:windowBackground">@color/paper_dark</item>
+        <item name="android:statusBarColor">@color/paper_dark</item>
+        <item name="android:navigationBarColor">@color/paper_dark</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar">false</item>
+    </style>
+</resources>
