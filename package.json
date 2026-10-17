@@ -25,6 +25,7 @@
     "@fontsource/nunito-sans": "^5.3.0",
     "@fontsource/permanent-marker": "^5.3.0",
     "comlink": "^4.4.2",
+    "h5wasm": "^0.10.3",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
     "react-router-dom": "^7.18.4",

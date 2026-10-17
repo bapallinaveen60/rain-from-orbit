@@ -30,13 +30,19 @@ export default defineConfig({
       workbox: {
         // Everything needed to read offline is precached; the 25 MB of PDFs are cached on first download.
         globPatterns: ['**/*.{js,css,html,svg,png,woff2}'],
-        globIgnores: ['pdf/**'],
+        // The explorer's h5wasm worker (~5 MB) and sample are cached on first use, not for everyone.
+        globIgnores: ['pdf/**', 'data/**', 'assets/granule-worker-*.js'],
         maximumFileSizeToCacheInBytes: 4 * 1024 * 1024,
         runtimeCaching: [
           {
             urlPattern: /\/pdf\/.*\.pdf$/,
             handler: 'CacheFirst',
             options: { cacheName: 'pdf', expiration: { maxEntries: 3 } },
+          },
+          {
+            urlPattern: /(granule-worker-.*\.js|sample-granule\.h5)$/,
+            handler: 'CacheFirst',
+            options: { cacheName: 'explorer', expiration: { maxEntries: 4 } },
           },
         ],
       },

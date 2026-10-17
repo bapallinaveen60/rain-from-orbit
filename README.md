@@ -104,3 +104,21 @@ Other routes: `#/glossary`, `#/notes`, `#/review`.
 
 Not chosen yet. The usual pairing is CC BY 4.0 for text and illustrations and MIT for code; the five ATBD figures stay
 under their own terms (JAXA/NASA) and must not be used commercially without permission.
+
+## Granule explorer (Phase 7)
+
+`#/explore` opens a real GPM Level-2 radar granule — `2A.GPM.Ku`, `2A.GPM.Ka` or `2A.GPM.DPR`, V07, from NASA PPS
+or JAXA G-Portal — entirely in the browser: an orbit overview, a near-surface rain strip (click any pixel), the
+across-track and along-track reflectivity curtains drawn from each bin's own `PRE/height`, and the full ray profile
+with storm top, 0 °C, bright band, clutter-free bottom, PIA (final and SRT), Dₘ, N_w and the Solver's ε.
+
+- `src/granule/reader.ts` reads only the slices on screen; `src/granule/worker.ts` mounts the picked file with
+  h5wasm's WORKERFS, so a 600 MB granule opens in about half a second and is never uploaded.
+- h5wasm (≈4 MB) loads only on the explorer route.
+- `public/data/sample-granule.h5` (2 MB) is **synthetic** — the book's storm scenes written in the real V07 layout by
+  `scripts/make-sample-granule.ts` — so the explorer can be tried without a download. It is labelled in the UI.
+- Conventions checked against a real V07B 2A-Ku granule: bin numbers are **1-based** (index = bin − 1), missing values
+  are below −1000, `typePrecip`'s leading digit is the class. `tests/granule.test.ts` runs against the sample always,
+  and against a real granule when `GPM_GRANULE` points to one.
+
+This replaces the plan's Python converter: reading the HDF5 directly needs no install and no intermediate files.

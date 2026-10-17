@@ -16,6 +16,8 @@ export const router = createHashRouter([
       { path: '/glossary', element: <GlossaryPage /> },
       { path: '/review', element: <ReviewPage /> },
       { path: '/notes', element: <NotesPage /> },
+      // The explorer pulls in h5wasm (several MB); load it only when visited.
+      { path: '/explore', lazy: async () => ({ Component: (await import('../granule/ExplorerPage')).ExplorerPage }) },
     ],
   },
   { path: '*', element: <Fallback /> },

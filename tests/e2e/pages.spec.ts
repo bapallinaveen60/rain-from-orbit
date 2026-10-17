@@ -19,7 +19,7 @@ for (const theme of ['light', 'dark'] as const) {
         expect(overflow, `ch${ch.n} p${pg} overflows by ${overflow}px`).toBeLessThanOrEqual(0)
       }
     }
-    for (const r of ['/glossary', '/notes', '/review']) {
+    for (const r of ['/glossary', '/notes', '/review', '/explore']) {
       await page.goto('/#' + r)
       await expect(page.locator('h3.ph')).toBeVisible()
       const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth)
@@ -32,4 +32,11 @@ for (const theme of ['light', 'dark'] as const) {
 test('old #c3p2 links redirect to the new route', async ({ page }) => {
   await page.goto('/#c3p2')
   await expect(page).toHaveURL(/#\/ch\/3\/2$/)
+})
+
+test('the granule explorer opens the bundled sample', async ({ page }) => {
+  await page.goto('/#/explore')
+  await page.getByRole('button', { name: 'Try the sample' }).click()
+  await expect(page.locator('#p-granule .read').first()).toContainText('90', { timeout: 30_000 })
+  await expect(page.locator('#p-granule')).toContainText('typePrecip')
 })

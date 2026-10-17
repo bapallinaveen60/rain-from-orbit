@@ -44,6 +44,7 @@ export function ChapterRail({ current }: { current: number }) {
           Search <kbd>Ctrl K</kbd>
         </button>
         <Link to="/notes">Notes &amp; bookmarks</Link>
+        <Link to="/explore">Granule explorer</Link>
         <Link to="/glossary">Glossary</Link>
         <Link to="/review">Review</Link>
         <a href={PDF} download>

@@ -29,6 +29,7 @@ export function Pager({ loc }: { loc: Loc }) {
         )}
       </div>
       <nav className="book-foot" aria-label="More">
+        <Link to="/explore">Granule explorer</Link>
         <Link to="/notes">Notes</Link>
         <Link to="/glossary">Glossary</Link>
         <Link to="/review">Review missed questions</Link>
