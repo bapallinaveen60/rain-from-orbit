@@ -9,3 +9,4 @@ src/styles/tokens.css
 src/content/**/*.mdx
 src/content/figures
 src/content/atbd.json
+src/content/search-index.json

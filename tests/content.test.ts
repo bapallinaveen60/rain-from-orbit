@@ -4,7 +4,10 @@ import { fileURLToPath } from 'node:url'
 import { describe, expect, it } from 'vitest'
 import { calcText, parseCalc } from '../src/components/book/calcMarkup'
 import manifest from '../src/content/manifest.json'
+import { chapters, nextLoc, prevLoc, type Loc } from '../src/content/chapters'
 import { quizzes } from '../src/data/quizzes'
+import { buildIndex } from '../scripts/build-search-index.mjs'
+import { search } from '../src/app/search'
 
 const content = fileURLToPath(new URL('../src/content', import.meta.url))
 const pad = (n: number) => String(n).padStart(2, '0')
@@ -51,5 +54,41 @@ describe('calc markup', () => {
 
   it('leaves unknown [[ sequences alone', () => {
     expect(parseCalc('a[[0]]')).toEqual(['a[[0]]'])
+  })
+})
+
+describe('story mode navigation', () => {
+  it('skips Details pages but keeps everything else, in order', () => {
+    const visited: string[] = []
+    let l: Loc | null = { ch: 1, pg: 1 }
+    while (l) {
+      visited.push(chapters[l.ch - 1].pages[l.pg - 1].tab)
+      l = nextLoc(l, true)
+    }
+    expect(visited.some((t) => t.startsWith('Details'))).toBe(false)
+    expect(visited.filter((t) => t === 'Now You Try It')).toHaveLength(8)
+    expect(visited.filter((t) => t === 'Self-Check')).toHaveLength(8)
+  })
+  it('prevLoc reverses nextLoc', () => {
+    for (const story of [false, true]) {
+      let l: Loc | null = { ch: 3, pg: 1 }
+      const n = nextLoc(l, story)!
+      expect(prevLoc(n, story)).toEqual(l)
+      l = { ch: 8, pg: 10 }
+      expect(nextLoc(l, story)).toBeNull()
+    }
+  })
+})
+
+describe('search index', () => {
+  it('is up to date with the MDX pages (run npm run build:search)', () => {
+    const current = readFileSync(fileURLToPath(new URL('../src/content/search-index.json', import.meta.url)), 'utf8')
+    expect(current).toBe(buildIndex())
+  })
+  it('finds pages by heading and body, and glossary terms', () => {
+    expect(search('bright band')[0].title).toMatch(/Bright band/)
+    expect(search('Hitschfeld').some((h) => h.title.includes('Hitschfeld'))).toBe(true)
+    expect(search('794 drops').length).toBeGreaterThan(0)
+    expect(search('x')).toEqual([])
   })
 })

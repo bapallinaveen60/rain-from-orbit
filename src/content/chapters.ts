@@ -28,16 +28,31 @@ export function clampLoc(ch: number, pg: number): Loc {
   return { ch: c, pg: Math.min(n, Math.max(1, Math.trunc(pg) || 1)) }
 }
 
-export function nextLoc({ ch, pg }: Loc): Loc | null {
-  if (pg < chapters[ch - 1].pages.length) return { ch, pg: pg + 1 }
-  if (ch < chapters.length) return { ch: ch + 1, pg: 1 }
-  return null
+/** Details pages carry the derivations; Story mode skips them. */
+export const isDetail = (p: PageMeta) => p.tab.startsWith('Details') || p.tab === 'The Real Diagram'
+const skip = (l: Loc, story: boolean) => story && isDetail(chapters[l.ch - 1].pages[l.pg - 1])
+
+function step({ ch, pg }: Loc, dir: 1 | -1): Loc | null {
+  if (dir > 0) {
+    if (pg < chapters[ch - 1].pages.length) return { ch, pg: pg + 1 }
+    return ch < chapters.length ? { ch: ch + 1, pg: 1 } : null
+  }
+  if (pg > 1) return { ch, pg: pg - 1 }
+  return ch > 1 ? { ch: ch - 1, pg: chapters[ch - 2].pages.length } : null
 }
 
-export function prevLoc({ ch, pg }: Loc): Loc | null {
-  if (pg > 1) return { ch, pg: pg - 1 }
-  if (ch > 1) return { ch: ch - 1, pg: chapters[ch - 2].pages.length }
-  return null
+/** The next page, skipping Details pages in Story mode. */
+export function nextLoc(loc: Loc, story = false): Loc | null {
+  let l = step(loc, 1)
+  while (l && skip(l, story)) l = step(l, 1)
+  return l
+}
+
+/** The previous page, skipping Details pages in Story mode. */
+export function prevLoc(loc: Loc, story = false): Loc | null {
+  let l = step(loc, -1)
+  while (l && skip(l, story)) l = step(l, -1)
+  return l
 }
 
 export const pathOf = ({ ch, pg }: Loc) => `/ch/${ch}/${pg}`

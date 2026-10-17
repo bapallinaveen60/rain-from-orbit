@@ -1,18 +1,20 @@
 import { Link } from 'react-router-dom'
 import { chapters, nextLoc, pathOf, prevLoc, type Loc } from '../../content/chapters'
+import { useSettings } from '../../store/settings'
 import { PDF } from './ChapterRail'
 
 export function Pager({ loc }: { loc: Loc }) {
-  const prev = prevLoc(loc)
-  const next = nextLoc(loc)
-  const lastOfChapter = loc.pg === chapters[loc.ch - 1].pages.length
+  const story = useSettings((s) => s.mode) === 'story'
+  const prev = prevLoc(loc, story)
+  const next = nextLoc(loc, story)
+  const lastOfChapter = next !== null && next.ch !== loc.ch
 
   return (
     <div className="wrap" style={{ paddingTop: 0 }}>
       <div className="pnav">
         {prev ? (
           <Link className="btn" to={pathOf(prev)}>
-            {loc.pg === 1 ? `← Chapter ${prev.ch}` : '← Back'}
+            {prev.ch !== loc.ch ? `← Chapter ${prev.ch}` : '← Back'}
           </Link>
         ) : (
           <span />
@@ -27,6 +29,7 @@ export function Pager({ loc }: { loc: Loc }) {
         )}
       </div>
       <nav className="book-foot" aria-label="More">
+        <Link to="/notes">Notes</Link>
         <Link to="/glossary">Glossary</Link>
         <Link to="/review">Review missed questions</Link>
         <a href={PDF} download>

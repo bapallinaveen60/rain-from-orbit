@@ -6,16 +6,16 @@ See `../web/IMPLEMENTATION_PLAN.md` for the full plan.
 
 ## Status
 
-| Phase                                                | State   |
-| ---------------------------------------------------- | ------- |
-| 0 Scaffold — shell, routing, themes, fonts, PDFs, CI | done    |
-| 1 Physics core — typed port, parity tests, worker    | done    |
-| 2 Content migration — 70 MDX pages, book components  | done    |
-| 3 Simulator parity — all 8 sims rebuilt in React     | done    |
-| 4 Shared storm state + learning tools                | done    |
-| 5 Simulator upgrades                                 | done    |
-| 6 Reader features + ship                             | next    |
-| 7 Real data (granule explorer)                       | planned |
+| Phase                                                | State |
+| ---------------------------------------------------- | ----- |
+| 0 Scaffold — shell, routing, themes, fonts, PDFs, CI | done  |
+| 1 Physics core — typed port, parity tests, worker    | done  |
+| 2 Content migration — 70 MDX pages, book components  | done  |
+| 3 Simulator parity — all 8 sims rebuilt in React     | done  |
+| 4 Shared storm state + learning tools                | done  |
+| 5 Simulator upgrades                                 | done  |
+| 6 Reader features + ship                             | done  |
+| 7 Real data (granule explorer)                       | next  |
 
 ## Commands
 
@@ -68,7 +68,8 @@ raindrop speed". `melting.ts` interpolates linearly in ρ_b, which matches the b
 ## Routing
 
 Hash routes (`#/ch/3/2`) so deep links work on any static host. Links to the old book (`#c3p2`) redirect.
-Keys: ← → pages, `[` `]` chapters, `T` theme, `S` your storm. Other routes: `#/glossary`, `#/review`.
+Keys: ← → pages, `[` `]` chapters, `Ctrl K` or `/` search, `S` your storm, `T` theme, `?` help.
+Other routes: `#/glossary`, `#/notes`, `#/review`.
 
 ## Learning tools
 
@@ -79,3 +80,27 @@ Keys: ← → pages, `[` `]` chapters, `T` theme, `S` your storm. Other routes: 
 - **Review** — missed self-check questions collect on one page to retry.
 
 `src/content` is hand-edited now; `npm run extract:pages` refuses to overwrite it without `--force`.
+
+## Reader features (Phase 6)
+
+- **Progress** per chapter in the rail; opening `#/` resumes where you left off.
+- **Bookmarks** (☆ in the page bar) and **notes** — select any passage, press ✎ Note. Both live on `#/notes`,
+  with export/import of everything the app stores in the browser.
+- **Search** (Ctrl K) over every page and the glossary, from `src/content/search-index.json`
+  (run `npm run build:search` after editing content; a test fails if the index is stale).
+- **Story mode** skips the Details pages for a lighter read.
+- **Offline / installable** (vite-plugin-pwa): the app and figures are precached; PDFs cache on first download.
+  Icons are drawn by `scripts/make-icons.mjs`.
+- **Accessibility**: skip link, every control named (checked in the browser), the `--ink3` grey darkened to meet
+  WCAG AA.
+
+## Deploying
+
+`.github/workflows/deploy.yml` lints, type-checks, runs Vitest and the Playwright sweep, builds with
+`BASE=/<repo>/` and deploys to GitHub Pages on every push to `main`. One-time setup in the GitHub repo:
+**Settings → Pages → Build and deployment → Source: GitHub Actions**.
+
+## Licence
+
+Not chosen yet. The usual pairing is CC BY 4.0 for text and illustrations and MIT for code; the five ATBD figures stay
+under their own terms (JAXA/NASA) and must not be used commercially without permission.

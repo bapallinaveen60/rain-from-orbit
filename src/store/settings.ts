@@ -2,11 +2,15 @@ import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 
 export type Theme = 'system' | 'light' | 'dark'
+/** Full: every page. Story: skips the Details pages (main ideas, dialogue, simulators, self-checks). */
+export type ReadingMode = 'full' | 'story'
 
 interface SettingsState {
   theme: Theme
   setTheme: (t: Theme) => void
   toggleTheme: () => void
+  mode: ReadingMode
+  setMode: (m: ReadingMode) => void
 }
 
 /** The theme actually showing, resolving "system" against the OS preference. */
@@ -31,6 +35,8 @@ export const useSettings = create<SettingsState>()(
         set({ theme })
       },
       toggleTheme: () => get().setTheme(resolved(get().theme) === 'dark' ? 'light' : 'dark'),
+      mode: 'full',
+      setMode: (mode) => set({ mode }),
     }),
     { name: 'rfo-settings' },
   ),

@@ -1,7 +1,9 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { Navigate, useNavigate, useParams } from 'react-router-dom'
 import { chapters, clampLoc, nextLoc, pathOf, prevLoc, type Loc } from '../../content/chapters'
 import { useProgress } from '../../store/progress'
+import { useSettings } from '../../store/settings'
+import { NoteTaker } from '../NoteTaker'
 import { PageView } from '../PageView'
 import { isTyping } from '../keys'
 import { BookBar } from './BookBar'
@@ -12,6 +14,8 @@ export function BookLayout() {
   const params = useParams()
   const navigate = useNavigate()
   const visit = useProgress((s) => s.visit)
+  const pageRef = useRef<HTMLDivElement>(null)
+  const story = useSettings((s) => s.mode) === 'story'
   const { ch, pg } = clampLoc(Number(params.ch), Number(params.pg))
   const canonical = params.ch === String(ch) && params.pg === String(pg)
 
@@ -27,14 +31,14 @@ export function BookLayout() {
     const go = (to: Loc | null) => to && navigate(pathOf(to))
     const onKey = (e: KeyboardEvent) => {
       if (e.altKey || e.ctrlKey || e.metaKey || isTyping(e)) return
-      if (e.key === 'ArrowRight') go(nextLoc({ ch, pg }))
-      else if (e.key === 'ArrowLeft') go(prevLoc({ ch, pg }))
+      if (e.key === 'ArrowRight') go(nextLoc({ ch, pg }, story))
+      else if (e.key === 'ArrowLeft') go(prevLoc({ ch, pg }, story))
       else if (e.key === ']') go(ch < chapters.length ? { ch: ch + 1, pg: 1 } : null)
       else if (e.key === '[') go(ch > 1 ? { ch: ch - 1, pg: 1 } : null)
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
-  }, [ch, pg, navigate])
+  }, [ch, pg, navigate, story])
 
   if (!canonical) return <Navigate to={pathOf({ ch, pg })} replace />
 
@@ -42,9 +46,10 @@ export function BookLayout() {
   return (
     <>
       <BookBar loc={loc} />
-      <div className="wrap">
+      <div className="wrap" ref={pageRef}>
         <PageView loc={loc} />
       </div>
+      <NoteTaker key={`${ch}-${pg}`} loc={loc} scope={pageRef} />
       <Pager loc={loc} />
     </>
   )
