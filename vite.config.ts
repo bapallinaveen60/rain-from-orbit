@@ -6,12 +6,15 @@ import { VitePWA } from 'vite-plugin-pwa'
 import rehypeGlossary from './scripts/rehype-glossary.ts'
 
 // BASE lets the GitHub Pages build serve from /<repo>/; local dev uses /.
-export default defineConfig({
+// `--mode android` builds the copy bundled in the Android app: no service worker, since the
+// WebView already serves every file from the APK.
+export default defineConfig(({ mode }) => ({
   base: process.env.BASE ?? '/',
   plugins: [
     { enforce: 'pre', ...mdx({ rehypePlugins: [rehypeGlossary] }) },
     react({ include: /\.(mdx|tsx?)$/ }),
     VitePWA({
+      disable: mode === 'android',
       registerType: 'autoUpdate',
       includeAssets: ['favicon.svg', 'icons/apple-touch-icon.png'],
       manifest: {
@@ -52,4 +55,4 @@ export default defineConfig({
     include: ['tests/**/*.test.ts'],
     environment: 'node',
   },
-})
+}))

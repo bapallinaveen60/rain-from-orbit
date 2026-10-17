@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "build:android": "tsc -b && vite build --mode android --outDir ../rain-from-orbit-android/app/src/main/assets/www --emptyOutDir && node scripts/trim-android-assets.mjs",
     "preview": "vite preview",
     "typecheck": "tsc -b",
     "lint": "oxlint src tests",
