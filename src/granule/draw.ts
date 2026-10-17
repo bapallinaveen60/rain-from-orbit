@@ -1,5 +1,4 @@
 import { dbzColor } from '../physics'
-import { LAND } from '../sims/land'
 import { axes, label, MONOS, yTitle, type Frame } from '../sims/shared/draw'
 import { NBIN, NRAY, type Curtain, type GranuleSummary, type Profile } from './reader'
 
@@ -32,55 +31,6 @@ export function rateColor(r: number): string | null {
   return RATE_STOPS[RATE_STOPS.length - 1][1]
 }
 export const RATE_LEGEND = RATE_STOPS.map(([v, c]) => ({ v, c }))
-
-/** World overview: the orbit's ground track, rain dots, and the current window. */
-export function drawOverview({ ctx, w: W, h: H, c }: Frame, s: GranuleSummary, s0: number, s1: number) {
-  const X = (lon: number) => ((lon + 180) / 360) * W
-  const Y = (lat: number) => ((90 - lat) / 180) * H
-  ctx.fillStyle = c.surface3
-  ctx.fillRect(0, 0, W, H)
-  ctx.fillStyle = c.surface2
-  ctx.strokeStyle = c.rule
-  for (const poly of LAND) {
-    ctx.beginPath()
-    poly.forEach(([lo, la], i) => (i === 0 ? ctx.moveTo(X(lo), Y(la)) : ctx.lineTo(X(lo), Y(la))))
-    ctx.closePath()
-    ctx.fill()
-    ctx.stroke()
-  }
-  // nadir track
-  ctx.strokeStyle = c.ink3
-  ctx.lineWidth = 1
-  ctx.beginPath()
-  let pen = false
-  for (let sc = 0; sc < s.nscan; sc += 4) {
-    const i = sc * NRAY + 24
-    const lo = s.lon[i]
-    const la = s.lat[i]
-    if (!Number.isFinite(lo)) continue
-    if (pen && Math.abs(lo - s.lon[(sc - 4) * NRAY + 24]) > 90) pen = false
-    if (pen) ctx.lineTo(X(lo), Y(la))
-    else ctx.moveTo(X(lo), Y(la))
-    pen = true
-  }
-  ctx.stroke()
-  for (let i = 0; i < s.rate.length; i += 2) {
-    const col = rateColor(s.rate[i])
-    if (!col) continue
-    ctx.fillStyle = col
-    ctx.fillRect(X(s.lon[i]) - 0.75, Y(s.lat[i]) - 0.75, 1.5, 1.5)
-  }
-  // window
-  ctx.strokeStyle = c.accent
-  ctx.lineWidth = 2
-  ctx.beginPath()
-  for (let sc = s0; sc < s1; sc += 2) {
-    const i = sc * NRAY + 24
-    if (sc === s0) ctx.moveTo(X(s.lon[i]), Y(s.lat[i]))
-    else ctx.lineTo(X(s.lon[i]), Y(s.lat[i]))
-  }
-  ctx.stroke()
-}
 
 /** Near-surface rain for a window of scans: x = scan (along track), y = ray (across track). */
 export function drawStrip(

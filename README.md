@@ -108,7 +108,7 @@ under their own terms (JAXA/NASA) and must not be used commercially without perm
 ## Granule explorer (Phase 7)
 
 `#/explore` opens a real GPM Level-2 radar granule — `2A.GPM.Ku`, `2A.GPM.Ka` or `2A.GPM.DPR`, V07, from NASA PPS
-or JAXA G-Portal — entirely in the browser: an orbit overview, a near-surface rain strip (click any pixel), the
+or JAXA G-Portal — entirely in the browser: the orbit on a real map (Leaflet, with key-free Esri grey/satellite and OpenStreetMap basemaps; click to pick a pixel), a near-surface rain strip (click any pixel), the
 across-track and along-track reflectivity curtains drawn from each bin's own `PRE/height`, and the full ray profile
 with storm top, 0 °C, bright band, clutter-free bottom, PIA (final and SRT), Dₘ, N_w and the Solver's ε.
 

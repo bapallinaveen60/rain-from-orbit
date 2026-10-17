@@ -681,3 +681,24 @@ main:focus {
     grid-template-columns: minmax(0, 1fr);
   }
 }
+.granule-map {
+  height: 340px;
+  border-radius: 8px;
+  border: 2px solid var(--line-soft);
+  z-index: 0;
+}
+.granule-map .leaflet-container,
+.granule-map.leaflet-container {
+  background: var(--surface3, var(--tint-a));
+  font-family: var(--f-ui);
+}
+@media (max-width: 820px) {
+  .granule-map {
+    height: 260px;
+  }
+}
+/* book.css sizes every canvas to its container; Leaflet's overlay canvas lives in a zero-width pane. */
+.granule-map canvas {
+  max-width: none;
+  width: auto;
+}

@@ -2,7 +2,8 @@ import * as Comlink from 'comlink'
 import { useEffect, useRef, useState, type PointerEvent } from 'react'
 import { Readout, Slider, Toggle, U } from '../sims/shared/ui'
 import { usePlot } from '../sims/shared/usePlot'
-import { drawCurtain, drawOverview, drawProfile, drawStrip, RATE_LEGEND, STRIP_MARGIN, CURTAIN_MARGIN } from './draw'
+import { drawCurtain, drawProfile, drawStrip, RATE_LEGEND, STRIP_MARGIN, CURTAIN_MARGIN } from './draw'
+import { GranuleMap } from './GranuleMap'
 import { NRAY, type Band, type Curtain, type GranuleSummary, type Profile } from './reader'
 import type { GranuleWorkerApi } from './granule-worker'
 
@@ -46,7 +47,6 @@ export function ExplorerPage() {
   const s0 = summary ? Math.max(0, Math.min(summary.nscan - WIN, center - WIN / 2)) : 0
   const s1 = summary ? Math.min(summary.nscan, s0 + WIN) : 0
 
-  const overview = usePlot((f) => summary && drawOverview(f, summary, s0, s1), 0.42)
   const strip = usePlot((f) => summary && drawStrip(f, summary, s0, s1, pick), 0.3)
   const crossPlot = usePlot(
     (f) => cross && drawCurtain(f, cross, top, pick?.ray ?? null, 'Across track at the picked scan'),
@@ -121,22 +121,10 @@ export function ExplorerPage() {
     if (cu.along) choose(cu.scan0 + col, pick.ray)
     else choose(pick.scan, col)
   }
-  const onOverview = (e: PointerEvent<HTMLCanvasElement>) => {
-    if (!summary) return
-    const r = e.currentTarget.getBoundingClientRect()
-    const lon = ((e.clientX - r.left) / r.width) * 360 - 180
-    const lat = 90 - ((e.clientY - r.top) / r.height) * 180
-    let best = 0
-    let bd = Infinity
-    for (let sc = 0; sc < summary.nscan; sc += 2) {
-      const i = sc * NRAY + 24
-      const d = (summary.lon[i] - lon) ** 2 + (summary.lat[i] - lat) ** 2
-      if (d < bd) {
-        bd = d
-        best = sc
-      }
-    }
-    setCenter(best)
+  /** A pixel picked on the map: move the window only if it falls outside it. */
+  const onMapPick = (p: { scan: number; ray: number }) => {
+    if (p.scan < s0 || p.scan >= s1) setCenter(p.scan)
+    choose(p.scan, p.ray)
   }
 
   const k = profile ? near(profile) : -1
@@ -194,15 +182,7 @@ export function ExplorerPage() {
               </p>
             )}
             <div className="explorer-top">
-              <div className="plotbox">
-                <canvas
-                  ref={overview}
-                  role="img"
-                  aria-label="Orbit overview; click to move the window"
-                  onPointerDown={onOverview}
-                  style={{ cursor: 'pointer' }}
-                />
-              </div>
+              <GranuleMap summary={summary} s0={s0} s1={s1} pick={pick} onPick={onMapPick} />
               <div className="reads">
                 <Readout k="Scans">{summary.nscan}</Readout>
                 <Readout k="Raining pixels">{summary.rainyPixels.toLocaleString()}</Readout>
