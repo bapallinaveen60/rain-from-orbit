@@ -1,6 +1,11 @@
 # Rain from Orbit — web app
 
 The interactive React edition of _Rain from Orbit_, an illustrated guide to the GPM Dual-frequency Precipitation Radar.
+
+**Live app: <https://bapallinaveen60.github.io/rain-from-orbit/>**
+
+There is also an Android app in [`android/`](android/README.md) that bundles the same book for offline reading.
+
 The original single-file book lives in `../web/` and is the reference this app is checked against.
 See `../web/IMPLEMENTATION_PLAN.md` for the full plan.
 
@@ -15,7 +20,7 @@ See `../web/IMPLEMENTATION_PLAN.md` for the full plan.
 | 4 Shared storm state + learning tools                | done  |
 | 5 Simulator upgrades                                 | done  |
 | 6 Reader features + ship                             | done  |
-| 7 Real data (granule explorer)                       | next  |
+| 7 Real data (granule explorer)                       | done  |
 
 ## Commands
 
