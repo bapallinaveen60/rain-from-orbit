@@ -40,3 +40,29 @@ test('the granule explorer opens the bundled sample', async ({ page }) => {
   await expect(page.locator('#p-granule .read').first()).toContainText('90', { timeout: 30_000 })
   await expect(page.locator('#p-granule')).toContainText('typePrecip')
 })
+
+test.describe('after a new deploy', () => {
+  // Service workers would answer from their cache and hide the missing file from the test.
+  test.use({ serviceWorkers: 'block' })
+
+  test('a missing simulator chunk reloads onto the new build instead of crashing', async ({ page }) => {
+    let refused = 0
+    await page.route(/ScanCurtain-.*\.js$/, (route) => {
+      if (refused++ === 0) return route.fulfill({ status: 404, body: 'gone' })
+      return route.continue()
+    })
+    await page.goto('/#/ch/3/4')
+    await expect(page.locator('#p-curtain canvas').first()).toBeVisible({ timeout: 15_000 })
+    expect(refused).toBeGreaterThanOrEqual(2)
+    await expect(page.getByText('Unexpected Application Error')).toHaveCount(0)
+  })
+
+  test('a chunk that stays missing shows a friendly message, not a crash page', async ({ page }) => {
+    await page.route(/ScanCurtain-.*\.js$/, (route) => route.fulfill({ status: 404, body: 'gone' }))
+    await page.goto('/#/ch/3/4')
+    await expect(page.getByText('A new version is ready')).toBeVisible({ timeout: 15_000 })
+    await expect(page.getByRole('button', { name: 'Reload' })).toBeVisible()
+    // the rest of the page still works
+    await expect(page.locator('h3.ph').first()).toBeVisible()
+  })
+})

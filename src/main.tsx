@@ -17,10 +17,16 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { RouterProvider } from 'react-router-dom'
 import { router } from './app/routes'
+import { registerSW } from 'virtual:pwa-register'
+import { installStaleChunkRecovery } from './app/staleChunks'
 import { warmUpPhysics } from './physics/client'
 import { applyTheme, useSettings } from './store/settings'
 
 applyTheme(useSettings.getState().theme)
+// A tab left open across a deploy must not break: reload onto the new build when needed,
+// and let the service worker reload the page once a new version takes control.
+installStaleChunkRecovery()
+registerSW({ immediate: true })
 // Build the Mie scattering tables off the main thread before the first simulator needs them.
 warmUpPhysics()
 
