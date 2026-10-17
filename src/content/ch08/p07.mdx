@@ -6,7 +6,7 @@
 
 <Box tone="a" step={17}>
 
-<b>1. Range bin 0 is at the top.</b> Bin 0 is near 19 km; bin 175 is at the ground. Height *decreases* as the index increases, which is the opposite of every intuition.
+<b>1. The range axis runs top-down.</b> Array index 0 is about 21–22 km up; index 175 is at the ellipsoid. Height *decreases* as the index increases, which is the opposite of every intuition.
 
 </Box>
 
@@ -28,7 +28,11 @@
 
 <Box tone="c" step={20}>
 
-<b>4. `binClutterFreeBottom` is an index, not a height.</b> Use it to index the bin axis, and treat everything below it as extrapolated — Chapter 3.
+<b>4. `binClutterFreeBottom` is a bin number, not a height — and bin numbers start at 1.</b> The same goes for `binRealSurface`, `binStormTop` and the other `bin…` fields. Subtract one before indexing the range axis, or every height comes out a bin (125 m) too low:
+
+<Calc code>{`h_cfb = hgt[s, r, cfb[s, r\\] - [[o:1]]\\]   [[cm:# not hgt[s, r, cfb[s, r\\]\\]]]`}</Calc>
+
+Treat everything below it as extrapolated — Chapter 3.
 
 </Box>
 
